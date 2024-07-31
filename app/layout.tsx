@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Dream Gallery",
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body 
-      className={`${inter.className} bg-stone-200 text-gray-950`}
+      className={`${nunito.className} bg-stone-100 text-stone-950 relative h-[5000px]`}
       >
       <Header />  
       {children}</body>
