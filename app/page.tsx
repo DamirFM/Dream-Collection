@@ -1,10 +1,11 @@
 import React from 'react';
-
+import { Roboto } from "next/font/google";
+const roboto = Roboto({ subsets: ['latin'], weight: '400' });
 export default function HomePage() {
   return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold text-stone-900">Welcome to Dream Gallery</h1>
-      <p className="mt-4 text-stone-700">Explore your dreams and memories all in one place.</p>
+    <div className="p-8 items-center justify-center">
+      <h1 className={`${roboto.className} text-stone-900 text-8xl font-extrabold`}>Dream Gallery </h1>
+
     </div>
   );
 }
