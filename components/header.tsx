@@ -18,7 +18,10 @@ export default function Header() {
       <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 border-b border-stone-300">
         <div className="flex flex-row items-center justify-between space-x-4 md:space-y-0 md:space-x-4 w-full">
           <div className="flex items-center space-x-4">
-          <h1 className="text-2xl  font-bold text-stone-900">collection</h1>
+          <h1 className="text-2xl  font-bold text-stone-900">
+          <Link href="/" className="block text-stone-900 hover:">
+          collection
+            </Link></h1>
           {/* Search bar */}
           <div className="relative w-full md:w-auto">
             <input

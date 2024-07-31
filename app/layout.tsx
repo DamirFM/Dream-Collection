@@ -20,9 +20,9 @@ export default function RootLayout({
       <body 
       className={`${nunito.className} bg-stone-100 text-stone-950 relative h-screen`}
       >
-        <div id="__next"></div>
       <Header />  
-      {children}</body>
+
+      <main className="pt-[56px]">{children}</main></body>
     </html>
   );
 }

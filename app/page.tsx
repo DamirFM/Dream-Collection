@@ -1,9 +1,10 @@
+import React from 'react';
 
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="">
-
-    </main>
+    <div className="p-4">
+      <h1 className="text-3xl font-bold text-stone-900">Welcome to Dream Gallery</h1>
+      <p className="mt-4 text-stone-700">Explore your dreams and memories all in one place.</p>
+    </div>
   );
 }
