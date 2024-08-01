@@ -69,7 +69,7 @@ export default function Header() {
   return (
     <header className="z-[999] relative">
       <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 border-b border-stone-300">
-        <div className="flex flex-row items-center justify-between space-x-4 md:space-y-0 md:space-x-4 w-full">
+        <div className="flex flex-row items-center justify-between space-x-4 md:space-x-4 w-full">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-stone-900">
               <Link
@@ -79,10 +79,10 @@ export default function Header() {
                 collection
               </Link>
             </h1>
-            <div className="relative w-full md:w-auto">
+            <div className="relative w-full sm:w-44 md:w-96 lg:w-full">
               <input
                 type="text"
-                className="w-44 md:w-96 p-2 pl-10 rounded-3xl focus:outline-none bg-stone-200 text-stone-900 hover:bg-stone-300 focus:bg-stone-200 placeholder-small md:placeholder-large"
+                className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-200 text-stone-900 hover:bg-stone-300 focus:bg-stone-200 placeholder-small md:placeholder-large"
                 placeholder="Search images"
               />
               <FaSearch
@@ -114,7 +114,7 @@ export default function Header() {
           variants={dropdownVariants}
           initial="closed"
           animate={controls}
-          className="flex flex-col items-center justify-center top-[74px] md:top-[90px] z-10 gap-6 bg-stone-50 border border-stone-300 p-10 rounded-lg shadow-lg absolute right-0 w-45 h-66"
+          className="flex flex-col items-center justify-center top-[74px] md:top-[90px] z-10 gap-6 bg-stone-50 border border-stone-300 p-10 rounded-lg shadow-lg absolute right-0 w-64 sm:w-72 md:w-80"
         >
           <Link
             href="/login"
