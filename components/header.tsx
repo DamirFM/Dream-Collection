@@ -26,6 +26,15 @@ const dropdownVariants = {
   },
 };
 
+const dropDownIconVariants = {
+  close: {
+    rotate: 360,
+  },
+  open: {
+    rotate: 180,
+  },
+}
+
 export default function Header() {
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -57,14 +66,17 @@ export default function Header() {
   }, [dropDownOpen]);
 
   const controls = useAnimationControls();
+  const iconControls = useAnimationControls();
 
   useEffect(() => {
     if (dropDownOpen) {
       controls.start("open");
+      iconControls.start("open");
     } else {
       controls.start("closed");
+      iconControls.start("close");
     }
-  }, [dropDownOpen, controls]);
+  }, [dropDownOpen, controls, iconControls]);
 
   return (
     <header className="z-[999] relative">
@@ -103,10 +115,16 @@ export default function Header() {
             </nav>
 
             <section ref={dropdownRef}>
-              <button onClick={toggleDropdown} className="text-stone-900">
-                {dropDownOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-              </button>
-            </section>
+            <button onClick={toggleDropdown} className="text-stone-900">
+              <motion.div
+                variants={dropDownIconVariants}
+                animate={iconControls}
+                className="flex items-center justify-center"
+              >
+                {dropDownOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+              </motion.div>
+            </button>
+          </section>
           </div>
         </div>
 
