@@ -85,7 +85,7 @@ export default function Header() {
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-stone-900">
               <Link
-                href="/"
+                href={"/"}
                 className="block text-stone-900 hover:text-stone-500 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 collection
@@ -107,7 +107,7 @@ export default function Header() {
           <div className="flex flex-row space-x-4">
             <nav className="hidden md:flex space-x-4">
               <Link
-                href="/login"
+                href={"/login"}
                 className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 Login
@@ -135,7 +135,7 @@ export default function Header() {
           className="flex flex-col items-center justify-center top-[74px] md:top-[90px] z-10 gap-6 bg-stone-50 border border-stone-300 p-10 rounded-lg shadow-lg absolute right-0 w-64 sm:w-72 md:w-80"
         >
           <Link
-            href="/login"
+            href={"/login"}
             onClick={closeDropdown}
             className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
           >
