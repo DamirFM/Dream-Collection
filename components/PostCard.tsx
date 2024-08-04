@@ -40,7 +40,7 @@ const PostCard = async () => {
       <img className="w-full" />
       <div className="p-4">
         <h2 className="m-0 text-xl">{post.title}</h2>
-        <p className="mt-2">Description</p>
+        <p className="mt-2">{post.description}</p>
       </div>
 
         <RemoveBtn />
