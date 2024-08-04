@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const topicSchema = new Schema(
+const postSchema = new Schema(
   {
     title: String,
     description: String,
@@ -10,6 +10,6 @@ const topicSchema = new Schema(
   }
 );
 
-const Topic = mongoose.models.Topic || mongoose.model("Topic", topicSchema);
+const Post = mongoose.models.Post || mongoose.model("Post", postSchema);
 
-export default Topic;
+export default Post;
