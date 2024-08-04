@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/withClickOutside.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/withClickOutside.js", "lib/mongodb.tsx", "app/api/topics/route.ts", "models/topic.ts", "lib/mongodb.ts"],
   "exclude": ["node_modules"]
 }
