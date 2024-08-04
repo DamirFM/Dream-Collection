@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React from 'react';
 import {  HiPencilAlt } from 'react-icons/hi';
-import RemoveBtn from './UI/RemoveBtn';
+import RemoveBtn from './UI/removeBtn';
 
 
 const PostCard = () => {
@@ -17,13 +17,13 @@ const PostCard = () => {
       </div>
       <img className="w-full" />
       <div className="p-4">
-        <h2 className="m-0 text-xl">title</h2>
-        <p className="mt-2">content</p>
+        <h2 className="m-0 text-xl">Title</h2>
+        <p className="mt-2">Description</p>
       </div>
       <div className="flex justify-end p-2">
         <RemoveBtn />
-        <Link href={"/editTopic/123"} >
-          
+        <Link 
+        href={"/editPost/123"} >
           <HiPencilAlt className="text-2xl text-gray-600 cursor-pointer" />
         </Link>
         </div>
