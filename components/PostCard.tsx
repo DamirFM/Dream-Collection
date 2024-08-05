@@ -43,7 +43,7 @@ const PostCard = async () => {
         <p className="mt-2">{post.description}</p>
       </div>
 
-        <RemoveBtn />
+        <RemoveBtn id={post._id}/>
         <Link 
         href={`/editPost/${post._id}`} >
           <HiPencilAlt className="text-2xl text-gray-600 cursor-pointer" />

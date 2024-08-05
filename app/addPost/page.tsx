@@ -1,13 +1,22 @@
 "use client";
 import React from 'react'
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function addPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleSubmit = async (e) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    
+    if (!title || !description) {
+      alert('Please fill out all fields');
+      return;
+    }
+
     try {
       const res = await fetch('/api/posts', {
         method: 'POST',
@@ -16,11 +25,14 @@ export default function addPost() {
         },
         body: JSON.stringify({ title, description })
       });
-      if (!res.ok) {
+
+      if (res.ok) {
+        router.push('/'); // Redirect to home page
+      } else {
         throw new Error(res.statusText);
       }
-      setTitle('');
-      setDescription('');
+      // setTitle('');
+      // setDescription('');
     } catch (error) {
       console.error('Failed to create post:', error);
     }
