@@ -1,11 +1,14 @@
 
 import React from 'react';
+import  SignInBtn  from "../../components/UI/SignInBtn"
 
 export default function LoginPage() {
   return (
     <div className="flex  items-center justify-center h-screen bg-stone-100">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
-        <h2 className="text-2xl font-bold mb-6">Login</h2>
+        <h2 className=" text-2xl font-bold mb-6">Login</h2>
+        <SignInBtn/>
+        <p className="text-center text-stone-700 my-4">OR</p>
         <form>
           <label className="block mb-4">
             <span className="text-stone-700">Email</span>
@@ -16,7 +19,14 @@ export default function LoginPage() {
             />
           </label>
           <label className="block mb-4">
+          <div className="flex justify-between">
             <span className="text-stone-700">Password</span>
+            <span className="block text-right text-stone-500 text-sm">
+              <a href="#" className="hover:underline">
+                Forgot password?
+              </a>
+            </span>
+            </div>
             <input
               type="password"
               className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
