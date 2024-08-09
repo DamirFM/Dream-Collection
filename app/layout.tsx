@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
+import { NextAuthProvider } from "./providers";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -17,11 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body 
-      className={`${nunito.className} bg-stone-100 text-stone-950 relative h-screen`}
+      <body
+        className={`${nunito.className} bg-stone-100 text-stone-950 relative h-screen`}
       >
-      <Header />  
-      <main className="pt-[58px] md:pt-[70px]">{children}</main></body>
+        <NextAuthProvider>
+          <Header />
+          <main className="pt-[58px] md:pt-[70px]">{children}</main>
+        </NextAuthProvider>
+      </body>
     </html>
   );
 }

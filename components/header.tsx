@@ -80,7 +80,7 @@ export default function Header() {
 
   return (
     <header className="z-[999] relative">
-      <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 border-b border-stone-300">
+      <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 ">
         <div className="flex flex-row items-center justify-between space-x-4 md:space-x-4 w-full">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-stone-900">
