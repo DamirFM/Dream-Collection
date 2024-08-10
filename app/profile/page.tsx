@@ -1,8 +1,12 @@
 // app/profile/page.tsx or inside /components directory
 "use client"
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import SignInBtn from '@/components/UI/SignInBtn';
+
 
 export default function ProfilePage() {
+  // If the session is loading, display a loading message
   const [profilePic, setProfilePic] = useState<string>("/path/to/your/profile-pic.jpg"); // Initial image path
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,13 +20,17 @@ export default function ProfilePage() {
     }
   };
 
-  return (
-    <div className="flex items-center justify-center h-screen bg-stone-50">
+
+  // Get the session object
+  const { status, data: session } = useSession();
+  if (status === "authenticated") {
+
+    return <div className="flex items-center justify-center h-screen bg-stone-50">
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
         <div className="flex flex-col items-center mb-6 relative">
           <label className="relative cursor-pointer">
             <img
-              src={profilePic} // Updated to use state
+              src={session?.user?.image} // Updated to use state
               alt="User Photo"
               className="w-24 h-24 rounded-full shadow-md mb-4"
             />
@@ -37,7 +45,7 @@ export default function ProfilePage() {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+                xmlns={session?.user?.image ? "http://www.w3.org/2000/svg" : undefined}
               >
                 <path
                   strokeLinecap="round"
@@ -48,7 +56,8 @@ export default function ProfilePage() {
               </svg>
             </div>
           </label>
-          <h2 className="text-2xl font-bold text-stone-900">John Doe</h2>
+          <h2 className="text-2xl font-bold text-stone-900">{session?.user?.name}</h2>
+          <p className="text-stone-700">{session?.user?.email}</p>
           <p className="text-stone-700">Software Developer</p>
           <p className="text-stone-500">Toronto, Canada</p>
         </div>
@@ -69,5 +78,10 @@ export default function ProfilePage() {
         </form>
       </div>
     </div>
-  );
+
+  } else {
+    return <div className="flex items-center justify-center h-screen bg-stone-50">
+      <SignInBtn />
+    </div>
+  }
 }
