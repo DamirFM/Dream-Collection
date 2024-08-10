@@ -1,6 +1,6 @@
 
 import React from 'react';
-import  SignInBtn  from "../../components/UI/SignInBtn"
+import SignInBtn from "../../components/UI/SignInBtn"
 
 export default function LoginPage() {
   return (
@@ -8,7 +8,7 @@ export default function LoginPage() {
       <div className="w-full max-w-xl p-8 bg-stone-50 ">
         <h2 className="text-center text-2xl font-bold mb-6">Login</h2>
         <div className="flex justify-center mb-6">
-        <SignInBtn/>
+          <SignInBtn />
         </div>
         <p className="text-center text-stone-700 my-4">OR</p>
         <form>
@@ -21,13 +21,13 @@ export default function LoginPage() {
             />
           </label>
           <label className="block mb-4">
-          <div className="flex justify-between">
-            <span className="text-stone-700 font-bold">Password</span>
-            <span className="block text-right text-stone-500 text-sm">
-              <a href="#" className="hover:underline">
-                Forgot password?
-              </a>
-            </span>
+            <div className="flex justify-between">
+              <span className="text-stone-700 font-bold">Password</span>
+              <span className="block text-right text-stone-500 text-sm">
+                <a href="#" className="hover:underline">
+                  Forgot password?
+                </a>
+              </span>
             </div>
             <input
               type="password"
@@ -44,7 +44,7 @@ export default function LoginPage() {
         </form>
         <p className="text-center mt-4 text-stone-700">
           Don't have an account?{" "}
-          <a href="#" className="hover:underline text-stone-900">
+          <a href="/join" className="hover:underline text-stone-900">
             JOIN
           </a>
         </p>
