@@ -104,7 +104,7 @@ export default async function LoginPage() {
           )}
         </form>
         <p className="text-center mt-4 text-stone-700">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <a href="/join" className="hover:underline text-stone-900">
             JOIN
           </a>
