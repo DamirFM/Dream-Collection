@@ -6,7 +6,7 @@ import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { motion, useAnimationControls } from "framer-motion";
 
 import { useSession, signIn, signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+
 
 const dropdownVariants = {
   closed: {
@@ -83,11 +83,8 @@ export default function Header() {
 
   // login status
   const { status } = useSession();
-  const router = useRouter();
-  const handleLogin = async () => {
-    // Redirect to the login page after sign-in
-    await signIn("google", { callbackUrl: "/login" });
-  };
+
+
   return (
     <header className="z-[999] relative">
       <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 ">
@@ -127,7 +124,7 @@ export default function Header() {
                     Profile
                   </button>
                   <button
-                    onClick={() => signOut({ callbackUrl: "/" })}
+                    onClick={() => signOut()}
                     className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                   >
                     Logout
@@ -173,7 +170,7 @@ export default function Header() {
                 Profile
               </button>
               <button
-                onClick={() => signOut({ callbackUrl: "/" })}
+                onClick={() => signOut()}
                 className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 Logout

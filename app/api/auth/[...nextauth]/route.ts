@@ -1,61 +1,89 @@
-import  connectMongoDB from "@/lib/mongodb";
+import connectMongoDB from "@/lib/mongodb";
 import User from "@/models/user";
-import NextAuth from "next-auth/next";
+import { Account, User as NextAuthUser, Profile } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
+import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import bcrypt from "bcryptjs";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 // Ensure that the environment variables are defined
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-    
     throw new Error("Missing Google client ID or client secret in environment variables.");
 }
 
-const authOptions = {
+export const authOptions: AuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
-    ],
-    callbacks: {
-        async signIn({ user, account }) {
-            console.log("User",user);
-            console.log("Account",account);
-            // Code for stoging user data in the database
-            // if provider is google and user does not exist in the database
-            // then store the user in the database
-            // if user exists in the database then return the user
-            // if user does not exist in the database then store the user in the database
-          if (account.provider === "google") {
-            // Extract name and email from the user object by destructuring it
-            const { name, email } = user;
+        CredentialsProvider({
+          name: "credentials",
+          credentials: { email: { label: "Email", type: "email" },
+          password: { label: "Password", type: "password" }},
+    
+          async authorize(credentials) {
+            if (!credentials?.email || !credentials?.password) {
+              throw new Error("Email and password are required");
+            }
+            const { email, password } = credentials;
+    
             try {
               await connectMongoDB();
-              const userExists = await User.findOne({ email });
+              const user = await User.findOne({ email });
     
-              if (!userExists) {
-                const res = await fetch("http://localhost:3000/api/user", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    name,
-                    email,
-                  }),
-                });
-    
-                if (res.ok) {
-                  return user;
-                }
+              if (!user) {
+                return null;
               }
-            } catch (error) {
-              console.log(error);
-            }
-          }
     
-          return user;
-        },
+              const passwordsMatch = await bcrypt.compare(password, user.password);
+    
+              if (!passwordsMatch) {
+                return null;
+              }
+    
+              return user;
+            } catch (error) {
+              console.log("Error: ", error);
+              return null;
+            }
+          },
+        }),
+    ],
+    callbacks: {
+      async signIn({ user, account }: { user: NextAuthUser | AdapterUser; account: Account | null }) {
+        // Only handle Google sign-in and ensure account is not null
+        if (account?.provider === "google") {
+          try {
+            await connectMongoDB();
+            const existingUser = await User.findOne({ email: user.email });
+  
+            if (!existingUser) {
+              // Create a new user in the database if not already present
+              await User.create({
+                name: user.name,
+                email: user.email,
+                provider: account.provider,
+                image: user.image,
+              });
+            }
+          } catch (error) {
+            console.error("Google sign-in error:", error);
+            return false; // Return false to prevent the sign-in
+          }
+        }
+  
+        return true; // Return true to proceed with the sign-in
       },
+    },
+    session: {
+      strategy: 'jwt', // Use literal type for 'jwt'
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+      signIn: "/",
+    },
 };
 
 const handler = NextAuth(authOptions);

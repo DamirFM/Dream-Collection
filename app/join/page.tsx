@@ -1,14 +1,72 @@
+"use client";
 import React from 'react';
+import { useRouter } from "next/navigation";
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
-export default function JoinPage() {
+export default async function JoinPage() {
+    const [name, setName] = React.useState("");
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState("");
+    const router = useRouter();
+
+    const handleJoin = async (e: any) => {
+        e.preventDefault();
+        if (!name || !email || !password) {
+            setError("Please fill all fields");
+            return;
+        }
+
+        try {
+
+            // check if user exists
+            const resUserExists = await fetch("http://localhost:3000/api/userExists", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({ email }),
+            });
+            const { user } = await resUserExists.json();
+            if (user) {
+                setError("User already exists");
+                return;
+            }
+
+            const res = await fetch("http://localhost:3000/api/user", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({ name, email, password }),
+            });
+            if (res.ok) {
+                router.push('/profile');
+            }
+        } catch (error) {
+            console.log(error);
+            setError("Failed to create user");
+        }
+    }
+
+    const session = await getServerSession(authOptions);
+    if (session) {
+        redirect("/");
+    }
     return (
         <div className="flex items-center justify-center h-screen bg-stone-50">
             <div className="w-full max-w-xl p-8 bg-stone-50 ">
                 <h2 className="text-center text-2xl font-bold mb-6">Join</h2>
-                <form>
+                <form
+                    onSubmit={handleJoin}
+                >
                     <label className="block mb-4">
                         <span className="text-stone-700 font-bold">Name</span>
                         <input
+                            onChange={e => setName(e.target.value)}
+                            value={name}
                             type="text"
                             className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50  hover:border-stone-500 transition duration-300 ease-in-out transform hover:scale-1"
                             placeholder="John Doe"
@@ -17,6 +75,8 @@ export default function JoinPage() {
                     <label className="block mb-4">
                         <span className="text-stone-700 font-bold">Email</span>
                         <input
+                            onChange={e => setEmail(e.target.value)}
+                            value={email}
                             type="email"
                             className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50  hover:border-stone-500 transition duration-300 ease-in-out transform hover:scale-1"
                             placeholder="you@example.com"
@@ -27,6 +87,8 @@ export default function JoinPage() {
                             <span className="text-stone-700 font-bold">Password</span>
                         </div>
                         <input
+                            onChange={e => setPassword(e.target.value)}
+                            value={password}
                             type="password"
                             className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50  hover:border-stone-500 transition duration-300 ease-in-out transform hover:scale-1"
                             placeholder="********"
@@ -38,6 +100,11 @@ export default function JoinPage() {
                     >
                         Join
                     </button>
+                    {error && (
+                        <div className=" text-red-500  rounded-md">
+                            {error}
+                        </div>
+                    )}
                 </form>
                 <p className="text-center mt-4 text-stone-700">
                     Already have an account?{" "}

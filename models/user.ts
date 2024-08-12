@@ -10,6 +10,18 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    password: {
+      type: String,  // Password is only required for credentials-based authentication
+      required: false,
+    },
+    provider: {
+      type: String,  // Indicates whether the user signed up via Google, email, etc.
+      required: true,
+    },
+    image: {
+      type: String,  // Store profile picture URL (useful for Google auth)
+      required: false,
+    },
   },
   { timestamps: true }
 );

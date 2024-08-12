@@ -29,7 +29,7 @@ export default function ProfilePage() {
   if (status === "authenticated") {
     return (
       <div className="flex items-center justify-center h-screen bg-stone-50">
-        <div className="w-full max-w-md p-8 bg-white shadow-md rounded-md">
+        <div className="w-full max-w-md p-8 bg-stone-50  rounded-md">
           <div className="flex flex-col items-center mb-6 relative">
             <label className="relative cursor-pointer">
               <img

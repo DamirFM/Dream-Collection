@@ -1,8 +1,58 @@
+"use client";
 
 import React from 'react';
 import SignInBtn from "../../components/UI/SignInBtn"
+import { useRouter } from "next/navigation";
+import { signIn } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
-export default function LoginPage() {
+export default async function LoginPage() {
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setError("Please fill all fields");
+      return;
+    }
+
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (!res) {
+        setError("Something went wrong. Please try again.");
+        return;
+      }
+
+      if (res.error) {
+        setError("Invalid Credentials");
+        return;
+      }
+
+      router.push('/profile');
+    } catch (error) {
+      console.log(error);
+      setError("An unexpected error occurred. Please try again.");
+    }
+  };
+
+  const session = await getServerSession(authOptions);
+  if (session) {
+    redirect("/");
+  }
+
   return (
     <div className="flex items-center justify-center h-screen bg-stone-50">
       <div className="w-full max-w-xl p-8 bg-stone-50 ">
@@ -11,10 +61,14 @@ export default function LoginPage() {
           <SignInBtn />
         </div>
         <p className="text-center text-stone-700 my-4">OR</p>
-        <form>
+        <form
+          onSubmit={handleSubmit}
+        >
           <label className="block mb-4">
             <span className="text-stone-700 font-bold">Email</span>
             <input
+              onChange={e => setEmail(e.target.value)}
+              value={email}
               type="email"
               className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50  hover:border-stone-500 transition duration-300 ease-in-out transform hover:scale-1"
               placeholder="you@example.com"
@@ -30,6 +84,8 @@ export default function LoginPage() {
               </span>
             </div>
             <input
+              onChange={e => setPassword(e.target.value)}
+              value={password}
               type="password"
               className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50  hover:border-stone-500 transition duration-300 ease-in-out transform hover:scale-1"
               placeholder="********"
@@ -41,6 +97,11 @@ export default function LoginPage() {
           >
             Login
           </button>
+          {error && (
+            <div className=" text-red-500  rounded-md">
+              {error}
+            </div>
+          )}
         </form>
         <p className="text-center mt-4 text-stone-700">
           Don't have an account?{" "}
