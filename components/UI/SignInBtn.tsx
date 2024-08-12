@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 export default function SignInBtn() {
   return (
     <button
-      onClick={() => signIn("google")}
+      onClick={() => signIn("google", { callbackUrl: "/" })}
       className="flex items-center gap-4 shadow-md rounded-md pl-3 "
     >
       <Image src="/google-logo.png" alt='Google SignIn button' height={30} width={30} />

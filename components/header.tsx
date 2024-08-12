@@ -117,23 +117,32 @@ export default function Header() {
 
           <div className="flex flex-row space-x-4">
 
-            <nav className="hidden md:flex space-x-4">
+            <nav className="hidden md:flex space-x-4 items-center">
               {status === "authenticated" ? (
-                <button
-                  onClick={() => signOut()}
-                  className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
-                >
-                  Logout
-                </button>
+                <>
+                  <button
+                    onClick={() => window.location.href = '/profile'}
+                    className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                  >
+                    Profile
+                  </button>
+                  <button
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                  >
+                    Logout
+                  </button>
+                </>
               ) : (
                 <button
-                  onClick={handleLogin}
+                  onClick={() => window.location.href = '/login'}
                   className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                 >
                   Login
                 </button>
               )}
             </nav>
+
 
             <section ref={dropdownRef}>
               <button onClick={toggleDropdown} className="text-stone-900">
@@ -155,13 +164,29 @@ export default function Header() {
           animate={controls}
           className="flex flex-col items-center justify-center top-[74px] md:top-[90px] z-10 gap-6 bg-stone-50 border border-stone-300 p-10 rounded-lg shadow-lg absolute right-0 w-64 sm:w-72 md:w-80"
         >
-          <Link
-            href={"/login"}
-            onClick={closeDropdown}
-            className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
-          >
-            Login
-          </Link>
+          {status === "authenticated" ? (
+            <>
+              <button
+                onClick={() => window.location.href = '/profile'}
+                className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              >
+                Profile
+              </button>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => window.location.href = '/login'}
+              className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+            >
+              Login
+            </button>
+          )}
           <button
             onClick={closeDropdown}
             className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
