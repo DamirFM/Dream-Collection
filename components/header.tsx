@@ -84,6 +84,14 @@ export default function Header() {
   // login status
   const { status } = useSession();
 
+  const handleNavigation = (url) => {
+    window.location.href = url;
+    setTimeout(() => {
+      closeDropdown();
+    }, 100); // Adjust the delay if necessary
+  };
+
+
 
   return (
     <header className="z-[999] relative">
@@ -164,13 +172,13 @@ export default function Header() {
           {status === "authenticated" ? (
             <>
               <button
-                onClick={() => window.location.href = '/profile'}
+                onClick={() => handleNavigation('/profile')}
                 className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 Profile
               </button>
               <button
-                onClick={() => signOut()}
+                onClick={() => signOut().then(() => closeDropdown())}
                 className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 Logout
@@ -178,7 +186,8 @@ export default function Header() {
             </>
           ) : (
             <button
-              onClick={() => window.location.href = '/login'}
+              onClick={() => handleNavigation('/login')}
+
               className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
               Login
@@ -197,7 +206,7 @@ export default function Header() {
             Community
           </button>
           <button
-            onClick={closeDropdown}
+            onClick={() => handleNavigation('/about')}
             className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
           >
             Legal

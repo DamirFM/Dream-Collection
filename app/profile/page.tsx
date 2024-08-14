@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import SignInBtn from '@/components/UI/SignInBtn';
+import LoginPage from '../login/page';
 
 export default function ProfilePage() {
   const [profilePic, setProfilePic] = useState<string>("/path/to/your/profile-pic.jpg"); // Initial image path
@@ -83,8 +84,7 @@ export default function ProfilePage() {
       </div>
     );
   } else {
-    return <div className="flex items-center justify-center h-screen bg-stone-50">
-      <SignInBtn />
-    </div>;
+    return <LoginPage />
+
   }
 }

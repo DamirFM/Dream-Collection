@@ -8,7 +8,7 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 
-export default async function LoginPage() {
+export default function LoginPage() {
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -48,10 +48,10 @@ export default async function LoginPage() {
     }
   };
 
-  const session = await getServerSession(authOptions);
-  if (session) {
-    redirect("/");
-  }
+  // const session = await getServerSession(authOptions);
+  // if (session) {
+  //   redirect("/");
+  // }
 
   return (
     <div className="flex items-center justify-center h-screen bg-stone-50">
