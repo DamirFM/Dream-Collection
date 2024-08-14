@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function addPost() {
+export default function AddPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -11,7 +11,7 @@ export default function addPost() {
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    
+
     if (!title || !description) {
       alert('Please fill out all fields');
       return;
@@ -47,18 +47,18 @@ export default function addPost() {
       <input
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        type='text' 
+        type='text'
         className='border border-stone-900 p-2 rounded-lg'
         placeholder='Title'
-        ></input>
+      ></input>
       <input
         onChange={(e) => setDescription(e.target.value)}
         value={description}
-        type='text' 
+        type='text'
         className='border border-stone-900 p-2 rounded-lg'
         placeholder='Description'
-        ></input>
-        <button type='submit' className='bg-stone-900 text-white p-2 rounded-lg'>Submit</button>
+      ></input>
+      <button type='submit' className='bg-stone-900 text-white p-2 rounded-lg'>Submit</button>
 
     </form>
   )
