@@ -84,7 +84,7 @@ export default function Header() {
   // login status
   const { status } = useSession();
 
-  const handleNavigation = (url) => {
+  const handleNavigation = (url: string) => {
     window.location.href = url;
     setTimeout(() => {
       closeDropdown();
