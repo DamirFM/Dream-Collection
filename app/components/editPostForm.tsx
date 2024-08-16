@@ -2,13 +2,20 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function EditPostForm({ id, title, description }) {
+interface EditPostFormProps {
+  id: string;
+  title: string;
+  description: string;
+}
+
+// Update the function signature to use the props interface
+export default function EditPostForm({ id, title, description }: EditPostFormProps) {
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
 
   const router = useRouter();
 
-  const handleUpdate = async (e: any) => {
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
