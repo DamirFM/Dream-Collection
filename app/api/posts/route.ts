@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: { json: () => PromiseLike<{ title: any; description: any; }> | { title: any; description: any; }; }) {
   const { title, description } = await request.json();
+  console.log(title, description);
   await connectMongoDB();
   await Post.create({ title, description });
   return NextResponse.json({ message: "Post Created" }, { status: 201 });
