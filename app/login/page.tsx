@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import SignInBtn from "../../components/UI/SignInBtn"
+import SignInBtn from "../components/UI/SignInBtn"
 import { useRouter } from "next/navigation";
 import { signIn } from 'next-auth/react';
 import { getServerSession } from 'next-auth';

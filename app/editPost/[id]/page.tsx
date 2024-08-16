@@ -1,4 +1,4 @@
-import EditPostForm from "@/components/editPostForm";
+import EditPostForm from "@/app/components/editPostForm";
 
 const getPostById = async (id: string) => {
   try {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Roboto } from "next/font/google";
-import PostCard from "@/components/PostCard";
+import PostCard from "@/app/components/PostCard";
 import Link from "next/link";
 // import { getPosts } from "@/lib/data";
 

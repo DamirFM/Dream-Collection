@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import SignInBtn from '@/components/UI/SignInBtn';
+import SignInBtn from '@/app/components/UI/SignInBtn';
 import LoginPage from '../login/page';
 
 export default function ProfilePage() {
