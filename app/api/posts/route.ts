@@ -1,8 +1,8 @@
 import connectMongoDB from "@/lib/mongodb";
 import Post from "@/models/post";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function POST(request: { json: () => PromiseLike<{ title: any; description: any; }> | { title: any; description: any; }; }) {
+export async function POST(request: NextRequest) {
   const { title, description } = await request.json();
   console.log(title, description);
   await connectMongoDB();
@@ -16,7 +16,7 @@ export async function GET() {
   return NextResponse.json({ posts });
 }
 
-export async function DELETE(request: { nextUrl: { searchParams: { get: (arg0: string) => any; }; }; }) {
+export async function DELETE(request: NextRequest) {
   const id = request.nextUrl.searchParams.get("id");
   await connectMongoDB();
   await Post.findByIdAndDelete(id);
