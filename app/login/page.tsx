@@ -4,9 +4,9 @@ import React from 'react';
 import SignInBtn from "../components/UI/SignInBtn"
 import { useRouter } from "next/navigation";
 import { signIn } from 'next-auth/react';
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+// import { getServerSession } from 'next-auth';
+// import { redirect } from 'next/navigation';
+// import { authOptions } from '@/lib/auth';
 
 export default function LoginPage() {
 
