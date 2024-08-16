@@ -38,7 +38,7 @@ const dropDownIconVariants = {
   },
 }
 
-const Header = () => {
+export default function Header() {
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -216,4 +216,4 @@ const Header = () => {
     </header>
   );
 }
-export default Header;
+// export default Header;

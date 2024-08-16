@@ -1,6 +1,7 @@
 import connectMongoDB from "@/lib/mongodb";
 import Post from "@/models/post";
 import { NextResponse, NextRequest } from "next/server";
+import { applyCors } from '@/lib/cors';
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
