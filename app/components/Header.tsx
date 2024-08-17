@@ -4,9 +4,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { motion, useAnimationControls } from "framer-motion";
+import Image from "next/image";
 
 import { useSession, signIn, signOut } from "next-auth/react";
-
 
 const dropdownVariants = {
   closed: {
@@ -36,7 +36,7 @@ const dropDownIconVariants = {
   open: {
     rotate: 180,
   },
-}
+};
 
 export default function Header() {
   const [dropDownOpen, setDropDownOpen] = useState(false);
@@ -91,8 +91,6 @@ export default function Header() {
     }, 100); // Adjust the delay if necessary
   };
 
-
-
   return (
     <header className="z-[999] relative">
       <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 bg-opacity-95">
@@ -119,35 +117,44 @@ export default function Header() {
             </div>
           </div>
 
-
           <div className="flex flex-row space-x-4">
-
             <nav className="hidden md:flex space-x-4 items-center">
               {status === "authenticated" ? (
                 <>
                   <button
-                    onClick={() => window.location.href = '/profile'}
-                    className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    onClick={() => (window.location.href = "/profile")}
+                    className="flex flex-row gap-1  text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                   >
+                    <Image
+                      src="/assets/profile.svg"
+                      alt="Community icon"
+                      width={24}
+                      height={24}
+                    />
                     Profile
                   </button>
                   <button
                     onClick={() => signOut()}
-                    className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    className="flex flex-row gap-1  text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                   >
+                    <Image
+                      src="/assets/logout.svg"
+                      alt="Community icon"
+                      width={24}
+                      height={24}
+                    />
                     Logout
                   </button>
                 </>
               ) : (
                 <button
-                  onClick={() => window.location.href = '/login'}
+                  onClick={() => (window.location.href = "/login")}
                   className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                 >
                   Login
                 </button>
               )}
             </nav>
-
 
             <section ref={dropdownRef}>
               <button onClick={toggleDropdown} className="text-stone-900">
@@ -167,50 +174,81 @@ export default function Header() {
           variants={dropdownVariants}
           initial="closed"
           animate={controls}
-          className="flex flex-col items-center justify-center top-[74px] md:top-[90px] z-10 gap-6 bg-stone-50 border border-stone-300 p-10 rounded-lg shadow-lg absolute right-0 w-64 sm:w-72 md:w-80"
+          className="flex flex-col items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-stone-50 border border-stone-300 p-6 rounded-lg shadow-md absolute right-0 w-56 sm:w-64 md:w-56"
         >
           {status === "authenticated" ? (
-            <>
+            <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
               <button
-                onClick={() => handleNavigation('/profile')}
-                className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                onClick={() => handleNavigation("/profile")}
+                className="flex items-center justify-start w-full max-w-xs pl-8 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
-                Profile
+                <Image
+                  src="/assets/profile.svg"
+                  alt="Profile icon"
+                  width={24}
+                  height={24}
+                />
+                <span className="ml-3">Profile</span>
               </button>
               <button
                 onClick={() => signOut().then(() => closeDropdown())}
-                className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                className="flex items-center justify-start w-full max-w-xs pl-8 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
-                Logout
+                <Image
+                  src="/assets/logout.svg"
+                  alt="Logout icon"
+                  width={24}
+                  height={24}
+                />
+                <span className="ml-3">Logout</span>
               </button>
-            </>
+            </div>
           ) : (
             <button
-              onClick={() => handleNavigation('/login')}
-
+              onClick={() => handleNavigation("/login")}
               className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
-              Login
+              <span className="ml-3">Login</span>
             </button>
           )}
-          <button
-            onClick={closeDropdown}
-            className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
-          >
-            Explore
-          </button>
-          <button
-            onClick={closeDropdown}
-            className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
-          >
-            Community
-          </button>
-          <button
-            onClick={() => handleNavigation('/about')}
-            className="block font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
-          >
-            Legal
-          </button>
+          <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
+            <button
+              onClick={closeDropdown}
+              className="flex items-center justify-start w-full max-w-xs pl-8 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+            >
+              <Image
+                src="/assets/search.svg"
+                alt="Search icon"
+                width={24}
+                height={24}
+              />
+              <span className="ml-3">Explore</span>
+            </button>
+            <button
+              onClick={closeDropdown}
+              className="flex items-center justify-start w-full max-w-xs pl-8 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+            >
+              <Image
+                src="/assets/community.svg"
+                alt="Community icon"
+                width={24}
+                height={24}
+              />
+              <span className="ml-3">Community</span>
+            </button>
+            <button
+              onClick={() => handleNavigation("/about")}
+              className="flex items-center justify-start w-full max-w-xs pl-8 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+            >
+              <Image
+                src="/assets/home.svg"
+                alt="Home icon"
+                width={24}
+                height={24}
+              />
+              <span className="ml-3">Legal</span>
+            </button>
+          </div>
         </motion.nav>
       </div>
     </header>
