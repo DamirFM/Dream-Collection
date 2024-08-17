@@ -10,24 +10,22 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 const dropdownVariants = {
   closed: {
-    opacity: 0,
-    height: 0,
+    scale: 0,
     transition: {
-      type: "spring",
-      damping: 15,
-      duration: 0.5,
+      delay: 0.15,
     },
   },
   open: {
-    opacity: 1,
-    height: "16rem",
+    scale: 1,
     transition: {
       type: "spring",
-      damping: 15,
-      duration: 0.5,
+      duration: 0.4,
+      delayChildren: 0.2,
+      staggerChildren: 0.05,
     },
   },
 };
+
 
 const dropDownIconVariants = {
   close: {
@@ -174,13 +172,13 @@ export default function Header() {
           variants={dropdownVariants}
           initial="closed"
           animate={controls}
-          className="flex flex-col items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-stone-50 border border-stone-300 p-6 rounded-lg shadow-md absolute right-0 w-56 sm:w-64 md:w-56"
+          className="flex flex-col items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-stone-50 border border-stone-300 p-6 rounded-lg shadow-md absolute right-0 w-56 sm:w-64 md:w-48"
         >
           {status === "authenticated" ? (
             <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
               <button
                 onClick={() => handleNavigation("/profile")}
-                className="flex items-center justify-start w-full max-w-xs pl-8 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                className="flex items-center justify-start w-full max-w-xs pl-1 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 <Image
                   src="/assets/profile.svg"
@@ -192,7 +190,7 @@ export default function Header() {
               </button>
               <button
                 onClick={() => signOut().then(() => closeDropdown())}
-                className="flex items-center justify-start w-full max-w-xs pl-8 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                className="flex items-center justify-start w-full max-w-xs pl-1 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
               >
                 <Image
                   src="/assets/logout.svg"
@@ -206,7 +204,7 @@ export default function Header() {
           ) : (
             <button
               onClick={() => handleNavigation("/login")}
-              className="text-stone-50 bg-stone-900 py-2 px-4 rounded-md font-semibold text-xl hover:text-stone-200 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
+              className="text-stone-900 border border-stone-500  py-2 px-4 rounded-md font-semibold text-xl hover:text-stone-200 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
             >
               <span >Login</span>
             </button>
@@ -215,7 +213,7 @@ export default function Header() {
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             <button
               onClick={closeDropdown}
-              className="flex items-center justify-start w-full max-w-xs pl-8 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
               <Image
                 src="/assets/search.svg"
@@ -227,7 +225,7 @@ export default function Header() {
             </button>
             <button
               onClick={closeDropdown}
-              className="flex items-center justify-start w-full max-w-xs pl-8 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
               <Image
                 src="/assets/community.svg"
@@ -239,7 +237,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => handleNavigation("/about")}
-              className="flex items-center justify-start w-full max-w-xs pl-8 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
               <Image
                 src="/assets/home.svg"
