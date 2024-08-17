@@ -206,10 +206,11 @@ export default function Header() {
           ) : (
             <button
               onClick={() => handleNavigation("/login")}
-              className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="text-stone-50 bg-stone-900 py-2 px-4 rounded-md font-semibold text-xl hover:text-stone-200 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
             >
-              <span className="ml-3">Login</span>
+              <span >Login</span>
             </button>
+
           )}
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             <button
