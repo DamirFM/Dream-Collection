@@ -1,6 +1,6 @@
 export const getPosts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/posts", {
+      const res = await fetch("/api/posts", {
         cache: "no-cache",
       });
   
@@ -12,3 +12,4 @@ export const getPosts = async () => {
       console.error('Error loading Posts:', error);
     }
   }
+  // http://localhost:3000/api/posts

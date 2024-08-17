@@ -2,7 +2,7 @@ import EditPostForm from "@/app/components/editPostForm";
 
 const getPostById = async (id: string) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+    const res = await fetch(`/api/posts/${id}`, {
       cache: "no-cache",
     });
 
@@ -24,3 +24,4 @@ export default async function EditPost({ params }: any) {
 
   return <EditPostForm id={id} title={title} description={description} />;
 }
+// http://localhost:3000/api/posts/${id}

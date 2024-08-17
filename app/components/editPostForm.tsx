@@ -7,7 +7,7 @@ interface EditPostFormProps {
   title: string;
   description: string;
 }
-
+// http://localhost:3000/api/posts/${id}
 // Update the function signature to use the props interface
 export default function EditPostForm({ id, title, description }: EditPostFormProps) {
   const [newTitle, setNewTitle] = useState(title);
@@ -19,7 +19,7 @@ export default function EditPostForm({ id, title, description }: EditPostFormPro
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/posts/${id}`, {
+      const res = await fetch(`/api/posts/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",

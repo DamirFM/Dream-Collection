@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { authOptions } from '@/lib/auth';
-
+// http://localhost:3000/api/userExists
 export default async function JoinPage() {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
@@ -22,7 +22,7 @@ export default async function JoinPage() {
         try {
 
             // check if user exists
-            const resUserExists = await fetch("http://localhost:3000/api/userExists", {
+            const resUserExists = await fetch("/api/userExists", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
@@ -35,7 +35,7 @@ export default async function JoinPage() {
                 return;
             }
 
-            const res = await fetch("http://localhost:3000/api/user", {
+            const res = await fetch("/api/user", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",

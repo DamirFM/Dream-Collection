@@ -5,14 +5,14 @@ import { HiPencilAlt } from 'react-icons/hi';
 import RemoveBtn from './UI/removeBtn';
 // import { useScroll, useTransform, motion } from 'framer-motion'
 
-
+// http://localhost:3000/api/posts
 const PostCard = () => {
 
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/posts", {
+        const res = await fetch("/api/posts", {
           cache: "no-cache",
         });
         console.log(typeof res);

@@ -2,10 +2,10 @@ import React from "react";
 import { Roboto } from "next/font/google";
 import PostCard from "@/app/components/PostCard";
 import Link from "next/link";
-// import { getPosts } from "@/lib/data";
+
 
 const roboto = Roboto({ subsets: ["latin"], weight: "400" });
-// const posts = await getPosts();
+
 
 export default function HomePage() {
 
@@ -28,21 +28,3 @@ export default function HomePage() {
   );
 
 }
-
-
-// // Server-side function to fetch posts
-// const getPosts = async () => {
-//   try {
-//     const res = await fetch("http://localhost:3000/api/posts", {
-//       cache: "no-cache",
-//     });
-
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch posts");
-//     }
-//     return res.json();
-//   } catch (error) {
-//     console.error("Error loading Posts:", error);
-//     return []; // Return an empty array in case of error
-//   }
-// };
