@@ -147,7 +147,7 @@ export default function Header() {
               ) : (
                 <button
                   onClick={() => (window.location.href = "/login")}
-                  className="text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                  className="text-stone-900 border border-stone-500  py-1 px-4 rounded-xl font-semibold text-xl hover:text-stone-50 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
                 >
                   Login
                 </button>
@@ -155,7 +155,7 @@ export default function Header() {
             </nav>
 
             <section ref={dropdownRef}>
-              <button onClick={toggleDropdown} className="text-stone-900">
+              <button onClick={toggleDropdown} className="text-stone-900 py-2">
                 <motion.div
                   variants={dropDownIconVariants}
                   animate={iconControls}
@@ -172,7 +172,7 @@ export default function Header() {
           variants={dropdownVariants}
           initial="closed"
           animate={controls}
-          className="flex flex-col items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-stone-50 border border-stone-300 p-6 rounded-lg shadow-md absolute right-0 w-56 sm:w-64 md:w-48"
+          className="flex flex-col items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-stone-50 border border-stone-300 p-6 rounded-2xl shadow-md absolute right-0 w-56 sm:w-64 md:w-48"
         >
           {status === "authenticated" ? (
             <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
@@ -200,17 +200,34 @@ export default function Header() {
                 />
                 <span className="ml-3">Logout</span>
               </button>
+              <button
+                onClick={() => handleNavigation("/about")}
+                className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-red-400 transition duration-300 ease-in-out transform hover:scale-1"
+              >
+                <Image
+                  src="/assets/heart.svg"
+                  alt="Home icon"
+                  width={24}
+                  height={24}
+                />
+                <span className="ml-3">Activity</span>
+              </button>
             </div>
           ) : (
-            <button
-              onClick={() => handleNavigation("/login")}
-              className="text-stone-900 border border-stone-500  py-2 px-4 rounded-md font-semibold text-xl hover:text-stone-200 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
-            >
-              <span >Login</span>
-            </button>
+            <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
+              <button
+                onClick={() => handleNavigation("/login")}
+                className="text-stone-900 border border-stone-500  py-1 px-4 rounded-xl font-semibold text-xl hover:text-stone-50 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
+              >
+                <span >Login</span>
+              </button>
+              <div className=" border-2 w-full border-stone-500">
+              </div>
+            </div>
 
           )}
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
+
             <button
               onClick={closeDropdown}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
@@ -223,6 +240,7 @@ export default function Header() {
               />
               <span className="ml-3">Explore</span>
             </button>
+
             <button
               onClick={closeDropdown}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
