@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { useRef, useEffect, useState, } from 'react';
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveBtn from './UI/removeBtn';
+import { Virtuoso } from 'react-virtuoso';
 // import { useScroll, useTransform, motion } from 'framer-motion'
 
 // http://localhost:3000/api/posts
@@ -39,8 +40,8 @@ const PostCard = () => {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map((post: {
           [x: string]: any; title: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined;
-        }, index: React.Key | null | undefined) => (
-          <div key={index} className="border border-gray-300 rounded-lg overflow-hidden">
+        }) => (
+          <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
             <img className="w-full h-48 object-cover" />
             <div className="p-4">
               <h2 className="m-0 text-xl">{post.title}</h2>
