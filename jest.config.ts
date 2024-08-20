@@ -1,12 +1,11 @@
+// jest.config.js
 module.exports = {
-  testEnvironment: "jsdom",
-  moduleFileExtensions: ["js", "jsx", "ts", "tsx", "json", "node"],
   transform: {
-    "^.+\\.(ts|tsx)?$": "ts-jest",
-    "^.+\\.(js|jsx)?$": "babel-jest",
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest"
   },
-  moduleNameMapper: {
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-  },
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  testEnvironment: "jsdom",
+  // Optionally add paths to ignore for transformation (e.g., some node_modules)
+  transformIgnorePatterns: ["/node_modules/(?!some-module-to-transform).+\\.(js|jsx|ts|tsx)$"]
 };
