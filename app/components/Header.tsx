@@ -242,7 +242,7 @@ export default function Header() {
             </button>
 
             <button
-              onClick={closeDropdown}
+              onClick={() => handleNavigation("/collections")}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
               <Image
@@ -251,7 +251,7 @@ export default function Header() {
                 width={24}
                 height={24}
               />
-              <span className="ml-3">Community</span>
+              <span className="ml-3">Collections</span>
             </button>
             <button
               onClick={() => handleNavigation("/about")}
