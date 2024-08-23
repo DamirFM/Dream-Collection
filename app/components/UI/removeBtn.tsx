@@ -17,9 +17,8 @@ export default function RemoveBtn({ id }: { id: string }) {
             'Content-Type': 'application/json'
           }
         });
-        if (res.ok) {
-          router.refresh();
-        }
+        console.log("Post ID:", id);
+
         if (!res.ok) {
           throw new Error('Failed to delete post');
         }

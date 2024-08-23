@@ -1,15 +1,33 @@
-import mongoose, { Schema } from "mongoose";
+// import mongoose, { Schema } from "mongoose";
+
+// const postSchema = new Schema(
+//   {
+//     title: String,
+//     description: String,
+//   },
+//   {
+//     timestamps: true,
+//   }
+// );
+
+// const Post = mongoose.models.Post || mongoose.model("Post", postSchema);
+
+// export default Post;
+
+import mongoose, { Schema } from 'mongoose';
 
 const postSchema = new Schema(
   {
     title: String,
     description: String,
+    imageUrl: String,  // Add this field
   },
   {
     timestamps: true,
   }
 );
 
-const Post = mongoose.models.Post || mongoose.model("Post", postSchema);
+const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
 
 export default Post;
+

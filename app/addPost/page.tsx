@@ -2,28 +2,44 @@
 import React from 'react'
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
+import LoginPage from '../login/page';
 
 export default function AddPost() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [file, setFile] = useState(null);
 
   const router = useRouter();
+  const { status } = useSession();
+  if (status === 'unauthenticated') {
+    return <LoginPage />;
+  }
+  const handleImageChange = (e) => {
+    setFile(e.target.files[0]); // Store the selected image
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
-    if (!title || !description) {
+    if (!title || !description || !file) {
       alert('Please fill out all fields');
       return;
     }
 
     try {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('file', file); // Append the image to the form data
+
+
       const res = await fetch('/api/posts', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title, description })
+        // headers: {
+        //   'Content-Type': 'application/json'
+        // },
+        body: formData,
       });
 
       if (res.ok) {
@@ -40,26 +56,30 @@ export default function AddPost() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className='flex flex-col w-full gap-3 px-8 py-2 items-center justify-center h-screen bg-stone-100'
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col w-full gap-3 px-8 py-2 items-center justify-center h-screen bg-stone-100">
       <input
         onChange={(e) => setTitle(e.target.value)}
         value={title}
-        type='text'
-        className='border border-stone-900 p-2 rounded-lg'
-        placeholder='Title'
-      ></input>
+        type="text"
+        className="border border-stone-900 p-2 rounded-lg"
+        placeholder="Title"
+      />
       <input
         onChange={(e) => setDescription(e.target.value)}
         value={description}
-        type='text'
-        className='border border-stone-900 p-2 rounded-lg'
-        placeholder='Description'
-      ></input>
-      <button type='submit' className='bg-stone-900 text-white p-2 rounded-lg'>Submit</button>
-
+        type="text"
+        className="border border-stone-900 p-2 rounded-lg"
+        placeholder="Description"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="border border-stone-900 p-2 rounded-lg"
+      />
+      <button type="submit" className="bg-stone-900 text-white p-2 rounded-lg">
+        Submit
+      </button>
     </form>
   )
 }
