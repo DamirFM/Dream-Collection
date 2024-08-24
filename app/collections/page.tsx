@@ -8,7 +8,7 @@ export default function CollectionsPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
                 <div className="border border-gray-300 rounded-lg overflow-hidden">
-                    <img
+                    <Image
                         className="w-full h-48 object-cover"
                         src="https://images.unsplash.com/photo-1612833469399-3e2f4e1c3b8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjQwNzB8MHwxfGFsbHwxf"
                         alt="Collection 1"
