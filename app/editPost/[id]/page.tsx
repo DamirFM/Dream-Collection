@@ -27,7 +27,7 @@ export default async function EditPost({ params }: any) {
   // Check if postData or post is null
   if (!postData || !postData.post) {
     console.log("Post not found or failed to load.");
-    return <div className="flex flex-auto items-center justify-center">Post not found or failed to load.</div>;
+    return <div className="flex flex-auto items-center justify-center mx-5">Post not found or failed to load.</div>;
   }
   const { post } = await getPostById(id);
 
