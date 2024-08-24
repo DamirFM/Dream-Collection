@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import SignInBtn from '@/app/components/UI/SignInBtn';
+
 import LoginPage from '../login/page';
+import Image from 'next/image'
+
 
 export default function ProfilePage() {
   const [profilePic, setProfilePic] = useState<string>("/path/to/your/profile-pic.jpg"); // Initial image path
@@ -33,7 +35,7 @@ export default function ProfilePage() {
         <div className="w-full max-w-md p-8 bg-stone-50  rounded-md">
           <div className="flex flex-col items-center mb-6 relative">
             <label className="relative cursor-pointer">
-              <img
+              <Image
                 src={session?.user?.image || profilePic} // Display the session image or default
                 alt="User Photo"
                 className="w-24 h-24 rounded-full shadow-md mb-4"

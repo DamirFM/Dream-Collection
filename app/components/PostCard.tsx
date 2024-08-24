@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useRef, useEffect, useState, } from 'react';
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveBtn from './UI/removeBtn';
-
+import Image from 'next/image'
 
 
 // http://localhost:3000/api/posts
@@ -42,7 +42,7 @@ const PostCard = () => {
 
         <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
           {post.imageUrl && (
-            <img src={post.imageUrl} alt='post title' className="w-full h-48 object-cover" />
+            <Image src={post.imageUrl} alt='post title' className="w-full h-48 object-cover" />
           )}
           <div className="p-4">
             <h2 className="m-0 text-xl">{post.title}</h2>

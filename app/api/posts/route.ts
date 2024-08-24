@@ -47,11 +47,12 @@ async function uploadFileToS3(file: Buffer, fileName: any) {
 export async function POST(request: { formData: () => any; }) {
 	try {
 		await connectMongoDB();
-		const formData = await request.formData();
-		const title = formData.get("title");
-		const description = formData.get("description");
-		const file = formData.get("file");
 
+		const formData = await request.formData();
+		const title = formData.get("title")?.toString();
+		const description = formData.get("description")?.toString();
+		const file = formData.get("file") as File;
+		
 		if(!file || !title || !description) {
 			return NextResponse.json( { error: "All fields are required."}, { status: 400 } );
 		} 

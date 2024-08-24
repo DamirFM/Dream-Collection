@@ -48,6 +48,7 @@ export default function Header() {
     setDropDownOpen(false);
   };
 
+
   const handleClickOutside = (event: { target: any }) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       closeDropdown();
