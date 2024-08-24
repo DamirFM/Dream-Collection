@@ -1,48 +1,40 @@
 "use client";
 import Link from 'next/link';
-import React, { useRef, useEffect, useState, } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveBtn from './UI/removeBtn';
-import Image from 'next/image'
+import Image from 'next/image';
 
+type Post = {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+};
 
-// http://localhost:3000/api/posts
-const PostCard = () => {
+const PostCard: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  const [posts, setPosts] = useState([]);
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await fetch("/api/posts", {
-          cache: "no-cache",
-        });
-        console.log(typeof res);
-        if (!res.ok) {
-          throw new Error("Failed to fetch posts");
-        }
-
+        const res = await fetch("/api/posts", { cache: "no-cache" });
+        if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
         setPosts(data.posts);
       } catch (error) {
         console.error('Error loading Posts:', error);
-      };
-
-    }
+      }
+    };
     getPosts();
   }, []);
 
-
-
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {posts.map((post: {
-        [x: string]: any; title: string | number | bigint | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | Promise<React.AwaitedReactNode> | null | undefined;
-      }) => (
-
+      {posts.map((post) => (
         <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
           {post.imageUrl && (
-            <Image src={post.imageUrl} alt='post title' className="w-full h-48 object-cover" />
+            <Image src={post.imageUrl} alt={post.title} className="w-full h-48 object-cover" />
           )}
           <div className="p-4">
             <h2 className="m-0 text-xl">{post.title}</h2>
