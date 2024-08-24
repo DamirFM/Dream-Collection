@@ -56,8 +56,8 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     await connectMongoDB();
     
     const formData = await request.formData();
-    const newTitle = formData.get("title");
-    const newDescription = formData.get("description");
+    const newTitle = formData.get("title")?.toString();
+    const newDescription = formData.get("description")?.toString();
     const file = formData.get("file");
 
     // Fetch the current post
@@ -71,7 +71,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     post.description = newDescription || post.description;
 
     // Handle file update
-    if (file) {
+    if (file && file instanceof File) {
       // If there's an existing image, delete it from S3
       if (post.imageUrl) {
         const key = post.imageUrl.split('/').pop(); // Extract the S3 key from the imageUrl
@@ -93,7 +93,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     return NextResponse.json({ error: "Error updating post" }, { status: 500 });
   }
 }
-
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
