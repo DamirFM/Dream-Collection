@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { motion, useAnimationControls } from "framer-motion";
@@ -26,7 +26,6 @@ const dropdownVariants = {
   },
 };
 
-
 const dropDownIconVariants = {
   close: {
     rotate: 360,
@@ -48,12 +47,12 @@ export default function Header() {
     setDropDownOpen(false);
   };
 
-
-  const handleClickOutside = (event: { target: any }) => {
+  // Use useCallback to memoize the handler
+  const handleClickOutside = useCallback((event: { target: any }) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       closeDropdown();
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (dropDownOpen) {
@@ -65,7 +64,7 @@ export default function Header() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropDownOpen]);
+  }, [dropDownOpen, handleClickOutside]);
 
   const controls = useAnimationControls();
   const iconControls = useAnimationControls();
@@ -225,10 +224,8 @@ export default function Header() {
               <div className=" border-2 w-full border-stone-500">
               </div>
             </div>
-
           )}
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
-
             <button
               onClick={closeDropdown}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
@@ -241,7 +238,6 @@ export default function Header() {
               />
               <span className="ml-3">Explore</span>
             </button>
-
             <button
               onClick={() => handleNavigation("/collections")}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
@@ -272,4 +268,3 @@ export default function Header() {
     </header>
   );
 }
-// export default Header;
