@@ -18,10 +18,15 @@ const getPostById = async (id: string) => {
 
 
 export default async function EditPost({ params }: any) {
+  console.log(params);
+
   const { id } = params;
+  console.log(id);
   const postData = await getPostById(id);
+  console.log(postData);
   // Check if postData or post is null
   if (!postData || !postData.post) {
+    console.log("Post not found or failed to load.");
     return <div className="flex flex-auto items-center justify-center">Post not found or failed to load.</div>;
   }
   const { post } = await getPostById(id);
