@@ -28,5 +28,11 @@ export default async function EditPost({ params }: any) {
 
   const { title, description } = post;
 
-  return <EditPostForm id={id} title={title} description={description} />;
+  return (
+    <>
+      <div className="flex flex-auto items-center justify-center">
+        <EditPostForm id={id} title={title} description={description} />;
+      </div>
+    </>)
+
 }
