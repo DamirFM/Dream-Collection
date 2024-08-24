@@ -1,3 +1,4 @@
+// EditPostForm.tsx
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -7,34 +8,45 @@ interface EditPostFormProps {
   title: string;
   description: string;
 }
-// http://localhost:3000/api/posts/${id}
-// Update the function signature to use the props interface
+
 export default function EditPostForm({ id, title, description }: EditPostFormProps) {
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const [file, setFile] = useState<File | null>(null);
 
   const router = useRouter();
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    }
+  };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append("id", id);
+    formData.append("title", newTitle);
+    formData.append("description", newDescription);
+    if (file) {
+      formData.append("file", file);
+    }
+
     try {
       const res = await fetch(`/api/posts/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ newTitle, newDescription }),
+        body: formData,
       });
 
       if (!res.ok) {
-        throw new Error("Failed to update topic");
+        throw new Error(`Failed to update post: ${res.statusText}`);
       }
 
       router.refresh();
       router.push("/");
     } catch (error) {
-      console.log(error);
+      console.log("Error updating post:", error);
     }
   };
 
@@ -56,6 +68,11 @@ export default function EditPostForm({ id, title, description }: EditPostFormPro
         type="text"
         className="border border-stone-900 p-2 rounded-lg"
         placeholder="Description"
+      />
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="border border-stone-900 p-2 rounded-lg"
       />
       <button className="bg-stone-900 text-white p-2 rounded-lg">Update</button>
     </form>

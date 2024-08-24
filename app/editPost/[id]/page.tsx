@@ -2,7 +2,7 @@ import EditPostForm from "@/app/components/editPostForm";
 
 const getPostById = async (id: string) => {
   try {
-    const res = await fetch(`/api/posts/${id}`, {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${id}`, {
       cache: "no-cache",
     });
 
@@ -15,6 +15,7 @@ const getPostById = async (id: string) => {
     return null;
   }
 };
+
 
 export default async function EditPost({ params }: any) {
   const { id } = params;
@@ -29,4 +30,3 @@ export default async function EditPost({ params }: any) {
 
   return <EditPostForm id={id} title={title} description={description} />;
 }
-// http://localhost:3000/api/posts/${id}

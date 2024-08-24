@@ -2,10 +2,13 @@ import connectMongoDB from '@/lib/mongodb';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import Post from '@/models/post';
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 // import multer from 'multer';
 // import { promises as fs } from 'fs';
 // import path from 'path';
 import { DeleteObjectCommand } from '@aws-sdk/client-s3';
+
+const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
 
 const region = process.env.NEXT_PUBLIC_AWS_REGION;
 const accessKeyId = process.env.NEXT_PUBLIC_AWS_ACCESS_KEY_ID;
@@ -31,7 +34,7 @@ async function uploadFileToS3(file: Buffer, fileName: any) {
 
 	const params = {
 		Bucket: bucketName,
-		Key: `${fileName}-${new Date().getTime()}`,
+		Key: randomImageName() + fileName,
 		Body: fileBuffer,
 		ContentType: "image/jpg"
 	}
