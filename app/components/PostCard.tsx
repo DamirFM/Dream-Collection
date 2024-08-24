@@ -34,7 +34,12 @@ const PostCard: React.FC = () => {
       {posts.map((post) => (
         <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
           {post.imageUrl && (
-            <Image src={post.imageUrl} alt={post.title} className="w-full h-48 object-cover" />
+            <Image
+              src={post.imageUrl}
+              alt={post.title}
+              width={500}
+              height={300}
+              className="w-full h-48 object-cover" />
           )}
           <div className="p-4">
             <h2 className="m-0 text-xl">{post.title}</h2>
