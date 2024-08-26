@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import PostCard from "@/app/components/PostCard";
+import { HiPencilAlt } from 'react-icons/hi';
+import RemoveBtn from '../components/UI/removeBtn';
 import LoginPage from "../login/page";
 import Image from "next/image";
+import Link from "next/link";
 
 type Post = {
   _id: string;
@@ -105,8 +107,17 @@ export default function ProfilePage() {
                     <h2 className="m-0 text-xl">{post.title}</h2>
                     <p className="mt-2 text-gray-600">{post.description}</p>
                   </div>
+                  <div className="flex justify-between items-center p-4">
+                    <RemoveBtn id={post._id} />
+                    <Link href={`/editPost/${post._id}`}>
+                      <HiPencilAlt className="text-2xl text-gray-600 cursor-pointer" />
+                    </Link>
+                  </div>
                 </div>
+
               ))}
+
+
             </div>
           </div>
         </div>

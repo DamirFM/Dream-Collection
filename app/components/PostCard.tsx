@@ -49,12 +49,6 @@ const PostCard: React.FC = () => {
             <h2 className="m-0 text-xl">{post.title}</h2>
             <p className="mt-2 text-gray-600">{post.description}</p>
           </div>
-          <div className="flex justify-between items-center p-4">
-            <RemoveBtn id={post._id} />
-            <Link href={`/editPost/${post._id}`}>
-              <HiPencilAlt className="text-2xl text-gray-600 cursor-pointer" />
-            </Link>
-          </div>
         </div>
       ))}
     </div>
