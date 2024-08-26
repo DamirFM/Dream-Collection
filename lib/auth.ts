@@ -44,7 +44,7 @@ export const authOptions: AuthOptions = {
                 return null;
               }
     
-              return user;
+              return user; // Return user object for session and JWT token
             } catch (error) {
               console.log("Error: ", error);
               return null;
@@ -53,6 +53,20 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
+      async session({ session, token }) {
+        // Include the user ID in the session object
+        if (token && session.user) {
+          session.user.id = token.sub as string; // Safely assign the id
+        }
+        return session;
+      },
+      async jwt({ token, user }) {
+        // Store the user id in the JWT token
+        if (user) {
+          token.sub = user.id;
+        }
+        return token;
+      },
       async signIn({ user, account }: { user: NextAuthUser; account: Account | null }) {
         // Only handle Google sign-in and ensure account is not null
         if (account?.provider === "google") {

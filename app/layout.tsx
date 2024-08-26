@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${nunito.className} bg-stone-100 text-stone-950 relative h-screen`}
+        className={`${nunito.className} bg-stone-50 text-stone-900 relative h-screen`}
       >
         <NextAuthProvider>
           <Header />

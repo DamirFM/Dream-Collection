@@ -144,7 +144,6 @@ export default function JoinPage() {
 
     const onSubmit = async (data: { email: any; }) => {
         try {
-            // Check if user exists
             const resUserExists = await fetch("/api/userExists", {
                 method: "POST",
                 headers: {
@@ -152,13 +151,17 @@ export default function JoinPage() {
                 },
                 body: JSON.stringify({ email: data.email }),
             });
+
+            if (!resUserExists.ok) {
+                throw new Error(`Error: ${resUserExists.statusText}`);
+            }
+
             const { user } = await resUserExists.json();
             if (user) {
                 setError("User already exists");
                 return;
             }
 
-            // Create user
             const res = await fetch("/api/user", {
                 method: "POST",
                 headers: {
@@ -166,16 +169,20 @@ export default function JoinPage() {
                 },
                 body: JSON.stringify(data),
             });
+
             if (res.ok) {
                 router.push('/profile');
             } else {
-                setError("Failed to create user");
+                const errorData = await res.json();
+                setError(`Failed to create user: ${errorData.message}`);
             }
         } catch (error) {
-            console.error(error);
+            console.error("Submit Error:", error);
             setError("Failed to create user");
         }
     };
+
+
 
     //   // Server-side session check
     //   const session = getServerSession(authOptions);
