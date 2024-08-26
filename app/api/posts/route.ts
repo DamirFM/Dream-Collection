@@ -79,16 +79,36 @@ export async function POST(request: NextRequest) {
 }
 
 // Handle GET requests
-export async function GET() {
+// export async function GET() {
+//   try {
+//     await connectMongoDB();
+
+//     const posts = await Post.find(); // Fetch all posts from MongoDB
+
+//     return NextResponse.json({ posts });
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//     return NextResponse.json({ error: "Error getting post" }, { status: 500 });
+//   }
+// }
+
+export async function GET(request: NextRequest) {
   try {
     await connectMongoDB();
 
-    const posts = await Post.find(); // Fetch all posts from MongoDB
+    const token = await getToken({ req: request });
+
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const userId = token.sub; // Get the user's ID from the JWT token
+    const posts = await Post.find({ userId }); // Fetch posts specific to the logged-in user
 
     return NextResponse.json({ posts });
   } catch (error) {
     console.error("Error fetching posts:", error);
-    return NextResponse.json({ error: "Error getting post" }, { status: 500 });
+    return NextResponse.json({ error: "Error getting posts" }, { status: 500 });
   }
 }
 
@@ -129,23 +149,3 @@ export async function DELETE(request: NextRequest) {
 }
 
 
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//   if (req.method === "GET") {
-//     await connectMongoDB();
-//     const userId = req.query.userId as string;
-
-//     if (!userId) {
-//       return res.status(400).json({ error: "User ID is required" });
-//     }
-
-//     try {
-//       const posts = await Post.find({ userId }); // Assuming the post schema has a userId field
-//       res.status(200).json({ posts });
-//     } catch (error) {
-//       res.status(500).json({ error: "Error fetching posts" });
-//     }
-//   } else {
-//     res.setHeader("Allow", ["GET"]);
-//     res.status(405).end(`Method ${req.method} Not Allowed`);
-//   }
-// }

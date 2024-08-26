@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { HiPencilAlt } from 'react-icons/hi';
 import RemoveBtn from './UI/removeBtn';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 type Post = {
   _id: string;
@@ -14,6 +15,7 @@ type Post = {
 
 const PostCard: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const getPosts = async () => {
@@ -26,8 +28,11 @@ const PostCard: React.FC = () => {
         console.error('Error loading Posts:', error);
       }
     };
-    getPosts();
-  }, []);
+
+    if (session) {
+      getPosts();
+    }
+  }, [session]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -58,5 +63,4 @@ const PostCard: React.FC = () => {
 };
 
 export default PostCard;
-
 

@@ -54,6 +54,8 @@ export const authOptions: AuthOptions = {
     ],
     callbacks: {
       async session({ session, token }) {
+        console.log("Session callback:", session);
+        console.log("Token callback:", token);
         // Include the user ID in the session object
         if (token && session.user) {
           session.user.id = token.sub as string; // Safely assign the id
