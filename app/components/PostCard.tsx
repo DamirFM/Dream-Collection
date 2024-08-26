@@ -1,10 +1,6 @@
-
-// export default PostCard;
 "use client";
-import Link from 'next/link';
+
 import React, { useEffect, useState } from 'react';
-import { HiPencilAlt } from 'react-icons/hi';
-import RemoveBtn from './UI/removeBtn';
 import Image from 'next/image';
 
 type Post = {
@@ -20,10 +16,10 @@ const PostCard: React.FC = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await fetch("/api/posts", { cache: "no-cache" }); // Fetch all posts
+        const res = await fetch("/api/posts", { cache: "no-cache" });
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
-        setPosts(data.posts); // Set all posts
+        setPosts(data.posts);
       } catch (error) {
         console.error('Error loading Posts:', error);
       }
@@ -35,15 +31,18 @@ const PostCard: React.FC = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {posts.map((post) => (
-        <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
+        <div key={post._id} className="relative border border-gray-300 rounded-lg overflow-hidden">
           {post.imageUrl && (
-            <Image
-              src={post.imageUrl}
-              alt={post.title}
-              width={500}
-              height={300}
-              className="w-full h-48 object-cover"
-            />
+            <div className="relative w-full h-48">
+              <Image
+                src={post.imageUrl}
+                alt={post.title}
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+                priority // Add this line
+              />
+            </div>
           )}
           <div className="p-4">
             <h2 className="m-0 text-xl">{post.title}</h2>

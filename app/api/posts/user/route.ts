@@ -1,9 +1,8 @@
-// app/api/posts/user/route.ts
-
-import connectMongoDB from '@/lib/mongodb';
-import { NextRequest, NextResponse } from 'next/server';
-import Post from '@/models/post';
-import { getToken } from 'next-auth/jwt';
+import { NextResponse, NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
+import connectMongoDB from "@/lib/mongodb";
+import Post from "@/models/post";
+import mongoose from 'mongoose';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,12 +10,20 @@ export async function GET(request: NextRequest) {
 
     const token = await getToken({ req: request });
 
-    if (!token) {
+    if (!token || !token.sub) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const userId = token.sub; // Get the user's ID from the JWT token
-    const posts = await Post.find({ userId }); // Fetch posts specific to the logged-in user
+    const userId = token.sub;
+    let query;
+
+    if (mongoose.Types.ObjectId.isValid(userId)) {
+      query = { userId: new mongoose.Types.ObjectId(userId) };
+    } else {
+      query = { userId: userId };
+    }
+
+    const posts = await Post.find(query);
 
     return NextResponse.json({ posts });
   } catch (error) {

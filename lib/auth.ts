@@ -30,68 +30,60 @@ export const authOptions: AuthOptions = {
             }
             const { email, password } = credentials;
     
-            try {
+     
               await connectMongoDB();
               const user = await User.findOne({ email });
     
               if (!user) {
-                return null;
+                throw new Error("No user found with this email");
               }
     
               const passwordsMatch = await bcrypt.compare(password, user.password);
     
               if (!passwordsMatch) {
-                return null;
+                throw new Error("Invalid credentials");
               }
     
               return user; // Return user object for session and JWT token
-            } catch (error) {
-              console.log("Error: ", error);
-              return null;
-            }
+       
           },
         }),
     ],
     callbacks: {
-      async session({ session, token }) {
-        console.log("Session callback:", session);
-        console.log("Token callback:", token);
-        // Include the user ID in the session object
-        if (token && session.user) {
-          session.user.id = token.sub as string; // Safely assign the id
+      async signIn({ user, account }) {
+        await connectMongoDB();
+
+        if (account?.provider === "google") {
+          // Check if the user already exists in the database
+          let existingUser = await User.findOne({ email: user.email });
+
+          if (!existingUser) {
+            // Create a new user in the database
+            existingUser = await User.create({
+              name: user.name,
+              email: user.email,
+              image: user.image,
+              provider: account.provider,
+            });
+          }
+
+          // Assign the MongoDB user ID to the user object
+          user.id = existingUser._id.toString();
         }
-        return session;
+
+        return true;
       },
       async jwt({ token, user }) {
-        // Store the user id in the JWT token
+        // On initial sign-in, store the MongoDB user ID in the JWT token
         if (user) {
           token.sub = user.id;
         }
         return token;
       },
-      async signIn({ user, account }: { user: NextAuthUser; account: Account | null }) {
-        // Only handle Google sign-in and ensure account is not null
-        if (account?.provider === "google") {
-          try {
-            await connectMongoDB();
-            const existingUser = await User.findOne({ email: user.email });
-  
-            if (!existingUser) {
-              // Create a new user in the database if not already present
-              await User.create({
-                name: user.name,
-                email: user.email,
-                provider: account.provider,
-                image: user.image,
-              });
-            }
-          } catch (error) {
-            console.error("Google sign-in error:", error);
-            return false; // Return false to prevent the sign-in
-          }
-        }
-  
-        return true; // Return true to proceed with the sign-in
+      async session({ session, token }) {
+        // Include the user ID in the session object
+        session.user.id = token.sub as string;
+        return session;
       },
     },
     session: {

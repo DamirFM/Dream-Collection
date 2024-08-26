@@ -41,10 +41,9 @@ async function uploadFileToS3(file: Buffer, fileName: string) {
 export async function POST(request: NextRequest) {
   try {
     await connectMongoDB();
-
     // Use next-auth JWT to get the user information
     const token = await getToken({ req: request });
-
+    console.log("Token retrieved:", token);
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -78,20 +77,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Handle GET requests
-// export async function GET() {
-//   try {
-//     await connectMongoDB();
-
-//     const posts = await Post.find(); // Fetch all posts from MongoDB
-
-//     return NextResponse.json({ posts });
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//     return NextResponse.json({ error: "Error getting post" }, { status: 500 });
-//   }
-// }
-
 export async function GET() {
   try {
     await connectMongoDB();
@@ -105,26 +90,6 @@ export async function GET() {
     return NextResponse.json({ error: "Error getting posts" }, { status: 500 });
   }
 }
-
-// export async function GET(request: NextRequest) {
-//   try {
-//     await connectMongoDB();
-
-//     const token = await getToken({ req: request });
-
-//     if (!token) {
-//       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-//     }
-
-//     const userId = token.sub; // Get the user's ID from the JWT token
-//     const posts = await Post.find({ userId }); // Fetch posts specific to the logged-in user
-
-//     return NextResponse.json({ posts });
-//   } catch (error) {
-//     console.error("Error fetching posts:", error);
-//     return NextResponse.json({ error: "Error getting posts" }, { status: 500 });
-//   }
-// }
 
 // Function to delete file from S3
 async function deleteFileFromS3(key: string) {
