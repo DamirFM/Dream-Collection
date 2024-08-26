@@ -1,16 +1,42 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import PostCard from "../components/PostCard";
+import PostCard from "@/app/components/PostCard";
 import LoginPage from "../login/page";
 import Image from "next/image";
 
+type Post = {
+  _id: string;
+  title: string;
+  description: string;
+  userId: string;
+  imageUrl?: string;
+};
+
 export default function ProfilePage() {
   const { status, data: session } = useSession();
+  const [posts, setPosts] = useState<Post[]>([]);
 
   const handleNavigation = (url: string) => {
     window.location.href = url;
   };
+
+  useEffect(() => {
+    const getUserPosts = async () => {
+      try {
+        const res = await fetch("/api/posts/user", { cache: "no-cache" }); // Fetch only the user's posts
+        if (!res.ok) throw new Error("Failed to fetch posts");
+        const data = await res.json();
+        setPosts(data.posts); // Set only the user's posts
+      } catch (error) {
+        console.error('Error loading Posts:', error);
+      }
+    };
+
+    if (session) {
+      getUserPosts(); // Fetch posts only when the user is authenticated
+    }
+  }, [session]);
 
   if (status === "loading") {
     return (
@@ -22,14 +48,14 @@ export default function ProfilePage() {
 
   if (status === "authenticated") {
     return (
-      <div className="flex  justify-center w-full h-screen bg-stone-50">
+      <div className="flex justify-center w-full h-screen bg-stone-50">
         <div className="flex flex-col items-center w-full">
           <div className="w-full max-w-screen-xl p-8 bg-stone-50 rounded-md">
             <div className="flex flex-row justify-center items-center mt-12 relative">
               <Image
                 height={100}
                 width={100}
-                src={session?.user?.image || "/default-profile.jpg"} // Display the session image or default
+                src={session?.user?.image || "/default-profile.jpg"}
                 alt="User Photo"
                 className="w-24 h-24 rounded-full shadow-md mb-4"
               />
@@ -63,7 +89,25 @@ export default function ProfilePage() {
           </div>
           <div className="w-full max-w-screen-xl p-8 bg-stone-50 rounded-md mt-4">
             <h2 className="text-2xl font-bold text-stone-900">My Posts</h2>
-            <PostCard />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {posts.map((post) => (
+                <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
+                  {post.imageUrl && (
+                    <Image
+                      src={post.imageUrl}
+                      alt={post.title}
+                      width={500}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                  )}
+                  <div className="p-4">
+                    <h2 className="m-0 text-xl">{post.title}</h2>
+                    <p className="mt-2 text-gray-600">{post.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

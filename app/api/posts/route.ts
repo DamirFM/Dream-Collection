@@ -92,18 +92,12 @@ export async function POST(request: NextRequest) {
 //   }
 // }
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     await connectMongoDB();
 
-    const token = await getToken({ req: request });
-
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const userId = token.sub; // Get the user's ID from the JWT token
-    const posts = await Post.find({ userId }); // Fetch posts specific to the logged-in user
+    // Fetch all posts from MongoDB
+    const posts = await Post.find();
 
     return NextResponse.json({ posts });
   } catch (error) {
@@ -111,6 +105,26 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Error getting posts" }, { status: 500 });
   }
 }
+
+// export async function GET(request: NextRequest) {
+//   try {
+//     await connectMongoDB();
+
+//     const token = await getToken({ req: request });
+
+//     if (!token) {
+//       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+//     }
+
+//     const userId = token.sub; // Get the user's ID from the JWT token
+//     const posts = await Post.find({ userId }); // Fetch posts specific to the logged-in user
+
+//     return NextResponse.json({ posts });
+//   } catch (error) {
+//     console.error("Error fetching posts:", error);
+//     return NextResponse.json({ error: "Error getting posts" }, { status: 500 });
+//   }
+// }
 
 // Function to delete file from S3
 async function deleteFileFromS3(key: string) {
