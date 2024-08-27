@@ -8,9 +8,8 @@ import { Work_Sans } from 'next/font/google';
 
 const workSans = Work_Sans({
     subsets: ['latin'],
-    weight: ['400', '700'], // Adjust weights as needed
+    weight: ['400', '700'],
 });
-
 
 const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 
@@ -34,10 +33,28 @@ const buttonVariants = {
     press: { scale: 0.95, transition: { duration: 0.2, ease: "easeInOut" } }
 };
 
+const DrawOutlineButton = ({ children, ...rest }) => {
+    return (
+        <motion.button
+            {...rest}
+            className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white outline-none transition-colors duration-[400ms] hover:text-indigo-300"
+            initial="initial"
+            animate="visible"
+            whileHover="hover"
+            whileTap="press"
+            variants={buttonVariants}
+        >
+            <span className="flex items-center gap-2">
+                {children}
+            </span>
 
+        </motion.button>
+    );
+};
 
 export default function AboutComponent() {
-    const text = "Dream Gallery";
+    const textHeader1 = "Dream Gallery";
+    const textHeader2 = "A place to share your dreams with the world";
 
     return (
         <div className="flex flex-col justify-center items-center space-y-6">
@@ -52,8 +69,8 @@ export default function AboutComponent() {
                 }}
             >
                 <div>
-                    {text.split("").map((char, index) => {
-                        return <motion.span
+                    {textHeader1.split("").map((char, index) => (
+                        <motion.span
                             variants={{
                                 initial: {
                                     y: 0,
@@ -68,12 +85,15 @@ export default function AboutComponent() {
                                 delay: STAGGER * index,
                             }}
                             className="inline-block"
-                            key={index}>{char === ' ' ? '\u00A0' : char}</motion.span>
-                    })}
+                            key={index}
+                        >
+                            {char === ' ' ? '\u00A0' : char}
+                        </motion.span>
+                    ))}
                 </div>
                 <div className="absolute inset-0">
-                    {text.split("").map((char, index) => {
-                        return <motion.span
+                    {textHeader1.split("").map((char, index) => (
+                        <motion.span
                             variants={{
                                 initial: {
                                     y: "100%",
@@ -88,32 +108,38 @@ export default function AboutComponent() {
                                 delay: STAGGER * index,
                             }}
                             className="inline-block"
-                            key={index}>{char === ' ' ? '\u00A0' : char} {/* Preserve space character */}</motion.span>
-                    })}
+                            key={index}
+                        >
+                            {char === ' ' ? '\u00A0' : char}
+                        </motion.span>
+                    ))}
                 </div>
-
             </motion.h1>
-            <motion.p
+            <motion.div
                 className="text-stone-700 text-2xl text-center font-semibold"
                 initial="hidden"
                 animate="visible"
                 variants={slideDown}
             >
-                A place to share your dreams with the world
-            </motion.p>
+                <div className={`${workSans.className} text-center font-thin text-stone-800 uppercase relative block overflow-hidden whitespace-nowrap text-xs sm:text-xl md:text-3xl lg:text-4xl`}>
+                    {textHeader2.split("").map((char, index) => (
+                        <motion.span
+                            className="hoverText"
+
+                            key={index}
+                        >
+                            {char === ' ' ? '\u00A0' : char}
+                        </motion.span>
+                    ))}
+                </div>
+
+            </motion.div>
 
             <Link href="/addPost">
-                <motion.button
-                    className="group bg-stone-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-102 transition cursor-pointer"
-                    initial="initial"
-                    animate="visible"
-                    whileHover="hover"
-                    whileTap="press"
-                    variants={buttonVariants}
-                >
+                <DrawOutlineButton>
                     Create a new dream
                     <BsArrowRight />
-                </motion.button>
+                </DrawOutlineButton>
             </Link>
         </div>
     );
