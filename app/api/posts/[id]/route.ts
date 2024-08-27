@@ -3,7 +3,7 @@ import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client
 import Post from '@/models/post';
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-
+export const dynamic = 'force-dynamic';
 // Utility function to generate a random image name
 const randomImageName = (bytes = 32) => crypto.randomBytes(bytes).toString('hex');
 

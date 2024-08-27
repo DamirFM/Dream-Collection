@@ -37,7 +37,7 @@ async function uploadFileToS3(file: Buffer, fileName: string) {
   await s3Client.send(command);
   return `https://${bucketName}.s3.${region}.amazonaws.com/${params.Key}`;
 }
-
+export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     await connectMongoDB();
