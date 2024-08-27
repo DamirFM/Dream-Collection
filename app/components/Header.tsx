@@ -91,7 +91,7 @@ export default function Header() {
 
   return (
     <header className="z-[999] relative">
-      <div className="fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-stone-50 bg-opacity-95">
+      <div className="bg-[#FFEDED] fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-opacity-80  shadow-black/[0.03] backdrop-blur-[0.5rem]  border border-stone-50 border-opacity-40">
         <div className="flex flex-row items-center justify-between space-x-4 md:space-x-4 w-full">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-stone-900">
@@ -105,7 +105,7 @@ export default function Header() {
             <div className="relative w-full sm:w-44 md:w-96 lg:w-full">
               <input
                 type="text"
-                className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-200 text-stone-900 hover:bg-stone-300 focus:bg-stone-200 placeholder-small md:placeholder-large"
+                className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large"
                 placeholder="Search images"
               />
               <FaSearch
@@ -147,7 +147,9 @@ export default function Header() {
               ) : (
                 <button
                   onClick={() => (window.location.href = "/login")}
-                  className="text-stone-900 border border-stone-500  py-1 px-4 rounded-xl font-semibold text-xl hover:text-stone-50 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
+                  className="group bg-stone-900 text-white px-4 py-1 flex 
+                  items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+                   hover:bg-stone-950 active:scale-105 transition cursor-pointer"
                 >
                   Login
                 </button>
@@ -165,6 +167,17 @@ export default function Header() {
                 </motion.div>
               </button>
             </section>
+            {/* <section ref={dropdownRef} className="block lg:hidden">
+              <button onClick={toggleDropdown} className="text-stone-900 py-2">
+                <motion.div
+                  variants={dropDownIconVariants}
+                  animate={iconControls}
+                  className="flex items-center justify-center"
+                >
+                  {dropDownOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+                </motion.div>
+              </button>
+            </section> */}
           </div>
         </div>
 
@@ -217,12 +230,13 @@ export default function Header() {
             <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
               <button
                 onClick={() => handleNavigation("/login")}
-                className="text-stone-900 border border-stone-500  py-1 px-4 rounded-xl font-semibold text-xl hover:text-stone-50 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
+                className="group bg-stone-900 text-white px-4 py-1 flex 
+                items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+                 hover:bg-stone-950 active:scale-105 transition cursor-pointer"
               >
-                <span >Login</span>
+                <span>Login</span>
               </button>
-              <div className=" border-2 w-full border-stone-500">
-              </div>
+              <div className=" border-2 w-full border-stone-500"></div>
             </div>
           )}
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">

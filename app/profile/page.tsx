@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { HiPencilAlt } from 'react-icons/hi';
-import RemoveBtn from '../components/UI/removeBtn';
+import { HiPencilAlt } from "react-icons/hi";
+import RemoveBtn from "../components/UI/removeBtn";
 import LoginPage from "../login/page";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,23 +26,23 @@ export default function ProfilePage() {
   useEffect(() => {
     const getUserPosts = async () => {
       try {
-        const res = await fetch("/api/posts/user", { cache: "no-cache" }); // Fetch only the user's posts
+        const res = await fetch("/api/posts/user", { cache: "no-cache" });
         if (!res.ok) throw new Error("Failed to fetch posts");
         const data = await res.json();
-        setPosts(data.posts); // Set only the user's posts
+        setPosts(data.posts);
       } catch (error) {
-        console.error('Error loading Posts:', error);
+        console.error("Error loading Posts:", error);
       }
     };
 
     if (session) {
-      getUserPosts(); // Fetch posts only when the user is authenticated
+      getUserPosts();
     }
   }, [session]);
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen bg-stone-50">
+      <div className="flex items-center justify-center h-screen">
         <div>Loading...</div>
       </div>
     );
@@ -50,50 +50,60 @@ export default function ProfilePage() {
 
   if (status === "authenticated") {
     return (
-      <div className="flex justify-center w-full h-screen bg-stone-50">
-        <div className="flex flex-col items-center w-full">
-          <div className="w-full max-w-screen-xl p-8 bg-stone-50 rounded-md">
-            <div className="flex flex-row justify-center items-center mt-12 relative">
-              <Image
-                height={100}
-                width={100}
-                src={session?.user?.image || "/default-profile.jpg"}
-                alt="User Photo"
-                className="w-24 h-24 rounded-full shadow-md mb-4"
-              />
-              <div className="ml-4">
-                <h2 className="text-2xl font-bold text-stone-900">
-                  {session?.user?.name}
-                </h2>
-                <p className="text-stone-700">Software Developer</p>
-                <p className="text-stone-500">Toronto, Canada</p>
-                <p className="text-stone-700">
-                  I am a software developer with a passion for building web
-                  applications.
-                </p>
-              </div>
-              <div className="flex flex-col mb-8 gap-2">
-                <button
-                  type="button"
-                  className="text-stone-900 border border-stone-500 py-1 px-4 rounded-xl font-semibold text-xl hover:text-stone-50 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
-                >
-                  Edit Profile
-                </button>
-                <button
-                  onClick={() => handleNavigation("/addPost")}
-                  type="button"
-                  className="text-stone-900 border border-stone-500 py-1 px-4 rounded-xl font-semibold text-xl hover:text-stone-50 hover:bg-stone-800 transition duration-300 ease-in-out transform hover:scale-1"
-                >
-                  New Post
-                </button>
-              </div>
+      <div className="relative flex justify-center w-full min-h-screen">
+        {/* Background Blobs */}
+        <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[50rem]"></div>
+        <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
+
+        <div className="relative flex flex-col items-center w-full max-w-screen-lg p-4 md:p-8 lg:p-12">
+          <div className="w-full flex flex-col items-center text-center sm:flex-row sm:text-left">
+            <Image
+              height={100}
+              width={100}
+              src={session?.user?.image || "/default-profile.jpg"}
+              alt="User Photo"
+              className="w-24 h-24 rounded-full shadow-md mb-4 sm:mb-0"
+            />
+            <div className="ml-0 sm:ml-4">
+              <h2 className="text-2xl font-bold text-stone-900">
+                {session?.user?.name}
+              </h2>
+              <p className="text-stone-700">Software Developer</p>
+              <p className="text-stone-500">Toronto, Canada</p>
+              <p className="text-stone-700">
+                I am a software developer with a passion for building web
+                applications.
+              </p>
+            </div>
+            <div className="flex flex-col mt-4 sm:mt-0 sm:ml-auto gap-2">
+              <button
+                type="button"
+                className="group bg-stone-900 text-white px-6 py-2 flex 
+        items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+        hover:bg-gray-950 active:scale-105 transition cursor-pointer"
+              >
+                Edit Profile
+              </button>
+              <button
+                onClick={() => handleNavigation("/addPost")}
+                type="button"
+                className="group bg-stone-900 text-white px-6 py-2 flex 
+        items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+        hover:bg-gray-950 active:scale-105 transition cursor-pointer"
+              >
+                New Post
+              </button>
             </div>
           </div>
-          <div className="w-full max-w-screen-xl p-8 bg-stone-50 rounded-md mt-4">
-            <h2 className="text-2xl font-bold text-stone-900">My Posts</h2>
+
+          <div className="w-full mt-8">
+            <h2 className="text-2xl font-bold text-stone-900 mb-6">My Posts</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post) => (
-                <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
+                <div
+                  key={post._id}
+                  className="border border-gray-300 rounded-lg overflow-hidden shadow-lg"
+                >
                   {post.imageUrl && (
                     <Image
                       src={post.imageUrl}
@@ -114,10 +124,7 @@ export default function ProfilePage() {
                     </Link>
                   </div>
                 </div>
-
               ))}
-
-
             </div>
           </div>
         </div>
@@ -127,4 +134,3 @@ export default function ProfilePage() {
     return <LoginPage />;
   }
 }
-

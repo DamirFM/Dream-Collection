@@ -44,8 +44,12 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-stone-50">
-      <div className="w-full max-w-xl p-8 bg-stone-50">
+
+    <div className="relative flex items-center justify-center h-screen ">
+      <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] "></div>
+      <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem] "></div>
+
+      <div className="relative w-full max-w-xl p-8 ">
         <h2 className="text-center text-2xl font-bold mb-6">Login</h2>
         <div className="flex justify-center mb-6">
           <SignInBtn />
@@ -66,9 +70,7 @@ export default function LoginPage() {
             <div className="flex justify-between">
               <span className="text-stone-700 font-bold">Password</span>
               <span className="block text-right text-stone-500 text-sm">
-                <a href="#" className="hover:underline">
-                  Forgot password?
-                </a>
+                <a href="#" className="hover:underline">Forgot password?</a>
               </span>
             </div>
             <input
@@ -85,20 +87,13 @@ export default function LoginPage() {
           >
             Login
           </button>
-          {/* Add any error messages or other feedback here */}
-          {error && (
-            <div className=" text-red-500  rounded-md">
-              {error}
-            </div>
-          )}
+          {error && <div className="text-red-500 rounded-md">{error}</div>}
         </form>
         <p className="text-center mt-4 text-stone-700">
-          Don&apos;t have an account?{" "}
-          <a href="/join" className="hover:underline text-stone-900">
-            JOIN
-          </a>
+          Don&apos;t have an account? <a href="/join" className="hover:underline text-stone-900">JOIN</a>
         </p>
       </div>
     </div>
+
   );
 }
