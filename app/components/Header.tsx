@@ -185,7 +185,7 @@ export default function Header() {
           variants={dropdownVariants}
           initial="closed"
           animate={controls}
-          className="flex flex-col items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-stone-50 border border-stone-300 p-6 rounded-2xl shadow-md absolute right-0 w-56 sm:w-64 md:w-48"
+          className="flex flex-col backdrop-blur-[0.5rem] items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-[#FFEDED] border border-stone-300 p-6 rounded-2xl shadow-md absolute right-0 w-56 sm:w-64 md:w-48"
         >
           {status === "authenticated" ? (
             <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
@@ -241,7 +241,7 @@ export default function Header() {
           )}
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             <button
-              onClick={closeDropdown}
+              onClick={() => handleNavigation("/")}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
               <Image
