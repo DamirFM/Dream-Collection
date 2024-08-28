@@ -147,7 +147,7 @@ export default function Header() {
               ) : (
                 <>
                   <button
-                    onClick={() => handleNavigation("/")}
+                    onClick={() => handleNavigation("/feed")}
                     className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                   >
 
