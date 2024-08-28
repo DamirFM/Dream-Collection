@@ -6,7 +6,7 @@ import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
 import { motion, useAnimationControls } from "framer-motion";
 import Image from "next/image";
 
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 
 const dropdownVariants = {
   closed: {
@@ -94,6 +94,7 @@ export default function Header() {
       <div className="bg-[#FFEDED] fixed top-0 w-full justify-between items-center p-4 md:p-6 bg-opacity-80  shadow-black/[0.03] backdrop-blur-[0.5rem]  border border-stone-50 border-opacity-40">
         <div className="flex flex-row items-center justify-between space-x-4 md:space-x-4 w-full">
           <div className="flex items-center space-x-4">
+            <img src="/assets/collection.svg" alt="Logo" className="-mr-3 h-12" />
             <h1 className="text-2xl font-bold text-stone-900">
               <Link
                 href={"/"}
@@ -102,11 +103,12 @@ export default function Header() {
                 collection
               </Link>
             </h1>
+
             <div className="relative w-full sm:w-44 md:w-96 lg:w-full">
               <input
                 type="text"
                 className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large"
-                placeholder="Search images"
+                placeholder="Search"
               />
               <FaSearch
                 className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-500"
@@ -146,27 +148,76 @@ export default function Header() {
                 </>
               ) : (
                 <>
-                  <button
+                  {/* Explore Button */}
+                  <motion.a
                     onClick={() => handleNavigation("/feed")}
-                    className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    initial="initial"
+                    whileHover="hovered"
                   >
-
-                    <span className="ml-3">Explore</span>
-                  </button>
-                  <button
+                    <motion.button
+                      variants={{
+                        initial: { y: 0 },
+                        hovered: { y: "-100%" },
+                      }}>
+                      Explore
+                    </motion.button>
+                    <motion.button
+                      className="absolute inset-0 "
+                      variants={{
+                        initial: { y: "100%" },
+                        hovered: { y: 0 },
+                      }}>
+                      Explore
+                    </motion.button>
+                  </motion.a>
+                  {/* Collections Button */}
+                  <motion.a
                     onClick={() => handleNavigation("/collections")}
-                    className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    initial="initial"
+                    whileHover="hovered"
                   >
+                    <motion.button
+                      variants={{
+                        initial: { y: 0 },
+                        hovered: { y: "-100%" },
+                      }}>
+                      Collections
+                    </motion.button>
+                    <motion.button
+                      className="absolute inset-0 "
+                      variants={{
+                        initial: { y: "100%" },
+                        hovered: { y: 0 },
+                      }}>
+                      Collections
+                    </motion.button>
+                  </motion.a>
 
-                    <span className="ml-3">Collections</span>
-                  </button>
-                  <button
+                  {/* About Button */}
+                  <motion.a
                     onClick={() => handleNavigation("/about")}
-                    className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    initial="initial"
+                    whileHover="hovered"
                   >
-
-                    <span className="ml-3">About</span>
-                  </button>
+                    <motion.button
+                      variants={{
+                        initial: { y: 0 },
+                        hovered: { y: "-100%" },
+                      }}>
+                      About
+                    </motion.button>
+                    <motion.button
+                      className="absolute inset-0 "
+                      variants={{
+                        initial: { y: "100%" },
+                        hovered: { y: 0 },
+                      }}>
+                      About
+                    </motion.button>
+                  </motion.a>
                   <button
                     onClick={() => (window.location.href = "/login")}
                     className="group bg-stone-900 text-white px-4 py-1 flex 
@@ -200,8 +251,8 @@ export default function Header() {
                 </motion.div>
               </button>
             </section> */}
-            <section ref={dropdownRef} className="block lg:hidden">
-              <button onClick={toggleDropdown} className="text-stone-900 py-2">
+            <section ref={dropdownRef} className=" block lg:hidden">
+              <button onClick={toggleDropdown} className="text-stone-900 py-2 mr-5">
                 <motion.div
                   variants={dropDownIconVariants}
                   animate={iconControls}

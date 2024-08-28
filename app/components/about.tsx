@@ -1,277 +1,90 @@
 "use client";
-// import React from "react";
-// import { Roboto } from "next/font/google";
-// import Link from "next/link";
-// import { BsArrowRight } from "react-icons/bs";
-// import { motion } from 'framer-motion';
-// import { Work_Sans } from 'next/font/google';
-// import SwipeCards from "./swipeCards";
 
-// const workSans = Work_Sans({
-//     subsets: ['latin'],
-//     weight: ['400', '700'],
-// });
-
-// const roboto = Roboto({ subsets: ["latin"], weight: "400" });
-
-// const slideUp = {
-//     hidden: { opacity: 0, y: 30 },
-//     visible: { opacity: 1, y: 0, transition: { duration: 1 } }
-// };
-
-// const slideDown = {
-//     hidden: { opacity: 0, y: -10 },
-//     visible: { opacity: 1, y: 0, transition: { duration: 1 } }
-// };
-
-// const DURATION = 1.5;
-// const STAGGER = 0.1;
-
-// const buttonVariants = {
-//     initial: { opacity: 0, y: 20 },
-//     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-//     hover: { scale: 1.05, transition: { duration: 0.2, ease: "easeInOut" } },
-//     press: { scale: 0.95, transition: { duration: 0.2, ease: "easeInOut" } }
-// };
-
-// const DrawOutlineButton = ({ children, ...rest }) => {
-//     return (
-//         <motion.button
-//             {...rest}
-//             className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white outline-none transition-colors duration-[400ms]"
-//             initial="initial"
-//             animate="visible"
-//             whileHover="hover"
-//             whileTap="press"
-//             variants={buttonVariants}
-//         >
-//             <span className="flex items-center gap-2">
-//                 {children}
-//             </span>
-
-//         </motion.button>
-//     );
-// };
-
-// export default function AboutComponent() {
-//     const textHeader1 = "Dream Gallery";
-//     const textHeader2 = "A place to share your dreams with the world";
-
-//     return (
-//         <div className="flex flex-col justify-center items-center space-y-6 ">
-//             <motion.h1
-//                 className={`${workSans.className} text-stone-900 mt-4 font-black text-center uppercase relative block overflow-hidden whitespace-nowrap text-4xl sm:text-6xl md:text-8xl lg:text-9xl`}
-//                 initial="hidden"
-//                 whileHover="hovered"
-//                 animate="visible"
-//                 variants={slideUp}
-//                 style={{
-//                     lineHeight: 0.75,
-//                 }}
-//             >
-//                 <div>
-//                     {textHeader1.split("").map((char, index) => (
-//                         <motion.span
-//                             variants={{
-//                                 initial: {
-//                                     y: 0,
-//                                 },
-//                                 hovered: {
-//                                     y: "-100%",
-//                                 },
-//                             }}
-//                             transition={{
-//                                 duration: DURATION,
-//                                 ease: "easeInOut",
-//                                 delay: STAGGER * index,
-//                             }}
-//                             className="inline-block"
-//                             key={index}
-//                         >
-//                             {char === ' ' ? '\u00A0' : char}
-//                         </motion.span>
-//                     ))}
-//                 </div>
-//                 <div className="absolute inset-0">
-//                     {textHeader1.split("").map((char, index) => (
-//                         <motion.span
-//                             variants={{
-//                                 initial: {
-//                                     y: "100%",
-//                                 },
-//                                 hovered: {
-//                                     y: 0,
-//                                 },
-//                             }}
-//                             transition={{
-//                                 duration: DURATION,
-//                                 ease: "easeInOut",
-//                                 delay: STAGGER * index,
-//                             }}
-//                             className="inline-block"
-//                             key={index}
-//                         >
-//                             {char === ' ' ? '\u00A0' : char}
-//                         </motion.span>
-//                     ))}
-//                 </div>
-//             </motion.h1>
-//             <motion.div
-//                 className="text-stone-700 text-2xl text-center font-semibold"
-//                 initial="hidden"
-//                 animate="visible"
-//                 variants={slideDown}
-//             >
-//                 <div className={`${workSans.className} text-center font-thin text-stone-800 uppercase relative block overflow-hidden whitespace-nowrap text-xs sm:text-xl md:text-3xl lg:text-4xl`}>
-//                     {textHeader2.split("").map((char, index) => (
-//                         <motion.span
-//                             className="hoverText"
-
-//                             key={index}
-//                         >
-//                             {char === ' ' ? '\u00A0' : char}
-//                         </motion.span>
-//                     ))}
-//                 </div>
-
-//             </motion.div>
-
-//             <Link href="/addPost">
-//                 <DrawOutlineButton>
-//                     Create a new dream
-//                     <BsArrowRight />
-//                 </DrawOutlineButton>
-//             </Link>
-//             <SwipeCards />
-
-//         </div>
-//     );
-// }
 import React from "react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import { BsArrowRight } from "react-icons/bs";
 import Link from "next/link";
-import { Work_Sans } from 'next/font/google';
+import { Work_Sans } from "next/font/google";
 import SwipeCards from "./swipeCards";
 
 const workSans = Work_Sans({
-    subsets: ['latin'],
-    weight: ['400', '700'],
+    subsets: ["latin"],
+    weight: ["400", "700"],
 });
 
-const DURATION = 1.5;
-const STAGGER = 0.1;
-
-const buttonVariants = {
-    initial: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-    hover: { scale: 1.05, transition: { duration: 0.2, ease: "easeInOut" } },
-    press: { scale: 0.95, transition: { duration: 0.2, ease: "easeInOut" } }
-};
-
-const DrawOutlineButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ children, ...rest }) => {
-    return (
-        <button
-            {...rest}
-            className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white outline-none transition-colors duration-[400ms]"
-        // initial="initial"
-        // animate="visible"
-        // whileHover="hover"
-        // whileTap="press"
-        // variants={buttonVariants}
-        >
-            <span className="flex items-center gap-2">
-                {children}
-            </span>
-        </button>
-    );
-};
-
-const AnimatedHeader: React.FC<{ text: string }> = ({ text }) => (
-    <motion.h1
-        className={`${workSans.className} text-stone-900 mt-4 font-black text-center uppercase relative block overflow-hidden whitespace-nowrap text-4xl sm:text-6xl md:text-8xl lg:text-9xl`}
-        initial="hidden"
-        whileHover="hovered"
-        animate="visible"
-        variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-        }}
-        style={{ lineHeight: 0.75 }}
-    >
-        <div>
-            {text.split("").map((char, index) => (
-                <motion.span
-                    key={index}
-                    variants={{
-                        initial: { y: 0 },
-                        hovered: { y: "-100%" },
-                    }}
-                    transition={{
-                        duration: DURATION,
-                        ease: "easeInOut",
-                        delay: STAGGER * index,
-                    }}
-                    className="inline-block"
-                >
-                    {char === ' ' ? '\u00A0' : char}
-                </motion.span>
-            ))}
-        </div>
-        <div className="absolute inset-0">
-            {text.split("").map((char, index) => (
-                <motion.span
-                    key={index}
-                    variants={{
-                        initial: { y: "100%" },
-                        hovered: { y: 0 },
-                    }}
-                    transition={{
-                        duration: DURATION,
-                        ease: "easeInOut",
-                        delay: STAGGER * index,
-                    }}
-                    className="inline-block"
-                >
-                    {char === ' ' ? '\u00A0' : char}
-                </motion.span>
-            ))}
-        </div>
-    </motion.h1>
-);
-
 export default function AboutComponent() {
-    const textHeader1 = "Dream Gallery";
-    const textHeader2 = "A place to share your dreams with the world";
+    const textHeader1 = "Dream Collection";
+    const textPar = "A place to share your dreams with the world. Here, you can transform your personal visions into a global showcase, connecting with a vibrant community of dreamers and creators.";
 
     return (
-        <div className="flex flex-col justify-center items-center space-y-6">
-            <AnimatedHeader text={textHeader1} />
-            <motion.div
-                className="text-stone-700 text-2xl text-center font-semibold"
-                initial="hidden"
-                animate="visible"
-                variants={{
-                    hidden: { opacity: 0, y: -10 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
-                }}
-            >
-                <div className={`${workSans.className} text-center font-thin text-stone-800 uppercase relative block overflow-hidden whitespace-nowrap text-xs sm:text-xl md:text-3xl lg:text-4xl`}>
-                    {textHeader2.split("").map((char, index) => (
-                        <motion.span className="hoverText" key={index}>
-                            {char === ' ' ? '\u00A0' : char}
-                        </motion.span>
-                    ))}
-                </div>
-            </motion.div>
-            <Link href="/addPost">
-                <DrawOutlineButton>
-                    Create a new dream
-                    <BsArrowRight />
-                </DrawOutlineButton>
-            </Link>
-            <SwipeCards />
+        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between items-center mt-3 md:mt-8 sm:mt-6 space-y-6 lg:space-y-0">
+            {/* Content for the right side */}
+            <div className="flex flex-col justify-center items-center lg:items-start space-y-4 w-full lg:w-2/3">
+                {/* "Dream" */}
+                <motion.div
+                    className="text-stone-700 text-center font-semibold mt-4 sm:mt-0"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: { opacity: 0, y: -10 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+                    }}
+                >
+                    <div
+                        className={`${workSans.className} text-stone-900 -mb-3 font-black text-center lg:text-right uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] lg:ml-5`}
+                    >
+                        {textHeader1.split(" ")[0].split("").map((char, index) => (
+                            <motion.span className="hoverText" key={index}>
+                                {char === " " ? "\u00A0" : char}
+                            </motion.span>
+                        ))}
+                    </div>
+                </motion.div>
+                {/* "Collection" */}
+                <motion.div
+                    className="text-stone-700 text-2xl text-center font-semibold"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: { opacity: 0, y: -10 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+                    }}
+                >
+                    <div
+                        className={`${workSans.className} text-stone-900 -mt-4 font-black text-center lg:text-right uppercase relative block overflow-hidden whitespace-nowrap text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] lg:ml-5`}
+                    >
+                        {textHeader1.split(" ")[1].split("").map((char, index) => (
+                            <motion.span className="hoverText" key={index}>
+                                {char === " " ? "\u00A0" : char}
+                            </motion.span>
+                        ))}
+                    </div>
+                </motion.div>
+                {/* "A place to share your dreams with the world" */}
+                <motion.p
+                    className="text-center lg:text-left text-stone-900 font-semibold text-xs sm:text-3xl md:text-4xl lg:text-85xl xl:text-5xl lg:ml-5"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: { opacity: 0, y: -10 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+                    }}
+                >
+                    {textPar}
+                </motion.p>
+                <Link href="/addPost">
+                    <motion.button
+                        className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer lg:ml-5"
+                    >
+                        Create a new dream
+                        <BsArrowRight />
+                    </motion.button>
+                </Link>
+            </div>
+            {/* Content for the left side on large screens */}
+            <div className="flex justify-center sm:order-2 lg:order-none lg:justify-start w-full lg:w-1/3 lg:-ml-12 sm:order-last lg:order-none">
+                <SwipeCards />
+            </div>
         </div>
     );
 }
-
