@@ -17,9 +17,9 @@ export default function AboutComponent() {
     const textPar = "A place to share your dreams with the world. Here, you can transform your personal visions into a global showcase, connecting with a vibrant community of dreamers and creators.";
 
     return (
-        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between items-center mt-3 md:mt-8 sm:mt-6 space-y-6 lg:space-y-0">
+        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between  items-center mt-3 md:mt-8 sm:mt-5 space-y-6 lg:space-y-0">
             {/* Content for the right side */}
-            <div className="flex flex-col justify-center items-center lg:items-start space-y-4 w-full lg:w-2/3">
+            <div className="flex flex-col justify-center items-center  lg:items-start space-y-4 w-full lg:w-2/3">
                 {/* "Dream" */}
                 <motion.div
                     className="text-stone-700 text-center font-semibold mt-4 sm:mt-0"
@@ -82,7 +82,7 @@ export default function AboutComponent() {
                 </Link>
             </div>
             {/* Content for the left side on large screens */}
-            <div className="flex justify-center sm:order-2 lg:order-none lg:justify-start w-full lg:w-1/3 lg:-ml-12 sm:order-last lg:order-none">
+            <div className="flex justify-center sm:order-2 lg:order-none sm:-mt-16 lg:justify-start w-full lg:w-1/3 lg:-ml-12  ">
                 <SwipeCards />
             </div>
         </div>

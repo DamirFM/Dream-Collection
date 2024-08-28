@@ -24,7 +24,8 @@ const SwipeCards: React.FC = () => {
 
     return (
         <div
-            className="grid h-[500px] w-full place-items-center"
+            className="grid h-[500px] w-full place-items-center grid-flow-col gap-4 xs:-mt-4"
+
             onClick={handleTab}  // Handle tab click
         >
             {cards.map((card) => {
