@@ -5,6 +5,7 @@ import Link from "next/link";
 import { BsArrowRight } from "react-icons/bs";
 import { motion } from 'framer-motion';
 import { Work_Sans } from 'next/font/google';
+import SwipeCards from "./swipeCards";
 
 const workSans = Work_Sans({
     subsets: ['latin'],
@@ -37,7 +38,7 @@ const DrawOutlineButton = ({ children, ...rest }) => {
     return (
         <motion.button
             {...rest}
-            className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white outline-none transition-colors duration-[400ms] hover:text-indigo-300"
+            className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white outline-none transition-colors duration-[400ms]"
             initial="initial"
             animate="visible"
             whileHover="hover"
@@ -57,7 +58,7 @@ export default function AboutComponent() {
     const textHeader2 = "A place to share your dreams with the world";
 
     return (
-        <div className="flex flex-col justify-center items-center space-y-6">
+        <div className="flex flex-col justify-center items-center space-y-6 ">
             <motion.h1
                 className={`${workSans.className} text-stone-900 mt-4 font-black text-center uppercase relative block overflow-hidden whitespace-nowrap text-4xl sm:text-6xl md:text-8xl lg:text-9xl`}
                 initial="hidden"
@@ -141,6 +142,8 @@ export default function AboutComponent() {
                     <BsArrowRight />
                 </DrawOutlineButton>
             </Link>
+            <SwipeCards />
+
         </div>
     );
 }

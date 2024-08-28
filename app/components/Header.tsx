@@ -121,7 +121,7 @@ export default function Header() {
                 <>
                   <button
                     onClick={() => (window.location.href = "/profile")}
-                    className="flex flex-row gap-1  text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    className="flex flex-row gap-1 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                   >
                     <Image
                       src="/assets/profile.svg"
@@ -133,7 +133,7 @@ export default function Header() {
                   </button>
                   <button
                     onClick={() => signOut()}
-                    className="flex flex-row gap-1  text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                    className="flex flex-row gap-1 text-stone-900 font-semibold text-xl hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
                   >
                     <Image
                       src="/assets/logout.svg"
@@ -145,29 +145,51 @@ export default function Header() {
                   </button>
                 </>
               ) : (
-                <button
-                  onClick={() => (window.location.href = "/login")}
-                  className="group bg-stone-900 text-white px-4 py-1 flex 
-                  items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
-                   hover:bg-stone-950 active:scale-105 transition cursor-pointer"
-                >
-                  Login
-                </button>
+                <>
+                  <button
+                    onClick={() => handleNavigation("/")}
+                    className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                  >
+
+                    <span className="ml-3">Explore</span>
+                  </button>
+                  <button
+                    onClick={() => handleNavigation("/collections")}
+                    className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                  >
+
+                    <span className="ml-3">Collections</span>
+                  </button>
+                  <button
+                    onClick={() => handleNavigation("/about")}
+                    className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+                  >
+
+                    <span className="ml-3">About</span>
+                  </button>
+                  <button
+                    onClick={() => (window.location.href = "/login")}
+                    className="group bg-stone-900 text-white px-4 py-1 flex 
+        items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+        hover:bg-stone-950 active:scale-105 transition cursor-pointer"
+                  >
+                    Login
+                  </button>
+
+                  <button
+                    onClick={() => (window.location.href = "/join")}
+                    className="group bg-stone-50 text-stone-900 px-4 py-1 flex 
+        items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+        hover:border-stone-900 active:scale-105 transition cursor-pointer"
+                  >
+                    Sign up
+                  </button>
+
+                </>
               )}
             </nav>
 
-            <section ref={dropdownRef}>
-              <button onClick={toggleDropdown} className="text-stone-900 py-2">
-                <motion.div
-                  variants={dropDownIconVariants}
-                  animate={iconControls}
-                  className="flex items-center justify-center"
-                >
-                  {dropDownOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
-                </motion.div>
-              </button>
-            </section>
-            {/* <section ref={dropdownRef} className="block lg:hidden">
+            {/* <section ref={dropdownRef}>
               <button onClick={toggleDropdown} className="text-stone-900 py-2">
                 <motion.div
                   variants={dropDownIconVariants}
@@ -178,6 +200,17 @@ export default function Header() {
                 </motion.div>
               </button>
             </section> */}
+            <section ref={dropdownRef} className="block lg:hidden">
+              <button onClick={toggleDropdown} className="text-stone-900 py-2">
+                <motion.div
+                  variants={dropDownIconVariants}
+                  animate={iconControls}
+                  className="flex items-center justify-center"
+                >
+                  {dropDownOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+                </motion.div>
+              </button>
+            </section>
           </div>
         </div>
 
@@ -274,7 +307,7 @@ export default function Header() {
                 width={24}
                 height={24}
               />
-              <span className="ml-3">Legal</span>
+              <span className="ml-3">About</span>
             </button>
           </div>
         </motion.nav>
