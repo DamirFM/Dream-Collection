@@ -93,7 +93,13 @@ export default function Header() {
     <header className="z-[999] relative">
       <div className="bg-stone-50 fixed top-0 w-full flex items-center justify-between p-4 md:p-6 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-50 border-opacity-40">
         <div className="flex items-center space-x-3">
-          <img src="/assets/collection.svg" alt="Logo" className="-mr-3 h-6" />
+          <Image
+            src="/assets/collection.svg" // Path to your image file
+            alt="Logo" // Alternative text for the image
+            className="-mr-3 h-6" // Custom styles, will need to be adapted
+            width={24} // Width of the image (adjust as needed)
+            height={24} // Height of the image (adjust as needed)
+          />
           <h1 className="text-4xl font-bold text-stone-900 up">
             <Link href={"/"} className="block text-stone-900 hover:text-stone-500 transition duration-300 ease-in-out transform hover:scale-1">
               collection
@@ -116,7 +122,7 @@ export default function Header() {
           <nav className="hidden md:flex space-x-4">
             <motion.a
               onClick={() => handleNavigation("/feed")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-[#ae85e3] transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-[#D7C3F1] transition duration-300 ease-in-out transform hover:scale-1"
               initial="initial"
               whileHover="hovered"
             >

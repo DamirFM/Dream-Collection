@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import connectMongoDB from "@/lib/mongodb";
 import User from "@/models/user";
-import { Account, User as NextAuthUser } from "next-auth";
+
 import  { AuthOptions } from "next-auth";
 
 import bcrypt from "bcryptjs";
@@ -50,7 +50,7 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-      async signIn({ user, account }) {
+      async signIn({ user, account }: { user: any; account: any }) { // Added explicit type annotation
         await connectMongoDB();
 
         if (account?.provider === "google") {
@@ -69,20 +69,23 @@ export const authOptions: AuthOptions = {
 
           // Assign the MongoDB user ID to the user object
           user.id = existingUser._id.toString();
+          user.description = existingUser.description;
         }
 
         return true;
       },
-      async jwt({ token, user }) {
+      async jwt({ token, user }: { token: any; user?: any }) { // Added explicit type annotation
         // On initial sign-in, store the MongoDB user ID in the JWT token
         if (user) {
           token.sub = user.id;
+          token.description = user.description
         }
         return token;
       },
-      async session({ session, token }) {
+      async session({ session, token }: { session: any; token: any }) { // Added explicit type annotation
         // Include the user ID in the session object
-        session.user.id = token.sub as string;
+        session.user._id = token.sub as string;
+        session.user.description = token.description as string
         return session;
       },
     },

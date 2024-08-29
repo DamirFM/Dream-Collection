@@ -1,4 +1,5 @@
-'use client';
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { HiPencilAlt } from "react-icons/hi";
@@ -6,45 +7,36 @@ import RemoveBtn from "../components/UI/removeBtn";
 import LoginPage from "../login/page";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+// Ensure types are consistent by using the globally extended `Session` interface.
+type Post = {
+  _id: string;
+  title: string;
+  description: string;
+  imageUrl?: string;
+};
 
 export default function ProfilePage() {
   const { status, data: session } = useSession();
   const [posts, setPosts] = useState<Post[]>([]);
-  const [imageUrl, setImageUrl] = useState(session?.user?.image || "");
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/uploadPhoto", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      setImageUrl(data.imageUrl);
-    } else {
-      console.error("Failed to upload image");
-    }
-  };
+  const router = useRouter();
 
   useEffect(() => {
-    const getUserPosts = async () => {
-      try {
-        const res = await fetch("/api/posts/user", { cache: "no-cache" });
-        if (!res.ok) throw new Error("Failed to fetch posts");
-        const data = await res.json();
-        setPosts(data.posts);
-      } catch (error) {
-        console.error("Error loading Posts:", error);
-      }
-    };
-
     if (session) {
+      console.log("Session Data:", session);
+
+      const getUserPosts = async () => {
+        try {
+          const res = await fetch("/api/posts/filter_tag/", { cache: "no-cache" });
+          if (!res.ok) throw new Error("Failed to fetch posts");
+          const data = await res.json();
+          setPosts(data.posts);
+        } catch (error) {
+          console.error("Error loading posts:", error);
+        }
+      };
+
       getUserPosts();
     }
   }, [session]);
@@ -57,9 +49,12 @@ export default function ProfilePage() {
     );
   }
 
-  if (status === "authenticated") {
+  if (status === "authenticated" && session && session.user) {
+    // Extract user details from session
+    const { name, email, image, description, location } = session.user;
+
     return (
-      <div className="relative flex justify-center w-full min-h-screen">
+      <div className="relative flex flex-col items-center w-full min-h-screen">
         {/* Background Blobs */}
         <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[50rem]"></div>
         <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
@@ -69,48 +64,37 @@ export default function ProfilePage() {
             <Image
               height={100}
               width={100}
-              src={imageUrl || "/default-profile.jpg"}
+              src={image || "/default-profile.jpg"} // Use image from session or default
               alt="User Photo"
               className="w-24 h-24 rounded-full shadow-md mb-4 sm:mb-0"
             />
             <div className="ml-0 sm:ml-4">
               <h2 className="text-2xl font-bold text-stone-900">
-                {session?.user?.name}
+                {name || "User Name"}
               </h2>
-              <p className="text-stone-700">Software Developer</p>
-              <p className="text-stone-500">Toronto, Canada</p>
-              <p className="text-stone-700">
-                I am a software developer with a passion for building web
-                applications.
-              </p>
+              <p className="text-stone-700">{email || "User email..."}</p>
+              <p className="text-stone-700">{description || "User description..."}</p>
+              {/* Optionally display location if it's included */}
+              {location && (
+                <p className="text-stone-700">
+                  Location: {location.lat}, {location.lng}
+                </p>
+              )}
             </div>
             <div className="flex flex-col mt-4 sm:mt-0 sm:ml-auto gap-2">
-              <button
-                type="button"
-                className="group bg-stone-900 text-white px-6 py-2 flex 
-            items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
-            hover:bg-gray-950 active:scale-105 transition cursor-pointer"
-              >
+              <Link href={`/editProfile/${session.user._id}`}>
                 Edit Profile
-              </button>
+              </Link>
               <button
-                onClick={() => handleNavigation("/addPost")}
+                onClick={() => router.push("/addPost")}
                 type="button"
                 className="group bg-stone-900 text-white px-6 py-2 flex 
-            items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
-            hover:bg-gray-950 active:scale-105 transition cursor-pointer"
+                items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+                hover:bg-gray-950 active:scale-105 transition cursor-pointer"
               >
                 New Post
               </button>
             </div>
-          </div>
-
-          <div className="mt-4">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
           </div>
 
           <div className="w-full mt-8">

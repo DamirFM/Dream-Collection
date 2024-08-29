@@ -1,26 +1,45 @@
+
 {
   "compilerOptions": {
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "target": "esnext", // Add target for better clarity on the JavaScript version
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true,  // Keep skipLibCheck true to avoid type checking third-party libraries
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Use "node" module resolution for better compatibility
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",  // Set base URL to root for better path mapping
+    "paths": {
+      "@/*": ["./*"]
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/withClickOutside.js", "lib/mongodb.tsx", "app/api/posts/route.ts", "models/post.ts", "lib/mongodb.ts", "app/api/auth/[...nextauth]/route.ts","__tests__/**/*.ts", "__tests__/**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/withClickOutside.js",
+    "lib/mongodb.tsx",
+    "app/api/posts/route.ts",
+    "models/post.ts",
+    "lib/mongodb.ts",
+    "app/api/auth/[...nextauth]/route.ts",
+    "__tests__/**/*.ts",
+    "__tests__/**/*.tsx",
+    "types/next-auth.d.ts",
+    "types/next-auth.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

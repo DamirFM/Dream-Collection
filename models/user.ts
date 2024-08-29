@@ -1,33 +1,3 @@
-// import mongoose, { Schema, models } from "mongoose";
-
-// const userSchema = new Schema(
-//   {
-//     email: {
-//       type: String,
-//       required: true,
-//     },
-//     name: {
-//       type: String,
-//       required: true,
-//     },
-//     password: {
-//       type: String,  // Password is only required for credentials-based authentication
-//       required: false,
-//     },
-//     provider: {
-//       type: String,  // Indicates whether the user signed up via Google, email, etc.
-//       required: true,
-//     },
-//     image: {
-//       type: String,  // Store profile picture URL (useful for Google auth)
-//       required: false,
-//     },
-//   },
-//   { timestamps: true }
-// );
-
-// const User = models.User || mongoose.model("User", userSchema);
-// export default User;
 import mongoose, { Schema, models } from "mongoose";
 
 const userSchema = new Schema(
@@ -35,7 +5,7 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,     // Ensure email is unique
+      unique: true,
       trim: true,
     },
     name: {
@@ -44,16 +14,28 @@ const userSchema = new Schema(
       trim: true,
     },
     password: {
-      type: String,  // Password is only required for credentials-based authentication
-      required: false,
+      type: String,
+      required: false, // Only required if using credentials provider
     },
     provider: {
-      type: String,  // Indicates whether the user signed up via Google, email, etc.
+      type: String,
       required: true,
+      enum: ['google', 'credentials'], // Restrict to specific values
     },
     image: {
-      type: String,  // Store profile picture URL (useful for Google auth)
+      type: String,
       required: false,
+      default: "/path/to/default-image.jpg", // Add a default image path
+    },
+    description: {
+      type: String,
+      required: false,
+      trim: true,
+      default: "", // Default to empty string if no description is provided
+    },
+    location: {
+      lat: { type: Number, required: false },
+      lng: { type: Number, required: false },
     },
   },
   { timestamps: true }
@@ -61,3 +43,5 @@ const userSchema = new Schema(
 
 const User = models.User || mongoose.model("User", userSchema);
 export default User;
+
+

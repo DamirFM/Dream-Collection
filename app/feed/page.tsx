@@ -3,21 +3,26 @@ import React, { useState, useEffect } from 'react';
 import PostCard from '@/app/components/PostCard';
 import { FaSearch } from "react-icons/fa";
 
+type Post = {
+    _id: string;
+    title: string;
+    description: string;
+    imageUrl?: string;
+};
+
 export default function FeedPage() {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filteredPosts, setFilteredPosts] = useState([]);
-    const [allPosts, setAllPosts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+    const [allPosts, setAllPosts] = useState<Post[]>([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
-
             try {
-
                 const res = await fetch("/api/posts");
                 if (!res.ok) throw new Error("Failed to fetch posts");
                 const data = await res.json();
-                setAllPosts(data.posts);
-                setFilteredPosts(data.posts); // Initially show all posts
+                setAllPosts(data.posts as Post[]);
+                setFilteredPosts(data.posts as Post[]); // Initially show all posts
             } catch (error) {
                 console.error("Error loading posts:", error);
             }
