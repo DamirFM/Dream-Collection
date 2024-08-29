@@ -91,10 +91,10 @@ export default function Header() {
 
   return (
     <header className="z-[999] relative">
-      <div className="bg-[#FFEDED] fixed top-0 w-full flex items-center justify-between p-4 md:p-6 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-50 border-opacity-40">
+      <div className="bg-stone-50 fixed top-0 w-full flex items-center justify-between p-4 md:p-6 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-50 border-opacity-40">
         <div className="flex items-center space-x-3">
-
-          <h1 className="text-2xl font-bold text-stone-900">
+          <img src="/assets/collection.svg" alt="Logo" className="-mr-3 h-6" />
+          <h1 className="text-4xl font-bold text-stone-900 up">
             <Link href={"/"} className="block text-stone-900 hover:text-stone-500 transition duration-300 ease-in-out transform hover:scale-1">
               collection
             </Link>
@@ -116,7 +116,7 @@ export default function Header() {
           <nav className="hidden md:flex space-x-4">
             <motion.a
               onClick={() => handleNavigation("/feed")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-[#ae85e3] transition duration-300 ease-in-out transform hover:scale-1"
               initial="initial"
               whileHover="hovered"
             >
@@ -185,20 +185,40 @@ export default function Header() {
           </nav>
         </div>
 
-        <div className="flex space-x-4">
-          <button
-            onClick={() => (window.location.href = "/login")}
-            className="group bg-stone-900 text-white px-4 py-1 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer"
-          >
-            Login
-          </button>
 
-          <button
-            onClick={() => (window.location.href = "/join")}
-            className="group bg-stone-50 text-stone-900 px-2 py-1 flex items-center gap-2 rounded-full outline-none border border-gray-700 focus:scale-110 hover:scale-110 hover:border-stone-900 active:scale-105 transition cursor-pointer"
-          >
-            Sign up
-          </button>
+        <div className="hidden md:flex space-x-4">
+          {status === "authenticated" ? (
+            <div className="flex space-x-4">
+              <button
+                onClick={() => handleNavigation("/profile")}
+                className="group bg-stone-900 text-white px-4 py-1 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer"
+              >
+                Profile
+              </button>
+              <button
+                onClick={() => signOut()}
+                className="group bg-stone-50 text-stone-900 border border-gray-700 px-4 py-1 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="flex space-x-4">
+              <button
+                onClick={() => (window.location.href = "/login")}
+                className="group bg-stone-900 text-white px-4 py-1 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer"
+              >
+                Login
+              </button>
+
+              <button
+                onClick={() => (window.location.href = "/join")}
+                className="group bg-stone-50 text-stone-900 px-2 py-1 flex items-center gap-2 rounded-full outline-none border border-gray-700 focus:scale-110 hover:scale-110 hover:border-stone-900 active:scale-105 transition cursor-pointer"
+              >
+                Sign up
+              </button>
+            </div>
+          )}
         </div>
 
         <section ref={dropdownRef} className=" block lg:hidden md:hidden ml-4 ">

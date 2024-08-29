@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { HiPencilAlt } from "react-icons/hi";
@@ -7,20 +7,29 @@ import LoginPage from "../login/page";
 import Image from "next/image";
 import Link from "next/link";
 
-type Post = {
-  _id: string;
-  title: string;
-  description: string;
-  userId: string;
-  imageUrl?: string;
-};
-
 export default function ProfilePage() {
   const { status, data: session } = useSession();
   const [posts, setPosts] = useState<Post[]>([]);
+  const [imageUrl, setImageUrl] = useState(session?.user?.image || "");
 
-  const handleNavigation = (url: string) => {
-    window.location.href = url;
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/uploadPhoto", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      setImageUrl(data.imageUrl);
+    } else {
+      console.error("Failed to upload image");
+    }
   };
 
   useEffect(() => {
@@ -60,7 +69,7 @@ export default function ProfilePage() {
             <Image
               height={100}
               width={100}
-              src={session?.user?.image || "/default-profile.jpg"}
+              src={imageUrl || "/default-profile.jpg"}
               alt="User Photo"
               className="w-24 h-24 rounded-full shadow-md mb-4 sm:mb-0"
             />
@@ -79,8 +88,8 @@ export default function ProfilePage() {
               <button
                 type="button"
                 className="group bg-stone-900 text-white px-6 py-2 flex 
-        items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
-        hover:bg-gray-950 active:scale-105 transition cursor-pointer"
+            items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+            hover:bg-gray-950 active:scale-105 transition cursor-pointer"
               >
                 Edit Profile
               </button>
@@ -88,12 +97,20 @@ export default function ProfilePage() {
                 onClick={() => handleNavigation("/addPost")}
                 type="button"
                 className="group bg-stone-900 text-white px-6 py-2 flex 
-        items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
-        hover:bg-gray-950 active:scale-105 transition cursor-pointer"
+            items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+            hover:bg-gray-950 active:scale-105 transition cursor-pointer"
               >
                 New Post
               </button>
             </div>
+          </div>
+
+          <div className="mt-4">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
           </div>
 
           <div className="w-full mt-8">
