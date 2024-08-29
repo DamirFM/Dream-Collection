@@ -72,14 +72,24 @@ export default function AboutComponent() {
                 >
                     {textPar}
                 </motion.p>
-                <Link href="/addPost">
-                    <motion.button
-                        className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer lg:ml-5"
-                    >
-                        Create a new dream
-                        <BsArrowRight />
-                    </motion.button>
-                </Link>
+                <div className="flex justify-center space-x-2 lg:justify-start">
+                    <Link href="/addPost">
+                        <motion.button
+                            className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer lg:ml-5"
+                        >
+                            Create a new dream
+                            <BsArrowRight />
+                        </motion.button>
+                    </Link>
+                    <Link href="/feed">
+                        <motion.button
+                            className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-[#ff1493] active:scale-105 transition cursor-pointer lg:ml-5"
+                        >
+                            Gallery
+                            <BsArrowRight />
+                        </motion.button>
+                    </Link>
+                </div>
             </div>
             {/* Content for the left side on large screens */}
             <div className="flex justify-center sm:order-2 lg:order-none sm:-mt-16 lg:justify-start w-full lg:w-1/3 lg:-ml-12  ">

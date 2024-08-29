@@ -93,7 +93,7 @@ export default function Header() {
     <header className="z-[999] relative">
       <div className="bg-[#FFEDED] fixed top-0 w-full flex items-center justify-between p-4 md:p-6 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-50 border-opacity-40">
         <div className="flex items-center space-x-3">
-          <img src="/assets/collection.svg" alt="Logo" className="-mr-3 h-12" />
+
           <h1 className="text-2xl font-bold text-stone-900">
             <Link href={"/"} className="block text-stone-900 hover:text-stone-500 transition duration-300 ease-in-out transform hover:scale-1">
               collection
@@ -195,7 +195,7 @@ export default function Header() {
 
           <button
             onClick={() => (window.location.href = "/join")}
-            className="group bg-stone-50 text-stone-900 px-4 py-1 flex items-center gap-2 rounded-full outline-none border border-gray-700 focus:scale-110 hover:scale-110 hover:border-stone-900 active:scale-105 transition cursor-pointer"
+            className="group bg-stone-50 text-stone-900 px-2 py-1 flex items-center gap-2 rounded-full outline-none border border-gray-700 focus:scale-110 hover:scale-110 hover:border-stone-900 active:scale-105 transition cursor-pointer"
           >
             Sign up
           </button>
@@ -275,7 +275,7 @@ export default function Header() {
         )}
         <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
           <button
-            onClick={() => handleNavigation("/")}
+            onClick={() => handleNavigation("/feed")}
             className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
           >
             <Image

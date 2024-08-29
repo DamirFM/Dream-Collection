@@ -32,4 +32,31 @@
   .hoverText:has(+ .hoverText + .hoverText:hover) {
     font-weight: 300;
   }
+/* *
+  {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
+  .container {
+    width: 1400px;
+    margin: 20px auto;
+    columns: 3;
+    column-gap: 40px;
+  } */
+  .my-masonry-grid {
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+  }
+  .my-masonry-grid_column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+  }
+  
+  /* Style for the individual item in the grid */
+  .my-masonry-grid_column > div {
+    margin-bottom: 30px;
+  }
+  
