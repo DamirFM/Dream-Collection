@@ -1,9 +1,17 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Masonry from 'react-masonry-css';
 import { HiDownload } from 'react-icons/hi';
+import BlurFade from "@/components/magicui/blur-fade";
+
+const images = Array.from({ length: 9 }, (_, i) => {
+  const isLandscape = i % 2 === 0;
+  const width = isLandscape ? 800 : 600;
+  const height = isLandscape ? 600 : 800;
+  return `https://picsum.photos/seed/${i + 1}/${width}/${height}`;
+});
 
 type Post = {
   _id: string;
@@ -23,28 +31,41 @@ const PostCard: React.FC<PostCardProps> = ({ posts }) => {
     700: 1
   };
 
+  const [loadingImages, setLoadingImages] = useState<boolean[]>(posts.map(() => true));
+
+  const handleImageLoad = (index: number) => {
+    setLoadingImages(prevLoadingImages => {
+      const newLoadingImages = [...prevLoadingImages];
+      newLoadingImages[index] = false;
+      return newLoadingImages;
+    });
+  };
+
   return (
     <Masonry
       breakpointCols={breakpointColumnsObj}
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column"
     >
-      {posts.map((post) => (
+      {posts.map((post, idx) => (
         <div
           key={post._id}
-          className="relative mb-4 break-inside-avoid border border-gray-300 rounded-md overflow-hidden group"
+          className="relative mb-4 break-inside-avoid   rounded-sm overflow-hidden group"
         >
           {post.imageUrl && (
-            <div className="relative w-full h-auto">
-              <Image
-                src={post.imageUrl}
-                alt={post.title}
-                width={800}
-                height={0}
-                loading="lazy"
-                className="object-cover object-center w-full h-auto transition-transform duration-300 ease-in-out transform group-hover:scale-105"
-              />
-            </div>
+            <BlurFade key={post.imageUrl} delay={0.25 + idx * 0.05} inView>
+              <div className="relative w-full h-auto">
+                <Image
+                  src={post.imageUrl}
+                  alt={post.title}
+                  width={800}
+                  height={0}
+                  loading="lazy"
+                  onLoad={() => handleImageLoad(idx)}
+                  className="object-cover object-center w-full h-auto transition-transform duration-300 ease-in-out transform scale-105"
+                />
+              </div>
+            </BlurFade>
           )}
           <div className="absolute inset-0 flex flex-col justify-end p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity">
             <div className="flex justify-between items-center text-white">

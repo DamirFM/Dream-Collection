@@ -91,7 +91,7 @@ export default function Header() {
 
   return (
     <header className="z-[999] relative">
-      <div className="bg-stone-50 fixed top-0 w-full flex items-center justify-between p-4 md:p-6 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-50 border-opacity-40">
+      <div className="bg-stone-50 fixed top-0 w-full flex items-center justify-between p-4 md:p-3 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-100 border-opacity-40 rounded-none  shadow-lg ">
         <div className="flex items-center space-x-3">
           <Image
             src="/assets/collection.svg" // Path to your image file
@@ -105,17 +105,6 @@ export default function Header() {
               collection
             </Link>
           </h1>
-          {/* <div className="relative w-full sm:w-44 md:w-96 lg:w-full">
-            <input
-              type="text"
-              className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large"
-              placeholder="Search"
-            />
-            <FaSearch
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-stone-500"
-              size={18}
-            />
-          </div> */}
         </div>
 
         <div className="flex-grow flex justify-center">

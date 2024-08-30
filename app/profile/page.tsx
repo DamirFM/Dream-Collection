@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { HiPencilAlt } from "react-icons/hi";
@@ -8,8 +7,42 @@ import LoginPage from "../login/page";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
-// Ensure types are consistent by using the globally extended `Session` interface.
+// Define the variants for the BarLoader animation
+const variants = {
+  initial: {
+    scaleY: 0.5,
+    opacity: 0,
+  },
+  animate: {
+    scaleY: 1,
+    opacity: 1,
+    transition: {
+      repeat: Infinity,
+      repeatType: "mirror" as "mirror", // Ensure repeatType is a specific allowed type
+      duration: 1,
+      ease: "circIn",
+    },
+  },
+};
+
+// BarLoader component
+const BarLoader = () => (
+  <motion.div
+    transition={{ staggerChildren: 0.25 }}
+    initial="initial"
+    animate="animate"
+    className="flex gap-1"
+  >
+    <motion.div variants={variants} className="h-12 w-2 bg-white" />
+    <motion.div variants={variants} className="h-12 w-2 bg-white" />
+    <motion.div variants={variants} className="h-12 w-2 bg-white" />
+    <motion.div variants={variants} className="h-12 w-2 bg-white" />
+    <motion.div variants={variants} className="h-12 w-2 bg-white" />
+  </motion.div>
+);
+
 type Post = {
   _id: string;
   title: string;
@@ -44,7 +77,7 @@ export default function ProfilePage() {
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center h-screen">
-        <div>Loading...</div>
+        <BarLoader />
       </div>
     );
   }
