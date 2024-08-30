@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
-import { motion, useAnimationControls } from "framer-motion";
+import { motion, useAnimationControls, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 
 import { useSession, signOut } from "next-auth/react";
@@ -36,6 +36,8 @@ const dropDownIconVariants = {
 };
 
 export default function Header() {
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 0], [0, 0]);
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -101,17 +103,17 @@ export default function Header() {
             height={24} // Height of the image (adjust as needed)
           />
           <h1 className="text-4xl font-bold text-stone-900 up">
-            <Link href={"/"} className="block text-stone-900 hover:text-stone-500 transition duration-300 ease-in-out transform hover:scale-1">
+            <Link href={"/"} className="block text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1">
               collection
             </Link>
           </h1>
         </div>
 
         <div className="flex-grow flex justify-center">
-          <nav className="hidden md:flex space-x-4">
+          <nav className="hidden md:flex space-x-16">
             <motion.a
               onClick={() => handleNavigation("/feed")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-[#D7C3F1] transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1"
               initial="initial"
               whileHover="hovered"
             >
@@ -134,7 +136,7 @@ export default function Header() {
 
             <motion.a
               onClick={() => handleNavigation("/collections")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-pink-500 transition duration-300 ease-in-out transform hover:scale-1"
               initial="initial"
               whileHover="hovered"
             >
@@ -157,7 +159,7 @@ export default function Header() {
 
             <motion.a
               onClick={() => handleNavigation("/about")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-indigo-500 transition duration-300 ease-in-out transform hover:scale-1"
               initial="initial"
               whileHover="hovered"
             >
@@ -234,7 +236,8 @@ export default function Header() {
         variants={dropdownVariants}
         initial="closed"
         animate={controls}
-        className="flex flex-col backdrop-blur-[0.5rem] items-center gap-4 justify-center top-[74px] md:top-[90px] z-10 bg-[#FFEDED] border border-stone-300 p-6 rounded-2xl shadow-md absolute right-0 w-56 sm:w-64 md:w-48"
+        style={{ y }}  // This applies the transform to the navigation
+        className="fixed top-[74px] md:top-[90px] z-10 flex flex-col items-center gap-4 justify-center bg-[#D7C3F1] backdrop-blur-[0.5rem] border border-stone-300 p-6 rounded-2xl shadow-md right-0 w-56 sm:w-64 md:w-48"
       >
         {status === "authenticated" ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
@@ -279,11 +282,19 @@ export default function Header() {
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
             <button
               onClick={() => handleNavigation("/login")}
-              className="group bg-stone-900 text-white px-4 py-1 flex 
-                items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+              className="group bg-stone-900 text-white px-6 py-1 flex 
+                items-center gap-2  rounded-full outline-none focus:scale-110 hover:scale-110
                  hover:bg-stone-950 active:scale-105 transition cursor-pointer"
             >
               <span>Login</span>
+            </button>
+            <button
+              onClick={() => handleNavigation("/Join")}
+              className="group bg-stone-50 text-stone-900 border border-gray-700 px-4 py-1 flex 
+                items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
+                 hover:bg-stone-100 active:scale-105 transition cursor-pointer"
+            >
+              <span>Sign Up</span>
             </button>
             <div className=" border-2 w-full border-stone-500"></div>
           </div>
