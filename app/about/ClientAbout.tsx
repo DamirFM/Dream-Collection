@@ -1,5 +1,3 @@
-// app/about/ClientAbout.tsx
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -21,22 +19,27 @@ const ClientAbout: React.FC<ClientAboutProps> = ({ initialPosts, initialUserCoun
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filteredPosts, setFilteredPosts] = useState<Post[]>(initialPosts);
     const [allPosts, setAllPosts] = useState<Post[]>(initialPosts);
-    const [userCount] = useState<number>(initialUserCount); // Data already provided from the server component
+    const [userCount] = useState<number>(initialUserCount);
 
-    // Filter posts based on search term
+    // Debounced function to filter posts
     useEffect(() => {
-        const filtered = allPosts.filter(post =>
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.description.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredPosts(filtered);
+        const handleSearch = () => {
+            const filtered = allPosts.filter(post =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                post.description.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredPosts(filtered);
+        };
+
+        const debounceTimeout = setTimeout(handleSearch, 300); // Debounce to reduce re-renders
+        return () => clearTimeout(debounceTimeout); // Clean up timeout
     }, [searchTerm, allPosts]);
 
     return (
         <div className="relative flex flex-col items-center justify-center w-full min-h-screen p-4 bg-gray-100">
-            {/* Background Blurs */}
-            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
-            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]"></div>
+            {/* Simplified Background Blurs for performance */}
+            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[6rem] sm:w-[68.75rem]"></div>
+            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[6rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]"></div>
 
             {/* About Section */}
             <div className="w-full max-w-3xl p-8 bg-white rounded-xl shadow-md mb-8">
