@@ -4,11 +4,14 @@ import { useSession } from "next-auth/react";
 import { HiPencilAlt } from "react-icons/hi";
 import RemoveBtn from "../components/UI/removeBtn";
 import LoginPage from "../login/page";
-import Image from "next/image";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-
+import Image from 'next/image';
+import Masonry from 'react-masonry-css';
+import { HiDownload } from 'react-icons/hi';
+import BlurFade from "@/components/magicui/blur-fade";
 // Define the variants for the BarLoader animation
 const variants = {
   initial: {
@@ -74,6 +77,15 @@ export default function ProfilePage() {
     }
   }, [session]);
 
+  const [loadingImages, setLoadingImages] = useState<boolean[]>(posts.map(() => true));
+
+  const handleImageLoad = (index: number) => {
+    setLoadingImages(prevLoadingImages => {
+      const newLoadingImages = [...prevLoadingImages];
+      newLoadingImages[index] = false;
+      return newLoadingImages;
+    });
+  };
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -81,7 +93,11 @@ export default function ProfilePage() {
       </div>
     );
   }
-
+  const breakpointColumnsObj = {
+    default: 3,
+    1100: 2,
+    700: 1
+  };
   if (status === "authenticated" && session && session.user) {
     // Extract user details from session
     const { name, email, image, description, location } = session.user;
@@ -132,35 +148,67 @@ export default function ProfilePage() {
 
           <div className="w-full mt-8">
             <h2 className="text-2xl font-bold text-stone-900 mb-6">My Posts</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post) => (
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
+              {posts.map((post, idx) => (
                 <div
                   key={post._id}
-                  className="border border-gray-300 rounded-lg overflow-hidden shadow-lg"
+                  className="relative mb-4 break-inside-avoid rounded-lg overflow-hidden group"
                 >
                   {post.imageUrl && (
-                    <Image
-                      src={post.imageUrl}
-                      alt={post.title}
-                      width={500}
-                      height={300}
-                      className="w-full h-48 object-cover"
-                    />
+                    <BlurFade key={post.imageUrl} delay={0.25 + idx * 0.05} inView>
+                      <div className="relative w-full h-auto">
+                        <Image
+                          src={post.imageUrl}
+                          alt={post.title}
+                          width={800}
+                          height={600} // Default height
+                          layout="responsive" // Responsive layout
+                          loading="lazy"
+                          onLoad={() => handleImageLoad(idx)}
+                          className="object-cover object-center w-full h-auto transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+                        />
+                      </div>
+                    </BlurFade>
                   )}
-                  <div className="p-4">
-                    <h2 className="m-0 text-xl">{post.title}</h2>
-                    <p className="mt-2 text-gray-600">{post.description}</p>
+                  <div className="absolute inset-0 flex flex-col justify-end p-4 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* Bottom Section: Username, Post Title, and Action Buttons */}
+                    <div className="flex justify-between items-center w-full">
+                      {/* Left Side: Username and Post Title */}
+                      <div className="flex flex-col text-left">
+                        <span className="text-sm font-semibold text-white">{session.user.name}</span>
+                        <h2 className="text-lg font-semibold text-white">{post.title}</h2>
+                      </div>
+
+                      {/* Right Side: Action Buttons */}
+                      <div className="flex items-center space-x-4">
+                        <a
+                          href={post.imageUrl}
+                          download
+                          className="cursor-pointer hover:text-gray-300 transition-colors duration-300"
+                          title={`Download ${post.title}`}
+                        >
+                          <HiDownload className="text-lg text-white cursor-pointer hover:text-gray-300 transition-colors duration-300" />
+                        </a>
+                        <RemoveBtn id={post._id} />
+                        <Link href={`/editPost/${post._id}`}>
+                          <HiPencilAlt className="text-2xl text-white cursor-pointer hover:text-gray-300 transition-colors duration-300" />
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center p-4">
-                    <RemoveBtn id={post._id} />
-                    <Link href={`/editPost/${post._id}`}>
-                      <HiPencilAlt className="text-2xl text-gray-600 cursor-pointer" />
-                    </Link>
-                  </div>
+
+
+
                 </div>
               ))}
-            </div>
+            </Masonry>
+
           </div>
+
         </div>
       </div>
     );
