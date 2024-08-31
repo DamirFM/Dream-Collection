@@ -26,7 +26,7 @@ const Example = () => {
                     Discover a wide variety of categories in our photo app. From breathtaking landscapes to intimate portraits, our curated collections are designed to inspire and delight.
                 </p>
                 <p className="text-lg mb-4">
-                    Whether you're looking for vibrant cityscapes, serene nature shots, or dynamic action photography, we have something for everyone. Dive into each category and find the perfect image to capture your imagination.
+                    Whether you&#39;re looking for vibrant cityscapes, serene nature shots, or dynamic action photography, we have something for everyone. Dive into each category and find the perfect image to capture your imagination.
                 </p>
                 <p className="text-lg mb-4">
                     Our photographers span the globe, bringing you unique perspectives from diverse cultures and environments. Explore today and let your creativity soar!
