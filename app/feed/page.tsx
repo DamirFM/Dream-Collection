@@ -1,6 +1,6 @@
 "use client";  // This ensures the file is treated as a client-side component
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation'; // Use useSearchParams for Next.js 13 App Router
 import PostCard from '@/app/components/PostCard';
 import { FaSearch } from "react-icons/fa";
@@ -16,7 +16,7 @@ type Post = {
     tags: string[];
 };
 
-export default function FeedPage() {
+function FeedPageContent() {
     const searchParams = useSearchParams(); // Use useSearchParams to get query parameters
     const category = searchParams.get('category'); // Get the 'category' query parameter
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -97,5 +97,13 @@ export default function FeedPage() {
             {/* Post Cards */}
             <PostCard posts={filteredPosts} />
         </div>
+    );
+}
+
+export default function FeedPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <FeedPageContent />
+        </Suspense>
     );
 }
