@@ -145,7 +145,7 @@ export default function Header() {
                   initial: { y: 0 },
                   hovered: { y: "-100%" },
                 }}>
-                Collections
+                Categories
               </motion.button>
               <motion.button
                 className="absolute inset-0"
@@ -153,7 +153,7 @@ export default function Header() {
                   initial: { y: "100%" },
                   hovered: { y: 0 },
                 }}>
-                Collections
+                Categories
               </motion.button>
             </motion.a>
 

@@ -84,10 +84,20 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
     const tags = searchParams.getAll("tags"); // Get tags from query params
+    const title = searchParams.get("title"); // Get title from query params
 
-    const query = tags.length > 0 ? { tags: { $in: tags } } : {}; // Filter posts by tags if provided
+    // Build query object
+    const query: any = {};
+    
+    if (tags.length > 0) {
+      query.tags = { $in: tags };
+    }
+
+    if (title) {
+      query.title = { $regex: title, $options: 'i' }; // Case-insensitive search
+    }
+
     const posts = await Post.find(query);
-
     return NextResponse.json({ posts });
   } catch (error) {
     console.error("Error fetching posts:", error);

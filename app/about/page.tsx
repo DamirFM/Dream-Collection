@@ -1,6 +1,57 @@
-import React from "react";
+
+"use client"
+import React, { useState, useEffect } from 'react';
+import NumberTicker from "@/components/magicui/number-ticker";
+
+type Post = {
+    _id: string;
+    title: string;
+    description: string;
+    imageUrl?: string;
+};
 
 export default function About() {
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+    const [allPosts, setAllPosts] = useState<Post[]>([]);
+    const [userCount, setUserCount] = useState<number>(0); // State for user count
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const res = await fetch("/api/posts");
+                if (!res.ok) throw new Error("Failed to fetch posts");
+                const data = await res.json();
+                setAllPosts(data.posts as Post[]);
+                setFilteredPosts(data.posts as Post[]); // Initially show all posts
+            } catch (error) {
+                console.error("Error loading posts:", error);
+            }
+        };
+
+        const fetchUsers = async () => {
+            try {
+                const res = await fetch("/api/user");
+                if (!res.ok) throw new Error("Failed to fetch users");
+                const data = await res.json();
+                setUserCount(data.userCount); // The response now contains a 'userCount' field
+            } catch (error) {
+                console.error("Error loading users:", error);
+            }
+        };
+
+        fetchPosts();
+        fetchUsers();
+    }, []);
+
+    useEffect(() => {
+        const filtered = allPosts.filter(post =>
+            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            post.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredPosts(filtered);
+    }, [searchTerm, allPosts]);
+
     return (
         <div className="relative flex flex-col items-center justify-center w-full min-h-screen p-4 bg-gray-100">
             {/* Background Blurs */}
@@ -13,6 +64,34 @@ export default function About() {
                 <p className="text-center text-lg mb-4">
                     Welcome to our gallery application, a place where creativity meets inspiration. This platform allows users to share, explore, and appreciate visual arts from creators all around the world. Our goal is to foster a community of visual storytellers and inspire through imagery.
                 </p>
+            </div>
+
+            {/* Counter and Trust Section */}
+            <div className="mb-8 flex flex-col items-center justify-center">
+                <p className="text-3xl font-bold text-center text-black dark:text-white mb-4">
+                    Join over <NumberTicker value={userCount} direction="up" /> creators already sharing their art
+                </p>
+                <p className="text-lg text-center text-gray-600 dark:text-gray-400 mb-8">
+                    Build your portfolio, connect with a community, and let your art shine.
+                </p>
+                <div className="flex flex-wrap justify-center gap-8">
+                    <div className="flex flex-col items-center">
+                        <p className="text-4xl font-bold text-black dark:text-white">4.8/5</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Average user rating</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-4xl font-bold text-black dark:text-white">
+                            <NumberTicker value={allPosts.length} direction="up" />+
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Artworks shared</p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <p className="text-4xl font-bold text-black dark:text-white">
+                            <NumberTicker value={999} direction="up" />+
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Search Queries</p>
+                    </div>
+                </div>
             </div>
 
             {/* Legal Disclaimer Section */}

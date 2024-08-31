@@ -1,5 +1,7 @@
-"use client";
+"use client";  // This ensures the file is treated as a client-side component
+
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation'; // Use useSearchParams for Next.js 13 App Router
 import PostCard from '@/app/components/PostCard';
 import { FaSearch } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
@@ -11,9 +13,12 @@ type Post = {
     title: string;
     description: string;
     imageUrl?: string;
+    tags: string[];
 };
 
 export default function FeedPage() {
+    const searchParams = useSearchParams(); // Use useSearchParams to get query parameters
+    const category = searchParams.get('category'); // Get the 'category' query parameter
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
     const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -25,22 +30,34 @@ export default function FeedPage() {
                 if (!res.ok) throw new Error("Failed to fetch posts");
                 const data = await res.json();
                 setAllPosts(data.posts as Post[]);
-                setFilteredPosts(data.posts as Post[]); // Initially show all posts
+
+                // Filter posts based on category if it exists
+                if (category) {
+                    const filtered = data.posts.filter((post: Post) =>
+                        post.tags.some(tag => tag.toLowerCase() === category.toLowerCase())
+                    );
+                    setFilteredPosts(filtered);
+                } else {
+                    setFilteredPosts(data.posts);
+                }
             } catch (error) {
                 console.error("Error loading posts:", error);
             }
         };
 
         fetchPosts();
-    }, []);
+    }, [category]);
 
     useEffect(() => {
-        const filtered = allPosts.filter(post =>
-            post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.description.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setFilteredPosts(filtered);
-    }, [searchTerm, allPosts]);
+        if (!category) {
+            const filtered = allPosts.filter(post =>
+                post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+            );
+            setFilteredPosts(filtered);
+        }
+    }, [searchTerm, allPosts, category]);
 
     return (
         <div className="p-3 mt-4 items-center justify-center">
@@ -56,7 +73,7 @@ export default function FeedPage() {
                     <input
                         type="text"
                         className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 bg-opacity-80 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large"
-                        placeholder="Search a category"
+                        placeholder="Search by title or tags"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />

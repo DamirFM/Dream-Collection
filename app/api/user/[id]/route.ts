@@ -91,3 +91,18 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Error updating profile" }, { status: 500 });
   }
 }
+export async function GET() {
+  try {
+    // Connect to the MongoDB database
+    await connectMongoDB();
+
+    // Get the total number of users
+    const userCount = await User.countDocuments();
+
+    // Return the user count as a JSON response
+    return NextResponse.json({ userCount }, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching user count:", error);
+    return NextResponse.json({ error: "Error fetching user count" }, { status: 500 });
+  }
+}
