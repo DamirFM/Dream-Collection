@@ -59,12 +59,18 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
-    if (session) {
+    if (status === "authenticated" && session) {
       console.log("Session Data:", session);
 
       const getUserPosts = async () => {
         try {
-          const res = await fetch("/api/posts/filter_tag/", { cache: "no-cache" });
+          const res = await fetch("/api/posts/filter_tag/", {
+            method: "GET",
+            headers: {
+              'Authorization': `Bearer ${session.user}` // Add the token here
+            },
+            cache: "no-cache"
+          });
           if (!res.ok) throw new Error("Failed to fetch posts");
           const data = await res.json();
           setPosts(data.posts);
@@ -75,7 +81,8 @@ export default function ProfilePage() {
 
       getUserPosts();
     }
-  }, [session]);
+  }, [session, status]);
+
 
   const [loadingImages, setLoadingImages] = useState<boolean[]>(posts.map(() => true));
 
