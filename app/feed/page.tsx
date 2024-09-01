@@ -13,8 +13,12 @@ type Post = {
     description: string;
     imageUrl?: string;
     tags: string[];
+    userId: User;
+};;
+type User = {
+    _id: string;
+    name: string;
 };
-
 // Helper function to extract query parameters from URL
 const getQueryParam = (param: string) => {
     if (typeof window !== 'undefined') {
