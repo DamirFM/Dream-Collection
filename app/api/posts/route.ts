@@ -97,7 +97,8 @@ export async function GET(request: NextRequest) {
       query.title = { $regex: title, $options: 'i' }; // Case-insensitive search
     }
 
-    const posts = await Post.find(query);
+    
+    const posts = await Post.find(query).populate('userId', 'name');
     return NextResponse.json({ posts });
   } catch (error) {
     console.error("Error fetching posts:", error);
