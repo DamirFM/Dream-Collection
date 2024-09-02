@@ -57,24 +57,25 @@ export default function ProfilePage() {
   const { status, data: session } = useSession();
   const [posts, setPosts] = useState<Post[]>([]);
   const router = useRouter();
-  console.log("Session Data:", session);
+
+  console.log("Status:", status);  // This will help see what the status is.
+  if (status === "authenticated") {
+    console.log("Session Data:", session);
+  } else if (status === "unauthenticated") {
+    console.log("User is not authenticated.");
+  }
 
   useEffect(() => {
-    console.log("Status:", status);
-    console.log("Session:", session);
     if (status === "authenticated" && session && session.user) {
       console.log("Session Data:", session);
-
+      // Fetch user posts
       const getUserPosts = async () => {
-        console.log("Token:", session?.user?._id);
-
         try {
-          // Assuming the token is part of the session object (adjust if needed)
           const token = session.user._id;
           const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/filter_tag/`, {
             method: "GET",
             headers: {
-              'Authorization': `Bearer ${session?.user?._id}`, // Include the token in the header
+              'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
             },
             cache: "no-cache",
@@ -87,10 +88,12 @@ export default function ProfilePage() {
           console.error("Error loading posts:", error);
         }
       };
-
       getUserPosts();
+    } else if (status === "unauthenticated") {
+      console.log("User is not authenticated.");
     }
   }, [session, status]);
+
 
 
 

@@ -1,7 +1,7 @@
 import GoogleProvider from "next-auth/providers/google";
 import connectMongoDB from "@/lib/mongodb";
 import User from "@/models/user";
-import NextAuth from 'next-auth';
+
 import  { AuthOptions } from "next-auth";
 
 import bcrypt from "bcryptjs";
@@ -10,7 +10,8 @@ if (!process.env.NEXTAUTH_URL) {
   throw new Error("NEXTAUTH_URL environment variable is not defined.");
 }
 
-const secureCookie = process.env.NEXTAUTH_URL.startsWith('https://');
+const secureCookie = process.env.NEXTAUTH_URL?.startsWith('http://');
+
 
 // Ensure that the environment variables are defined
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
@@ -78,7 +79,7 @@ export const authOptions: AuthOptions = {
 
         return true;
       },
-      async session({ session, token }: { session: any; token: any }) { // Added explicit type annotation
+      async session({ session, token }) {
         // Include the user ID in the session object
         session.user._id = token.sub as string;
         session.user.description = token.description as string
