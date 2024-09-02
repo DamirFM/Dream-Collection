@@ -25,7 +25,7 @@ const userSchema = new Schema(
     image: {
       type: String,
       required: false,
-      default: "/path/to/default-image.jpg", // Add a default image path
+      default: "public/default-profile.jpg", // Add a default image path
     },
     description: {
       type: String,

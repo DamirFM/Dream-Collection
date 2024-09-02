@@ -57,19 +57,28 @@ export default function ProfilePage() {
   const { status, data: session } = useSession();
   const [posts, setPosts] = useState<Post[]>([]);
   const router = useRouter();
+  console.log("Session Data:", session);
 
   useEffect(() => {
-    if (status === "authenticated" && session) {
+    console.log("Status:", status);
+    console.log("Session:", session);
+    if (status === "authenticated" && session && session.user) {
       console.log("Session Data:", session);
 
       const getUserPosts = async () => {
+        console.log("Token:", session?.user?._id);
+
         try {
-          const res = await fetch("/api/posts/filter_tag/", {
+          // Assuming the token is part of the session object (adjust if needed)
+          const token = session.user._id;
+          const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/filter_tag/`, {
             method: "GET",
             headers: {
-              'Authorization': `Bearer ${session.user}` // Add the token here
+              'Authorization': `Bearer ${session?.user?._id}`, // Include the token in the header
+              'Content-Type': 'application/json',
             },
-            cache: "no-cache"
+            cache: "no-cache",
+            credentials: 'include',
           });
           if (!res.ok) throw new Error("Failed to fetch posts");
           const data = await res.json();
@@ -82,6 +91,8 @@ export default function ProfilePage() {
       getUserPosts();
     }
   }, [session, status]);
+
+
 
 
   const [loadingImages, setLoadingImages] = useState<boolean[]>(posts.map(() => true));

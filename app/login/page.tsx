@@ -20,6 +20,7 @@ export default function LoginPage() {
   });
   const router = useRouter();
   const [error, setError] = React.useState("");
+
   const onSubmit = async (data: { email: any; password: any; }) => {
     try {
       const res = await signIn("credentials", {

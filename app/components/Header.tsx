@@ -122,7 +122,7 @@ export default function Header() {
                   initial: { y: 0 },
                   hovered: { y: "-100%" },
                 }}>
-                Explore
+                Feed
               </motion.button>
               <motion.button
                 className="absolute inset-0"
@@ -130,7 +130,7 @@ export default function Header() {
                   initial: { y: "100%" },
                   hovered: { y: 0 },
                 }}>
-                Explore
+                Feed
               </motion.button>
             </motion.a>
 
@@ -289,7 +289,7 @@ export default function Header() {
               <span>Login</span>
             </button>
             <button
-              onClick={() => handleNavigation("/Join")}
+              onClick={() => handleNavigation("/join")}
               className="group bg-stone-50 text-stone-900 border border-gray-700 px-4 py-1 flex 
                 items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
                  hover:bg-stone-100 active:scale-105 transition cursor-pointer"
@@ -310,7 +310,7 @@ export default function Header() {
               width={24}
               height={24}
             />
-            <span className="ml-3">Explore</span>
+            <span className="ml-3">Feed</span>
           </button>
           <button
             onClick={() => handleNavigation("/collections")}

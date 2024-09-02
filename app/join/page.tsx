@@ -24,6 +24,7 @@ export default function JoinPage() {
     });
 
     const onSubmit = async (data: { email: any; }) => {
+        console.log("Submitting login form with data:", data);
         try {
             const resUserExists = await fetch("/api/userExists", {
                 method: "POST",
@@ -42,7 +43,6 @@ export default function JoinPage() {
                 setError("User already exists");
                 return;
             }
-
             const res = await fetch("/api/user", {
                 method: "POST",
                 headers: {
@@ -50,7 +50,7 @@ export default function JoinPage() {
                 },
                 body: JSON.stringify(data),
             });
-
+            console.log("Response from signIn:", res);
             if (res.ok) {
                 router.push('/profile');
             } else {
