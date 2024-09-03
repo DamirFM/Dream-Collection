@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, post: newPost });
   } catch (error) {
     console.error("Error uploading post:", error);
-    return NextResponse.json({ error: "Error uploading post", details: error.message }, { status: 500 });
+    return NextResponse.json({ error: "Error uploading post" }, { status: 500 });
   }
 }
 
