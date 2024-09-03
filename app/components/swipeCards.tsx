@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface CardData {
     id: number;
@@ -42,7 +43,7 @@ const Card: React.FC<CardProps> = ({ id, url, setCards, cards }) => {
     const isFront = id === cards[cards.length - 1].id;
 
     return (
-        <img
+        <Image
             src={url}
             alt="Placeholder alt"
             className={`h-96 w-72 origin-bottom rounded-md bg-stone-50 object-cover hover:cursor-pointer card ${isFront ? "card-front" : ""
