@@ -25,12 +25,12 @@ export async function POST(request: Request) {
 }
 }
 
-// Get the count of all users
+// Get all users
 export async function GET() {
   try {
     await connectMongoDB();
     const users = await User.find();
-    return NextResponse.json({ users }); // Return the user count
+    return NextResponse.json({ users });
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while fetching the users." },
@@ -38,7 +38,6 @@ export async function GET() {
     );
   }
 }
-
 
 // Delete a user by ID
 export async function DELETE(request: Request) {

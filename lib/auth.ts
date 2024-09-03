@@ -6,11 +6,6 @@ import  { AuthOptions } from "next-auth";
 
 import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
-if (!process.env.NEXTAUTH_URL) {
-  throw new Error("NEXTAUTH_URL environment variable is not defined.");
-}
-
-const secureCookie = process.env.NEXTAUTH_URL?.startsWith('http://');
 
 
 // Ensure that the environment variables are defined
@@ -55,25 +50,6 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-      async session({ session, token }) {
-        // Include the user ID in the session object
-        console.log("Session token:", token);
-        if (token && token.sub) {
-          session.user._id = token.sub;  // Ensure token.sub is correctly assigned
-       }
-        session.user._id = token.sub as string;
-        session.user.description = token.description as string
-        return session;
-      },
-      async jwt({ token, user }: { token: any; user?: any }) { // Added explicit type annotation
-        // On initial sign-in, store the MongoDB user ID in the JWT token
-        console.log("Session token:", token);
-        if (user) {
-          token.sub = user.id;
-          token.description = user.description
-        }
-        return token;
-      },
       async signIn({ user, account }: { user: any; account: any }) { // Added explicit type annotation
         await connectMongoDB();
 
@@ -98,24 +74,26 @@ export const authOptions: AuthOptions = {
 
         return true;
       },
-
+      async jwt({ token, user }: { token: any; user?: any }) { // Added explicit type annotation
+        // On initial sign-in, store the MongoDB user ID in the JWT token
+        if (user) {
+          token.sub = user.id;
+          token.description = user.description
+        }
+        return token;
+      },
+      async session({ session, token }: { session: any; token: any }) { // Added explicit type annotation
+        // Include the user ID in the session object
+        session.user._id = token.sub as string;
+        session.user.description = token.description as string
+        return session;
+      },
     },
     session: {
       strategy: 'jwt', // Use literal type for 'jwt'
     },
-    cookies: {
-      sessionToken: {
-        name: `__Secure-next-auth.session-token`,
-        options: {
-          httpOnly: true,
-          sameSite: 'lax',
-          path: '/',
-          secure: secureCookie,  // true for production
-        },
-      },
-    },
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
-      signIn: "/login",
+      signIn: "/",
     },
 };
