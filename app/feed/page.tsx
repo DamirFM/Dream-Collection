@@ -5,7 +5,6 @@ import PostCard from '@/app/components/PostCard';
 import { FaSearch } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 type Post = {
     _id: string;
@@ -14,11 +13,13 @@ type Post = {
     imageUrl?: string;
     tags: string[];
     userId: User;
-};;
+};
+
 type User = {
     _id: string;
     name: string;
 };
+
 // Helper function to extract query parameters from URL
 const getQueryParam = (param: string) => {
     if (typeof window !== 'undefined') {
@@ -104,12 +105,10 @@ export default function FeedPage() {
 
             {/* Static Button */}
             <Link className="flex justify-center mb-8" href="/addPost">
-                <motion.button
-                    className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer lg:ml-5"
-                >
+                <button className="custom-button">
                     Create a new dream
                     <BsArrowRight />
-                </motion.button>
+                </button>
             </Link>
 
             {/* Post Cards */}

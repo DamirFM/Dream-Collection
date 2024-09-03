@@ -1,5 +1,6 @@
+"use client";
+
 import React, { useState } from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
 
 interface CardData {
     id: number;
@@ -25,8 +26,7 @@ const SwipeCards: React.FC = () => {
     return (
         <div
             className="grid h-[500px] w-full place-items-center grid-flow-col gap-4 xs:-mt-4"
-
-            onClick={handleTab}  // Handle tab click
+            onClick={handleTab} // Handle tab click
         >
             {cards.map((card) => {
                 if (!card) return null; // Handle the case where card is undefined
@@ -39,41 +39,19 @@ const SwipeCards: React.FC = () => {
 };
 
 const Card: React.FC<CardProps> = ({ id, url, setCards, cards }) => {
-    const x = useMotionValue(0);
-
-    const rotateRaw = useTransform(x, [-150, 150], [-18, 18]);
-    const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
-
     const isFront = id === cards[cards.length - 1].id;
 
-    const rotate = useTransform(() => {
-        const offset = isFront ? 0 : id % 2 ? 6 : -6;
-
-        return `${rotateRaw.get() + offset}deg`;
-    });
-
     return (
-        <motion.img
+        <img
             src={url}
             alt="Placeholder alt"
-            className="h-96 w-72 origin-bottom rounded-lg bg-stone-50 object-cover hover:cursor-pointer"
-            style={{
-                gridRow: 1,
-                gridColumn: 1,
-                x,
-                opacity,
-                rotate,
-                transition: "0.125s transform",
-                boxShadow: isFront
-                    ? "0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5)"
-                    : undefined,
-            }}
-            animate={{
-                scale: isFront ? 1 : 0.98,
-            }}
+            className={`h-96 w-72 origin-bottom rounded-lg bg-stone-50 object-cover hover:cursor-pointer card ${isFront ? "card-front" : ""
+                }`}
         />
     );
 };
+
+
 
 export default SwipeCards;
 

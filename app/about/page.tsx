@@ -1,11 +1,10 @@
-
-"use client"
-import React, { useState, useEffect } from 'react';
-import NumberTicker from "@/components/magicui/number-ticker";
+"use client";
+import React, { useState, useEffect } from "react";
+import NumberTicker from '@/app/components/NumberTicker';
 
 type Post = {
     _id: string;
-    title: string;
+    title: string
     description: string;
     imageUrl?: string;
 };
@@ -15,7 +14,6 @@ export default function About() {
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
     const [allPosts, setAllPosts] = useState<Post[]>([]);
     const [userCount, setUserCount] = useState<number>(0); // State for user count
-
 
     useEffect(() => {
         const fetchPosts = async () => {
