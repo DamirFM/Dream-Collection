@@ -84,7 +84,8 @@ export async function GET(request: NextRequest) {
     const tags = searchParams.getAll("tags"); // Get tags from query params
 
     const query = tags.length > 0 ? { tags: { $in: tags } } : {}; // Filter posts by tags if provided
-    const posts = await Post.find(query);
+    // Populate the userId field with user data (name, etc.)
+    const posts = await Post.find(query).populate('userId', 'name');
 
     return NextResponse.json({ posts });
   } catch (error) {

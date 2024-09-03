@@ -49,6 +49,7 @@
 /* Add these to your global stylesheet or a specific CSS module */
 
 .card {
+  border-radius: 0.5rem; /* rounded-lg */
   grid-row: 1;
   grid-column: 1;
   transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out;

@@ -25,28 +25,30 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, imageUrl, titl
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4"
             onClick={handleOverlayClick} // Attach click event to overlay
         >
-            <div className="relative bg-white rounded-lg shadow-lg p-4 mt-12 max-w-3xl max-h-[80vh] overflow-auto">
+            <div className="relative bg-white rounded-lg shadow-lg p-5 mt-12 max-w-2xl max-h-[27rem] w-full">
                 {/* Close button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 z-10"
                 >
                     <IoClose size={24} />
                 </button>
 
-                {/* Image */}
-                <div className="flex justify-center items-center">
-                    <Image
-                        src={imageUrl}
-                        alt={title}
-                        width={500}
-                        height={280}
-                        className="object-contain max-w-full max-h-[70vh] rounded-lg"
-                    />
+                {/* Image container */}
+                <div className=" max-h-[70vh]">
+                    <div className="flex justify-center items-center">
+                        <Image
+                            src={imageUrl}
+                            alt={title}
+                            width={490}
+                            height={260}
+                            className="object-contain max-w-full rounded-lg"
+                        />
+                    </div>
                 </div>
 
-                {/* Download option */}
-                <div className="flex justify-between items-center mt-4">
+                {/* Download and title section */}
+                <div className="flex justify-between items-center mt-1">
                     <span>{title}</span>
                     <a
                         href={imageUrl}

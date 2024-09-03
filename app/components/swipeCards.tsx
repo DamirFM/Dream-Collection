@@ -46,13 +46,13 @@ const Card: React.FC<CardProps> = ({ id, url, setCards, cards }) => {
         <Image
             src={url}
             alt="Placeholder alt"
+            width={288} // width and height values based on the 'w-72' class (72 * 4 = 288)
+            height={384} // height value based on the 'h-96' class (96 * 4 = 384)
             className={`h-96 w-72 origin-bottom rounded-md bg-stone-50 object-cover hover:cursor-pointer card ${isFront ? "card-front" : ""
                 }`}
         />
     );
 };
-
-
 
 export default SwipeCards;
 
