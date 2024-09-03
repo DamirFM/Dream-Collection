@@ -12,6 +12,7 @@ import Image from "next/image";
 import Masonry from "react-masonry-css";
 import BlurFade from "@/components/magicui/blur-fade";
 
+
 // Define the BarLoader animation
 const variants = {
   initial: { scaleY: 0.5, opacity: 0 },
