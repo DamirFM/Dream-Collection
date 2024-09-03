@@ -16,6 +16,7 @@ export default function About() {
     const [allPosts, setAllPosts] = useState<Post[]>([]);
     const [userCount, setUserCount] = useState<number>(0); // State for user count
 
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
