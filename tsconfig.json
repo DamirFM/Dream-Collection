@@ -1,23 +1,31 @@
-
 {
   "compilerOptions": {
-    "typeRoots": ["./types", "./node_modules/@types"],
-    "target": "esnext", // Add target for better clarity on the JavaScript version
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": [
+      "./types",
+      "./node_modules/@types"
+    ], // Ensure "./types" is included
+    "target": "esnext",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "skipLibCheck": true,  // Keep skipLibCheck true to avoid type checking third-party libraries
+    "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node", // Use "node" module resolution for better compatibility
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",  // Set base URL to root for better path mapping
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "plugins": [
       {
@@ -38,8 +46,9 @@
     "app/api/auth/[...nextauth]/route.ts",
     "__tests__/**/*.ts",
     "__tests__/**/*.tsx",
-    "types/next-auth.d.ts",
-    "types/next-auth.d.ts"
+    "types/next-auth.d.ts" // Ensure this is included correctly
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

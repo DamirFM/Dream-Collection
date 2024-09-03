@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 
-.hoverText {
+/* .hoverText {
     transition:
       0.35s font-weight,
       0.35s color;
@@ -13,26 +13,70 @@
     font-weight: 900;
     color: rgb(238, 242, 255);
   }
-  
+   */
   /* To the right */
-  .hoverText:hover + .hoverText {
+  /* .hoverText:hover + .hoverText {
     font-weight: 500;
     color: rgb(255,20,147);
   }
   
   .hoverText:hover + .hoverText + .hoverText {
     font-weight: 300;
-  }
+  } */
   
   /* To the left */
-  .hoverText:has(+ .hoverText:hover) {
+  /* .hoverText:has(+ .hoverText:hover) {
     font-weight: 500;
     color: rgb(255,20,147);
   }
   
   .hoverText:has(+ .hoverText + .hoverText:hover) {
     font-weight: 300;
+  } */
+  /* Add these to your global stylesheet or a specific CSS module */
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.hoverText {
+  transition: 0.35s font-weight, 0.35s color;
+}
+
+.hoverText:hover {
+  font-weight: 900;
+  color: rgb(238, 242, 255);
+}
+
+/* To the right */
+.hoverText:hover + .hoverText {
+  font-weight: 500;
+  color: rgb(255, 20, 147);
+}
+
+.hoverText:hover + .hoverText + .hoverText {
+  font-weight: 300;
+}
+
+/* To the left */
+.hoverText:has(+ .hoverText:hover) {
+  font-weight: 500;
+  color: rgb(255, 20, 147);
+}
+
+.hoverText:has(+ .hoverText + .hoverText:hover) {
+  font-weight: 300;
+}
+
 
   .my-masonry-grid {
     display: flex;

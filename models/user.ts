@@ -27,6 +27,10 @@ const userSchema = new Schema(
       required: false,
       default: "public/default-profile.jpg", // Add a default image path
     },
+    profileImageUrl: {  // field for profile image URL
+      type: String,
+      required: false,
+    },
     description: {
       type: String,
       required: false,
@@ -40,6 +44,7 @@ const userSchema = new Schema(
   },
   { timestamps: true }
 );
+
 
 const User = models.User || mongoose.model("User", userSchema);
 export default User;

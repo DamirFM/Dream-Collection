@@ -1,37 +1,39 @@
-// types/next-auth.d.ts
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 
 declare module "next-auth" {
-  interface Session {
+  interface Session extends DefaultSession {
     user: {
       _id: string;
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      description?: string | null; // Add description here
+      profileImageUrl?: string | null; // Add this line
+      description?: string | null;
       location?: {
         lat: number | null;
         lng: number | null;
-      } | null; // Add location here
-    };
+      } | null;
+    } & DefaultSession["user"];
   }
 
   interface User {
-    id: string;
+    _id: string;
     name?: string | null;
     email?: string | null;
     image?: string | null;
-    description?: string | null; // Add description here
+    profileImageUrl?: string | null; // Add this line
+    description?: string | null;
     location?: {
       lat: number | null;
       lng: number | null;
-    } | null; // Add location here
+    } | null;
   }
 }
 
 declare module "next-auth/jwt" {
   interface JWT {
-    id: string;
-    description?: string | null; // Add description to JWT type
+    _id: string;
+    profileImageUrl?: string | null; // Add this line
+    description?: string | null;
   }
 }
