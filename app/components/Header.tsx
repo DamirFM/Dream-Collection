@@ -194,7 +194,7 @@ export default function Header() {
               </button>
               <button
                 onClick={() => signOut()}
-                className="group bg-stone-50 text-stone-900 border border-gray-700 px-4 py-1 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer"
+                className="group bg-stone-50 text-stone-900 border border-gray-700 px-4 py-1 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-stone-100 active:scale-105 transition cursor-pointer"
               >
                 Logout
               </button>

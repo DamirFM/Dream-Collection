@@ -74,7 +74,7 @@ export default function EditPostForm({ id, title, description }: EditPostFormPro
           />
         </div>
 
-        <div>
+        {/* <div>
           <label htmlFor="description" className="block text-sm font-medium text-stone-700">Description</label>
           <textarea
             id="description"
@@ -85,7 +85,7 @@ export default function EditPostForm({ id, title, description }: EditPostFormPro
             placeholder="Enter post description"
             required
           />
-        </div>
+        </div> */}
 
         <div>
           <label htmlFor="file" className="block text-sm font-medium text-stone-700">Upload Image</label>

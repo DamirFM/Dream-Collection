@@ -70,7 +70,7 @@ export default function About() {
             {/* Counter and Trust Section */}
             <div className="mb-8 flex flex-col items-center justify-center">
                 <p className="text-3xl font-bold text-center text-black dark:text-white mb-4">
-                    Join over <NumberTicker value={userCount} direction="up" /> creators already sharing their art
+                    Join over <NumberTicker value={99} direction="up" />+ creators already sharing their art
                 </p>
                 <p className="text-lg text-center text-gray-600 dark:text-gray-400 mb-8">
                     Build your portfolio, connect with a community, and let your art shine.

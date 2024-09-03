@@ -118,7 +118,7 @@ export default function ProfilePage() {
       <div className="relative flex flex-col items-center w-full min-h-screen">
         {/* Background Blobs */}
         <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[50rem]"></div>
-        <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
+        <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
 
         <div className="relative flex flex-col items-center w-full max-w-screen-lg p-4 md:p-8 lg:p-12">
           <div className="w-full flex flex-col items-center text-center sm:flex-row sm:text-left">

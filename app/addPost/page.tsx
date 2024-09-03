@@ -107,13 +107,13 @@ export default function AddPost() {
           placeholder="Title"
         />
 
-        <textarea
+        {/* <textarea
           onChange={(e) => setDescription(e.target.value)}
           value={description}
           className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600"
           placeholder="Description"
           rows={3}
-        />
+        /> */}
 
         <div className="w-full flex flex-col gap-2">
           <input
