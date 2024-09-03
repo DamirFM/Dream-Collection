@@ -1,23 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { HiPencilAlt } from "react-icons/hi";
+import { HiPencilAlt, HiDownload } from "react-icons/hi";
 import RemoveBtn from "../components/UI/removeBtn";
 import LoginPage from "../login/page";
-
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from 'next/image';
 import Masonry from 'react-masonry-css';
-import { HiDownload } from 'react-icons/hi';
 import BlurFade from "@/components/magicui/blur-fade";
-// Define the variants for the BarLoader animation
+
+// Define the BarLoader animation
 const variants = {
-  initial: {
-    scaleY: 0.5,
-    opacity: 0,
-  },
+  initial: { scaleY: 0.5, opacity: 0 },
   animate: {
     scaleY: 1,
     opacity: 1,
@@ -30,7 +26,6 @@ const variants = {
   },
 };
 
-// BarLoader component
 const BarLoader = () => (
   <motion.div
     transition={{ staggerChildren: 0.25 }}
@@ -38,11 +33,9 @@ const BarLoader = () => (
     animate="animate"
     className="flex gap-1"
   >
-    <motion.div variants={variants} className="h-12 w-2 bg-white" />
-    <motion.div variants={variants} className="h-12 w-2 bg-white" />
-    <motion.div variants={variants} className="h-12 w-2 bg-white" />
-    <motion.div variants={variants} className="h-12 w-2 bg-white" />
-    <motion.div variants={variants} className="h-12 w-2 bg-white" />
+    {Array.from({ length: 5 }).map((_, i) => (
+      <motion.div key={i} variants={variants} className="h-12 w-2 bg-white" />
+    ))}
   </motion.div>
 );
 
@@ -54,51 +47,47 @@ type Post = {
 };
 
 export default function ProfilePage() {
+
   const { status, data: session } = useSession();
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loadingImages, setLoadingImages] = useState<boolean[]>([]);
   const router = useRouter();
+  console.log("Session:", session);
 
-  console.log("Status:", status);  // This will help see what the status is.
-  if (status === "authenticated") {
-    console.log("Session Data:", session);
-  } else if (status === "unauthenticated") {
-    console.log("User is not authenticated.");
-  }
 
   useEffect(() => {
-    if (status === "authenticated" && session && session.user) {
-      console.log("Session Data:", session);
-      // Fetch user posts
-      const getUserPosts = async () => {
+    if (status === "unauthenticated") {
+      router.replace('/login');
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    const getUserPosts = async () => {
+      if (status === "authenticated" && session?.user) {
         try {
-          const token = session.user._id;
-          const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/filter_tag/`, {
+          const res = await fetch(`/api/posts/filter_tag/`, {
             method: "GET",
             headers: {
-              'Authorization': `Bearer ${token}`,
+              'Authorization': `Bearer ${session.user._id}`,
               'Content-Type': 'application/json',
             },
             cache: "no-cache",
             credentials: 'include',
           });
+
           if (!res.ok) throw new Error("Failed to fetch posts");
+
           const data = await res.json();
           setPosts(data.posts);
+          setLoadingImages(new Array(data.posts.length).fill(true));
         } catch (error) {
           console.error("Error loading posts:", error);
         }
-      };
-      getUserPosts();
-    } else if (status === "unauthenticated") {
-      console.log("User is not authenticated.");
-    }
-  }, [session, status]);
+      }
+    };
 
-
-
-
-
-  const [loadingImages, setLoadingImages] = useState<boolean[]>(posts.map(() => true));
+    getUserPosts();
+  }, [status, session?.user]);
 
   const handleImageLoad = (index: number) => {
     setLoadingImages(prevLoadingImages => {
@@ -107,6 +96,7 @@ export default function ProfilePage() {
       return newLoadingImages;
     });
   };
+
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -114,13 +104,14 @@ export default function ProfilePage() {
       </div>
     );
   }
+
   const breakpointColumnsObj = {
     default: 3,
     1100: 2,
-    700: 1
+    700: 1,
   };
-  if (status === "authenticated" && session && session.user) {
-    // Extract user details from session
+
+  if (status === "authenticated" && session?.user) {
     const { name, email, image, description, location } = session.user;
 
     return (
@@ -221,15 +212,10 @@ export default function ProfilePage() {
                       </div>
                     </div>
                   </div>
-
-
-
                 </div>
               ))}
             </Masonry>
-
           </div>
-
         </div>
       </div>
     );
@@ -237,3 +223,91 @@ export default function ProfilePage() {
     return <LoginPage />;
   }
 }
+
+// "use client";
+
+// import React, { useEffect, useState } from "react";
+// import { useSession } from "next-auth/react";
+// import PostCard from "@/app/components/PostCard";
+// import LoginPage from "../login/page";
+// import Image from "next/image";
+
+// type Post = {
+//   _id: string;
+//   title: string;
+//   description: string;
+//   userId: string;
+//   imageUrl?: string;
+// };
+
+// export default function ProfilePage() {
+//   const { status, data: session } = useSession();
+//   const [posts, setPosts] = useState<Post[]>([]);
+
+//   useEffect(() => {
+//     const getUserPosts = async () => {
+//       try {
+//         const res = await fetch("/api/posts/user", { cache: "no-cache" });
+//         if (!res.ok) throw new Error("Failed to fetch posts");
+//         const data = await res.json();
+//         setPosts(data.posts);
+//       } catch (error) {
+//         console.error('Error loading Posts:', error);
+//       }
+//     };
+
+//     if (session) {
+//       getUserPosts();
+//     }
+//   }, [session]);
+
+//   if (status === "loading") {
+//     return (
+//       <div className="flex items-center justify-center h-screen bg-stone-50">
+//         <div>Loading...</div>
+//       </div>
+//     );
+//   }
+
+//   if (status === "authenticated") {
+//     return (
+//       <div className="flex justify-center w-full h-screen bg-stone-50">
+//         <div className="flex flex-col items-center w-full">
+//           <div className="w-full max-w-screen-xl p-8 bg-stone-50 rounded-md">
+//             <div className="flex flex-row justify-center items-center mt-12 relative">
+//               <Image
+//                 height={100}
+//                 width={100}
+//                 src={session?.user?.image || "/default-profile.jpg"}
+//                 alt="User Photo"
+//                 className="w-24 h-24 rounded-full shadow-md mb-4"
+//               />
+//             </div>
+//             <h2 className="text-2xl font-bold text-stone-900 mt-8">My Posts</h2>
+//             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+//               {posts.map((post) => (
+//                 <div key={post._id} className="border border-gray-300 rounded-lg overflow-hidden">
+//                   {post.imageUrl && (
+//                     <Image
+//                       src={post.imageUrl}
+//                       alt={post.title}
+//                       width={500}
+//                       height={300}
+//                       className="w-full h-48 object-cover"
+//                     />
+//                   )}
+//                   <div className="p-4">
+//                     <h2 className="m-0 text-xl">{post.title}</h2>
+//                     <p className="mt-2 text-gray-600">{post.description}</p>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   } else {
+//     return <LoginPage />;
+//   }
+// }

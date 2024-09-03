@@ -97,7 +97,7 @@ export async function GET() {
     await connectMongoDB();
 
     // Get the total number of users
-    const userCount = await User.countDocuments();
+    const userCount = await User.find();
 
     // Return the user count as a JSON response
     return NextResponse.json({ userCount }, { status: 200 });

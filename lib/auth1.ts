@@ -55,6 +55,25 @@ export const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
+      async session({ session, token }) {
+        // Include the user ID in the session object
+        console.log("Session token:", token);
+        if (token && token.sub) {
+          session.user._id = token.sub;  // Ensure token.sub is correctly assigned
+       }
+        session.user._id = token.sub as string;
+        session.user.description = token.description as string
+        return session;
+      },
+      async jwt({ token, user }: { token: any; user?: any }) { // Added explicit type annotation
+        // On initial sign-in, store the MongoDB user ID in the JWT token
+        console.log("Session token:", token);
+        if (user) {
+          token.sub = user.id;
+          token.description = user.description
+        }
+        return token;
+      },
       async signIn({ user, account }: { user: any; account: any }) { // Added explicit type annotation
         await connectMongoDB();
 
@@ -79,20 +98,7 @@ export const authOptions: AuthOptions = {
 
         return true;
       },
-      async session({ session, token }) {
-        // Include the user ID in the session object
-        session.user._id = token.sub as string;
-        session.user.description = token.description as string
-        return session;
-      },
-      async jwt({ token, user }: { token: any; user?: any }) { // Added explicit type annotation
-        // On initial sign-in, store the MongoDB user ID in the JWT token
-        if (user) {
-          token.sub = user.id;
-          token.description = user.description
-        }
-        return token;
-      },
+
     },
     session: {
       strategy: 'jwt', // Use literal type for 'jwt'

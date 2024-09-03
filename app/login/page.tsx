@@ -1,13 +1,13 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import SignInBtn from "../components/UI/SignInBtn";
 import { useRouter } from "next/navigation";
-import { signIn } from 'next-auth/react';
+
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-
+import { signIn, getSession } from 'next-auth/react';
 // Define schema for validation
 const schema = yup.object({
   email: yup.string().email("Invalid email format").required("Email is required"),
@@ -19,33 +19,31 @@ export default function LoginPage() {
     resolver: yupResolver(schema)
   });
   const router = useRouter();
-  const [error, setError] = React.useState("");
+  const [error, setError] = useState("");
 
-  const onSubmit = async (data: { email: any; password: any; }) => {
-    try {
-      const res = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
 
-      if (!res) {
-        throw new Error("Something went wrong. Please try again.");
-      }
 
-      if (res.error) {
-        throw new Error("Invalid Credentials");
-      }
+  const onSubmit = async (data: { email: string; password: string }) => {
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
 
-      router.push('/profile');
-    } catch (error) {
-      console.error(error);
-      setError("An unexpected error occurred. Please try again.");
+    if (!res || res.error) {
+      setError("Invalid credentials or an error occurred");
+      return;
     }
+
+    // Force refresh the session to ensure it updates
+    await getSession(); // Fetch the session again
+    router.replace("/profile");
   };
 
-  return (
 
+
+
+  return (
     <div className="relative flex items-center justify-center h-screen ">
       <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] "></div>
       <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem] "></div>
@@ -95,6 +93,5 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
-
   );
 }

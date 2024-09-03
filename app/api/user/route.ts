@@ -29,8 +29,8 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     await connectMongoDB();
-    const userCount = await User.countDocuments(); // Get the total number of users
-    return NextResponse.json({ userCount }); // Return the user count
+    const users = await User.find();
+    return NextResponse.json({ users }); // Return the user count
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while fetching the users." },
