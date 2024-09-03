@@ -123,7 +123,7 @@ export default function ProfilePage() {
         <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
 
         <div className="relative flex flex-col items-center w-full max-w-screen-lg p-4 md:p-8 lg:p-12">
-          <div className="w-full flex flex-col items-center text-center sm:flex-row sm:text-left">
+          <div className="w-full flex flex-row items-center text-center mt-3 sm:flex-row sm:text-left">
             <Image
               height={100}
               width={100}
@@ -136,21 +136,21 @@ export default function ProfilePage() {
                 {name || "User Name"}
               </h2>
               <p className="text-stone-700">{email || "User email..."}</p>
-              <p className="text-stone-700">{description || "User description..."}</p>
+              {/* <p className="text-stone-700">{description || "User description..."}</p>
               {location && (
                 <p className="text-stone-700">
                   Location: {location.lat}, {location.lng}
                 </p>
-              )}
+              )} */}
             </div>
-            <div className="flex flex-col mt-4 sm:mt-0 sm:ml-auto gap-2">
-              <Link href={`/editProfile/${session.user._id}`}>
+            <div className="flex flex-col mt-4 p-2 mb-3 sm:mt-0 sm:ml-auto gap-2">
+              {/* <Link href={`/editProfile/${session.user._id}`}>
                 Edit Profile
-              </Link>
+              </Link> */}
               <button
                 onClick={() => router.push("/addPost")}
                 type="button"
-                className="group bg-stone-900 text-white px-6 py-2 flex 
+                className="group bg-stone-900 text-white px-4 py-2 flex 
                 items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
                 hover:bg-gray-950 active:scale-105 transition cursor-pointer"
               >

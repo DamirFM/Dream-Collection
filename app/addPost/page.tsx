@@ -6,7 +6,7 @@ import LoginPage from '../login/page';
 
 export default function AddPost() {
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  // const [description, setDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -51,7 +51,7 @@ export default function AddPost() {
     setErrorMessage('');
     setSuccessMessage('');
 
-    if (!title || !description || !file) {
+    if (!title || !file) {
       setLoading(false);
       setErrorMessage('Please fill out all fields');
       return;
@@ -60,7 +60,7 @@ export default function AddPost() {
     try {
       const formData = new FormData();
       formData.append('title', title);
-      formData.append('description', description);
+      // formData.append('description', description);
       formData.append('file', file);
       formData.append('tags', JSON.stringify(tags)); // Convert tags array to JSON string
 

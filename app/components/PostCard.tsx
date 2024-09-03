@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Masonry from 'react-masonry-css';
@@ -22,9 +20,10 @@ type Post = {
 
 type PostCardProps = {
   posts: Post[];
+  onImageClick: (imageUrl: string, title: string) => void; // Add this prop type
 };
 
-const PostCard: React.FC<PostCardProps> = ({ posts }) => {
+const PostCard: React.FC<PostCardProps> = ({ posts, onImageClick }) => {
   const breakpointColumnsObj = {
     default: 3,
     1100: 2,
@@ -51,6 +50,7 @@ const PostCard: React.FC<PostCardProps> = ({ posts }) => {
         <div
           key={post._id}
           className="relative mb-4 break-inside-avoid rounded-sm overflow-hidden group"
+          onClick={() => onImageClick(post.imageUrl!, post.title)} // Pass image URL and title
         >
           {post.imageUrl && (
             <BlurFade key={post.imageUrl} delay={0.25 + idx * 0.05} inView>

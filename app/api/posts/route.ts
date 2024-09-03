@@ -50,11 +50,10 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const title = formData.get("title")?.toString();
-    const description = formData.get("description")?.toString();
-    const tags = JSON.parse(formData.get("tags")?.toString() || "[]"); // Parse tags
+    const tags = JSON.parse(formData.get("tags")?.toString() || "[]");
     const file = formData.get("file") as File;
 
-    if (!file || !title || !description) {
+    if (!file || !title) {
       return NextResponse.json({ error: "All fields are required." }, { status: 400 });
     }
 
@@ -63,10 +62,9 @@ export async function POST(request: NextRequest) {
 
     const newPost = new Post({
       title,
-      description,
       imageUrl,
       userId: token.sub,
-      tags, // Include tags in the post creation
+      tags,
     });
 
     await newPost.save();
@@ -74,7 +72,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, post: newPost });
   } catch (error) {
     console.error("Error uploading post:", error);
-    return NextResponse.json({ error: "Error uploading post" }, { status: 500 });
+    return NextResponse.json({ error: "Error uploading post", details: error.message }, { status: 500 });
   }
 }
 

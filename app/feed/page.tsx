@@ -5,6 +5,7 @@ import PostCard from '@/app/components/PostCard';
 import { FaSearch } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
 import Link from "next/link";
+import ImageModal from "@/app/components/ImageModal";
 
 type Post = {
     _id: string;
@@ -34,7 +35,18 @@ export default function FeedPage() {
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
     const [allPosts, setAllPosts] = useState<Post[]>([]);
     const [category, setCategory] = useState<string | null>(null);
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+    const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
 
+    const openModal = (imageUrl: string, title: string) => {
+        setSelectedImage(imageUrl);
+        setSelectedTitle(title);
+    };
+
+    const closeModal = () => {
+        setSelectedImage(null);
+        setSelectedTitle(null);
+    };
     // Effect to handle initial category setting from URL
     useEffect(() => {
         setCategory(getQueryParam('category')); // Set category from URL on initial load
@@ -80,6 +92,13 @@ export default function FeedPage() {
 
     return (
         <div className="p-3 mt-4 items-center justify-center">
+            {/* Modal Component */}
+            <ImageModal
+                isOpen={!!selectedImage}
+                onClose={closeModal}
+                imageUrl={selectedImage || ''}
+                title={selectedTitle || ''}
+            />
             {/* Welcome Text */}
             <div className="text-center mb-4">
                 <h1 className="text-2xl font-bold">Capture moments, share memories</h1>
@@ -112,7 +131,7 @@ export default function FeedPage() {
             </Link>
 
             {/* Post Cards */}
-            <PostCard posts={filteredPosts} />
+            <PostCard posts={filteredPosts} onImageClick={openModal} />
         </div>
     );
 }

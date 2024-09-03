@@ -1,13 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
-// import { getServerSession } from 'next-auth';
-// import { redirect } from 'next/navigation';
-// import { authOptions } from '@/lib/auth';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { signIn } from 'next-auth/react';
 
 // Define schema for validation
 const schema = yup.object({
@@ -18,14 +16,15 @@ const schema = yup.object({
 
 export default function JoinPage() {
     const router = useRouter();
-    const [error, setError] = React.useState("");
+    const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = async (data: { email: any; }) => {
-        console.log("Submitting login form with data:", data);
+    const onSubmit = async (data: { email: string; name: string; password: string; }) => {
+        console.log("Submitting join form with data:", data);
         try {
+            // Check if the user already exists
             const resUserExists = await fetch("/api/userExists", {
                 method: "POST",
                 headers: {
@@ -43,6 +42,8 @@ export default function JoinPage() {
                 setError("User already exists");
                 return;
             }
+
+            // Register new user
             const res = await fetch("/api/user", {
                 method: "POST",
                 headers: {
@@ -50,9 +51,22 @@ export default function JoinPage() {
                 },
                 body: JSON.stringify(data),
             });
-            console.log("Response from signIn:", res);
+
             if (res.ok) {
-                router.push('/profile');
+                console.log("User created successfully.");
+
+                // Automatically log in the user after successful registration
+                const signInResponse = await signIn("credentials", {
+                    email: data.email,
+                    password: data.password,
+                    redirect: false, // Prevent default redirect
+                });
+
+                if (signInResponse?.error) {
+                    setError("Failed to log in after registration. Please try to log in manually.");
+                } else {
+                    router.push('/profile'); // Redirect to profile page after successful login
+                }
             } else {
                 const errorData = await res.json();
                 setError(`Failed to create user: ${errorData.message}`);
@@ -63,22 +77,14 @@ export default function JoinPage() {
         }
     };
 
-
-
-    //   // Server-side session check
-    //   const session = getServerSession(authOptions);
-    //   if (session) {
-    //     redirect("/");
-    //   }
-
     return (
-        <div className="relative flex items-center justify-center h-screen ">
+        <div className="relative flex items-center justify-center h-screen">
             {/* Background Blobs */}
             <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
-            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]"></div>
+            <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]"></div>
 
             {/* Join Form */}
-            <div className="relative w-full max-w-xl p-8 ">
+            <div className="relative w-full max-w-xl p-8">
                 <h2 className="text-center text-2xl font-bold mb-6">Join</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label className="block mb-4">
@@ -119,7 +125,7 @@ export default function JoinPage() {
                     >
                         Join
                     </button>
-                    {error && <div className="text-red-500 rounded-md">{error}</div>}
+                    {error && <div className="text-red-500 rounded-md mt-2">{error}</div>}
                 </form>
                 <p className="text-center mt-4 text-stone-700">
                     Already have an account?{" "}
@@ -129,6 +135,5 @@ export default function JoinPage() {
                 </p>
             </div>
         </div>
-
     );
 }

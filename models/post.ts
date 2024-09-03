@@ -7,11 +7,11 @@ const postSchema = new Schema(
       required: true, // Make title required
       trim: true,     // Trim whitespace
     },
-    description: {
-      type: String,
-      required: true, // Make description required
-      trim: true,
-    },
+    // description: {
+    //   type: String,
+    //   required: true, // Make description required
+    //   trim: true,
+    // },
     imageUrl: {
       type: String,
       required: false, // Store the image URL, not required

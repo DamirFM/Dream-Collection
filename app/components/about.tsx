@@ -17,7 +17,7 @@ export default function AboutComponent() {
         "A place to share your dreams with the world. Here, you can transform your personal visions into a global showcase, connecting with a vibrant community of dreamers and creators.";
 
     return (
-        <div className="flex flex-col gap-12 lg:flex-row lg:justify-between items-center mt-3 md:mt-8 sm:mt-5 space-y-6 lg:space-y-0">
+        <div className="flex flex-col lg:flex-row lg:justify-between items-center mt-3 md:mt-8 sm:mt-5 space-y-6 lg:space-y-0">
             {/* Content for the right side */}
             <div className="flex flex-col justify-center items-center lg:items-start space-y-4 w-full lg:w-2/3">
                 {/* "Dream" */}
@@ -45,7 +45,7 @@ export default function AboutComponent() {
                     </div>
                 </div>
                 {/* "A place to share your dreams with the world" */}
-                <p className="text-center lg:text-left text-stone-900 font-semibold text-xl sm:text-4xl md:text-4xl lg:text-85xl xl:text-5xl lg:ml-5 fade-in">
+                <p className="text-center lg:text-left text-stone-900 font-semibold text-xl sm:text-4xl md:text-3xl lg:text-85xl xl:text-5xl lg:ml-5 fade-in">
                     {textPar}
                 </p>
                 <div className="flex justify-center space-x-2 lg:justify-start">
@@ -64,9 +64,10 @@ export default function AboutComponent() {
                 </div>
             </div>
             {/* Content for the left side on large screens */}
-            <div className="flex justify-center sm:order-2 lg:order-none sm:-mt-16 lg:justify-start w-full lg:w-1/3 lg:-ml-12">
+            <div className="flex justify-center sm:order-last lg:order-none sm:mt-8 lg:mt-0 lg:justify-start w-full lg:w-1/3 lg:-ml-12">
                 <SwipeCards />
             </div>
         </div>
     );
+
 }

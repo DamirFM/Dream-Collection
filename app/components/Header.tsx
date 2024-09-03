@@ -265,7 +265,7 @@ export default function Header() {
               />
               <span className="ml-3">Logout</span>
             </button>
-            <button
+            {/* <button
               onClick={() => handleNavigation("/about")}
               className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-red-400 transition duration-300 ease-in-out transform hover:scale-1"
             >
@@ -276,7 +276,7 @@ export default function Header() {
                 height={24}
               />
               <span className="ml-3">Activity</span>
-            </button>
+            </button> */}
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">

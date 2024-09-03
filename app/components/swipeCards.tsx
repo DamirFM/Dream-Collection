@@ -45,7 +45,7 @@ const Card: React.FC<CardProps> = ({ id, url, setCards, cards }) => {
         <img
             src={url}
             alt="Placeholder alt"
-            className={`h-96 w-72 origin-bottom rounded-lg bg-stone-50 object-cover hover:cursor-pointer card ${isFront ? "card-front" : ""
+            className={`h-96 w-72 origin-bottom rounded-md bg-stone-50 object-cover hover:cursor-pointer card ${isFront ? "card-front" : ""
                 }`}
         />
     );
