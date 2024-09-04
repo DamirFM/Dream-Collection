@@ -52,7 +52,7 @@ export default function About() {
     }, [searchTerm, allPosts]);
 
     return (
-        <div className="relative flex flex-col items-center justify-center w-full min-h-screen p-4 bg-gray-100">
+        <div className="relative flex flex-col items-center justify-center w-full min-h-screen p-4 ">
             {/* Background Blurs */}
             <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] "></div>
             <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem] "></div>
@@ -86,7 +86,7 @@ export default function About() {
                     </div>
                     <div className="flex flex-col items-center">
                         <p className="text-4xl font-bold text-black dark:text-white">
-                            <NumberTicker value={999} direction="up" />+
+                            <NumberTicker value={99} direction="up" />+
                         </p>
                         <p className="text-sm text-gray-600 dark:text-gray-400">Search Queries</p>
                     </div>

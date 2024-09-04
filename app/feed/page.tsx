@@ -81,14 +81,17 @@ export default function FeedPage() {
     // Effect to filter posts based on search term
     useEffect(() => {
         if (!category) {
-            const filtered = allPosts.filter(post =>
-                post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-            );
+            const filtered = allPosts.filter(post => {
+                const titleMatch = post.title?.toLowerCase().includes(searchTerm.toLowerCase());
+                const descriptionMatch = post.description?.toLowerCase().includes(searchTerm.toLowerCase());
+                const tagsMatch = post.tags.some(tag => tag?.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                return titleMatch || descriptionMatch || tagsMatch;
+            });
             setFilteredPosts(filtered);
         }
     }, [searchTerm, allPosts, category]);
+
 
     return (
         <div className="p-3 mt-4 items-center justify-center">

@@ -93,7 +93,7 @@ export default function Header() {
 
   return (
     <header className="z-[999] relative">
-      <div className="bg-stone-50 fixed top-0 w-full flex items-center justify-between p-4 md:p-3 bg-opacity-80 shadow-black/[0.03] backdrop-blur-[0.5rem] border border-stone-100 border-opacity-40 rounded-none  shadow-lg ">
+      <div className="bg-stone-50 fixed top-0 w-full flex items-center justify-between p-4 md:p-3 bg-opacity-0 shadow-black/[0.02] backdrop-blur-[0.5rem]  border-opacity-40 rounded-none  shadow-lg ">
         <div className="flex items-center space-x-3">
           <Image
             src="/assets/collection.svg" // Path to your image file

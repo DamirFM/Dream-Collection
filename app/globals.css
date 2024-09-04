@@ -176,3 +176,10 @@
 
 
 
+/* In your global CSS file */
+@supports (display: flex) {
+  .flex {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+  }
+}

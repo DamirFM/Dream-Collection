@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { HiDownload } from 'react-icons/hi';
-import { IoClose } from 'react-icons/io5'; // Import the close icon
+import { IoClose } from 'react-icons/io5';
 
 interface ImageModalProps {
     isOpen: boolean;
@@ -23,9 +23,9 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, imageUrl, titl
     return (
         <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4"
-            onClick={handleOverlayClick} // Attach click event to overlay
+            onClick={handleOverlayClick}
         >
-            <div className="relative bg-white rounded-lg shadow-lg p-5 mt-12 max-w-2xl max-h-[27rem] w-full">
+            <div className="relative bg-white rounded-lg shadow-lg p-5 mt-12 max-w-2xl w-full">
                 {/* Close button */}
                 <button
                     onClick={onClose}
@@ -35,20 +35,18 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, imageUrl, titl
                 </button>
 
                 {/* Image container */}
-                <div className=" max-h-[70vh]">
-                    <div className="flex justify-center items-center">
-                        <Image
-                            src={imageUrl}
-                            alt={title}
-                            width={490}
-                            height={260}
-                            className="object-contain max-w-full rounded-lg"
-                        />
-                    </div>
+                <div className="flex justify-center items-center max-h-[70vh] overflow-hidden">
+                    <Image
+                        src={imageUrl}
+                        alt={title}
+                        width={500}
+                        height={500}
+                        className="object-contain max-w-full max-h-full rounded-lg"
+                    />
                 </div>
 
                 {/* Download and title section */}
-                <div className="flex justify-between items-center mt-1">
+                <div className="flex justify-between items-center mt-4">
                     <span>{title}</span>
                     <a
                         href={imageUrl}

@@ -4,9 +4,13 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import LoginPage from '../login/page';
 
+// Suggested Categories
+const suggestedCategories = [
+  'Travel', 'Nature', 'Landscape', 'Architect', 'Animals', 'People', 'Texture', 'Business', 'Other'
+];
+
 export default function AddPost() {
   const [title, setTitle] = useState('');
-  // const [description, setDescription] = useState('');
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [file, setFile] = useState<File | null>(null);
@@ -41,6 +45,12 @@ export default function AddPost() {
     }
   };
 
+  const addTag = (newTag: string) => {
+    if (!tags.includes(newTag)) {
+      setTags([...tags, newTag]);
+    }
+  };
+
   const removeTag = (tagToRemove: string) => {
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
@@ -60,7 +70,6 @@ export default function AddPost() {
     try {
       const formData = new FormData();
       formData.append('title', title);
-      // formData.append('description', description);
       formData.append('file', file);
       formData.append('tags', JSON.stringify(tags)); // Convert tags array to JSON string
 
@@ -107,14 +116,25 @@ export default function AddPost() {
           placeholder="Title"
         />
 
-        {/* <textarea
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-          className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-600"
-          placeholder="Description"
-          rows={3}
-        /> */}
+        {/* Suggested Categories */}
+        <div className="w-full flex flex-col gap-2">
+          <h3 className="text-lg font-semibold text-gray-800">Suggested Categories:</h3>
+          <div className="flex flex-wrap gap-2">
+            {suggestedCategories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                className={`px-3 py-1 rounded-full border ${tags.includes(category) ? 'bg-gray-800 text-white' : 'bg-gray-200 text-gray-800'
+                  } hover:bg-gray-300 transition`}
+                onClick={() => addTag(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+        </div>
 
+        {/* Tag Input and Display */}
         <div className="w-full flex flex-col gap-2">
           <input
             type="text"
@@ -158,6 +178,7 @@ export default function AddPost() {
           {file ? file.name : "Choose File"}
         </button>
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-gray-900 text-white p-2 rounded-lg hover:bg-gray-800 transition"
