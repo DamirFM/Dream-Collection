@@ -50,15 +50,15 @@ export default function AboutComponent() {
                 </p>
                 <div className="flex justify-center space-x-2 lg:justify-start">
                     <Link href="/addPost">
-                        <button className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-stone-950 active:scale-105 transition cursor-pointer lg:ml-5">
-                            Create a new dream
-                            <BsArrowRight />
+                        <button className="group relative px-7 py-3 flex items-center sm:flex-col md:flex-row gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-105 hover:bg-stone-950 active:scale-105 transition cursor-pointer lg:ml-5">
+                            <span>Create a new dream</span>
+                            <BsArrowRight className="order-last sm:order-first sm:mt-2 md:order-last md:mt-0" />
                         </button>
                     </Link>
                     <Link href="/feed">
-                        <button className="group relative px-7 py-3 flex items-center gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-110 hover:bg-[#ff1493] active:scale-105 transition cursor-pointer lg:ml-5">
-                            Gallery
-                            <BsArrowRight />
+                        <button className="group relative px-7 py-3 flex items-center sm:flex-col md:flex-row gap-2 rounded-full bg-stone-900 text-white focus:scale-110 hover:scale-105 hover:bg-[#ff1493] active:scale-105 transition cursor-pointer lg:ml-5">
+                            <span>Gallery</span>
+                            <BsArrowRight className="order-last sm:order-first sm:mt-2 md:order-last md:mt-0" />
                         </button>
                     </Link>
                 </div>
@@ -70,5 +70,4 @@ export default function AboutComponent() {
             </div>
         </div>
     );
-
 }
