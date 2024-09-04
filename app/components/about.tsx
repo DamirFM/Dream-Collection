@@ -63,6 +63,7 @@ export default function AboutComponent() {
                     </Link>
                 </div>
             </div>
+
             {/* Content for the left side on large screens */}
             <div className="flex justify-center sm:order-last lg:order-none sm:mt-8 lg:mt-0 lg:justify-start w-full lg:w-1/3 lg:-ml-12">
                 <SwipeCards />
