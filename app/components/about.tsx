@@ -19,7 +19,7 @@ export default function AboutComponent() {
     return (
         <div className="flex flex-col  lg:justify-center items-center mt-3 md:mt-8 sm:mt-5 space-y-6 lg:space-y-0">
             {/* Header Section */}
-            <div className="text-stone-700 text-center font-semibold mt-4 sm:mt-0 fade-in">
+            <div className="text-stone-700 text-center font-semibold mt-4 sm:mt-0 fade-in w-full lg:w-auto">
                 <div
                     className={`${workSans.className} text-stone-900 -mb-3 font-black text-center lg:text-right uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] lg:ml-5`}
                 >
@@ -32,7 +32,7 @@ export default function AboutComponent() {
             </div>
 
             {/* Content Wrapper */}
-            <div className="flex flex-col lg:flex-row justify-between items-center  lg:items-stretch w-full lg:w-2/3 lg:space-x-10 space-y-6 lg:space-y-0">
+            <div className="flex flex-col lg:flex-row justify-between items-center lg:items-stretch w-full lg:w-2/3 lg:space-x-10 space-y-6 lg:space-y-0">
                 {/* Left Side: Text and Buttons */}
                 <div className="flex flex-col justify-center items-center lg:items-start w-full lg:w-2/3 space-y-4 lg:-ml-10">
                     {/* Text Paragraph */}
@@ -57,7 +57,7 @@ export default function AboutComponent() {
                 </div>
 
                 {/* Right Side: SwipeCards */}
-                <div className="flex w-full lg:w-1/3 lg:justify-end  ">
+                <div className="flex w-full lg:w-1/3 lg:justify-end lg:items-start">
                     <div className="w-full flex justify-center items-center lg:justify-end">
                         <SwipeCards />
                     </div>

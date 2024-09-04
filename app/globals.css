@@ -176,10 +176,52 @@
 
 
 
-/* In your global CSS file */
-@supports (display: flex) {
-  .flex {
-    display: -webkit-flex; /* Safari */
-    display: flex;
-  }
+/* Reset box-sizing for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
+/* Ensure full height on html and body for flex containers */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Reset display for flex */
+.flex {
+  display: flex;
+  display: -webkit-flex; /* Older Safari support */
+}
+
+/* Add alignment utilities */
+.lg\\:items-stretch {
+  align-items: stretch;
+}
+
+.lg\\:items-start {
+  align-items: flex-start;
+}
+
+/* Additional reset for margin and padding */
+h1, h2, h3, h4, h5, h6, p, ul, ol, figure, blockquote, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure images and media are responsive */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Text selection background for consistent UX */
+::selection {
+  background-color: #D7C3F1; /* Example color */
+  color: #fff;
+}
+

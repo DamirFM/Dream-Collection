@@ -125,13 +125,13 @@ export default function ProfilePage() {
 
         <div className="relative flex flex-col items-center w-full max-w-screen-lg p-4 md:p-8 lg:p-12">
           <div className="w-full flex flex-row items-center text-center mt-3 sm:flex-row sm:text-left">
-            <Image
+            {/* <Image
               height={100}
               width={100}
               src={profileImageUrl || "/default-profile.jpg"}
               alt="User Photo"
               className="w-24 h-24 rounded-full shadow-md mb-4 sm:mb-0"
-            />
+            /> */}
             <div className="ml-0 sm:ml-4">
               <h2 className="text-2xl font-bold text-stone-900">
                 {name || "User Name"}

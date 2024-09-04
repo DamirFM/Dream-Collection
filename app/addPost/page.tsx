@@ -97,14 +97,15 @@ export default function AddPost() {
   };
 
   return (
-    <div className="relative flex justify-center w-full h-screen">
+    <div className="relative flex flex-col lg:flex-row items-center justify-center w-full h-screen">
       {/* Background Blobs */}
       <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
       <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]"></div>
 
+      {/* Form Section */}
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-full max-w-lg gap-5 p-8 items-center justify-center"
+        className="flex flex-col w-full max-w-lg gap-5 p-8 items-center justify-center lg:w-1/2"
       >
         <h2 className="text-2xl font-semibold text-gray-800">Create New Post</h2>
 
@@ -191,6 +192,27 @@ export default function AddPost() {
         {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
       </form>
+
+      {/* Preview Section */}
+      {file && (
+        <div className="mt-8 lg:mt-0 lg:ml-8 p-4 border border-gray-300 rounded-lg max-w-lg w-full lg:w-1/2">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">Post Preview</h3>
+          {/* Image Preview */}
+          <div className="w-full h-64 bg-gray-100 rounded-lg flex justify-center items-center overflow-hidden mb-4">
+            <img src={URL.createObjectURL(file)} alt="Preview" className="object-contain h-full" />
+          </div>
+          {/* Title Preview */}
+          <h4 className="text-xl font-bold text-gray-800">{title || 'Your Title Here'}</h4>
+          {/* Tags Preview */}
+          <div className="flex flex-wrap gap-2 mt-2">
+            {tags.map((tag, index) => (
+              <span key={index} className="px-2 py-1 rounded-full bg-gray-200 text-gray-800">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
