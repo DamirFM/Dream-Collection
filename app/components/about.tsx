@@ -65,8 +65,11 @@ export default function AboutComponent() {
             </div>
 
             {/* Content for the left side on large screens */}
-            <div className="flex justify-center sm:order-last lg:order-none sm:mt-8 lg:mt-0 lg:justify-start w-full lg:w-1/3 lg:-ml-12">
-                <SwipeCards />
+            <div className="flex justify-center lg:justify-start w-full lg:w-1/3 lg:-ml-12">
+                {/* Ensure SwipeCards is centered under the text on small screens */}
+                <div className="w-full flex justify-center sm:justify-center lg:justify-start">
+                    <SwipeCards />
+                </div>
             </div>
         </div>
     );
