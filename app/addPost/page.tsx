@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import LoginPage from '../login/page';
+import Image from 'next/image';
 
 // Suggested Categories
 const suggestedCategories = [
@@ -199,7 +200,7 @@ export default function AddPost() {
           <h3 className="text-lg font-semibold text-gray-800 mb-2">Post Preview</h3>
           {/* Image Preview */}
           <div className="w-full h-64 bg-gray-100 rounded-lg flex justify-center items-center overflow-hidden mb-4">
-            <img src={URL.createObjectURL(file)} alt="Preview" className="object-contain h-full" />
+            <Image src={URL.createObjectURL(file)} alt="Preview" className="object-contain h-full" />
           </div>
           {/* Title Preview */}
           <h4 className="text-xl font-bold text-gray-800">{title || 'Your Title Here'}</h4>

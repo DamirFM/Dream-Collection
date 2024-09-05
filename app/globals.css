@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* Animation and transitions with Safari compatibility */
 .fade-in {
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeIn 1s forwards;
+  -webkit-animation: fadeIn 1s forwards; /* Safari support */
+}
+
+@-webkit-keyframes fadeIn { /* Safari support */
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
@@ -16,6 +24,7 @@
   }
 }
 
+/* Hover text styles */
 .hoverText {
   transition: 0.35s font-weight, 0.35s color;
 }
@@ -25,7 +34,7 @@
   color: rgb(238, 242, 255);
 }
 
-/* To the right */
+/* Adjacent hover effects */
 .hoverText:hover + .hoverText {
   font-weight: 500;
   color: rgb(255, 20, 147);
@@ -35,26 +44,18 @@
   font-weight: 300;
 }
 
-/* To the left */
-.hoverText:has(+ .hoverText:hover) {
-  font-weight: 500;
-  color: rgb(255, 20, 147);
-}
+/* Remove :has() pseudo-class for Safari compatibility */
 
-.hoverText:has(+ .hoverText + .hoverText:hover) {
-  font-weight: 300;
-}
-
-
-/* Add these to your global stylesheet or a specific CSS module */
-
+/* Card styles */
 .card {
   border-radius: 0.5rem; 
   grid-row: 1;
   grid-column: 1;
   transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out;
+  -webkit-transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out; /* Safari */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
   transform: rotate(0deg) scale(0.98);
+  -webkit-transform: rotate(0deg) scale(0.98); /* Safari */
   opacity: 0.8;
   position: absolute;
   z-index: 1; /* Ensures proper stacking order */
@@ -62,46 +63,49 @@
 
 .card-front {
   transform: rotate(3deg) scale(1.02); /* Small rotation and scaling for the front card */
+  -webkit-transform: rotate(3deg) scale(1.02); /* Safari */
   opacity: 1;
   transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out;
+  -webkit-transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out; /* Safari */
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
   z-index: 2; /* Higher stacking order for the front card */
 }
 
 .card-previous {
   transform: rotate(-2deg) scale(0.95); /* Slight rotation and scaling for the previous card */
+  -webkit-transform: rotate(-2deg) scale(0.95); /* Safari */
   opacity: 0.9;
   transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out;
+  -webkit-transition: transform 0.125s ease-in-out, opacity 0.125s ease-in-out; /* Safari */
   box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.3), 0 6px 8px -4px rgba(0, 0, 0, 0.3);
   z-index: 1; /* Slightly behind the front card */
 }
 
 .card:hover {
   transform: rotate(0deg) scale(1.05);
+  -webkit-transform: rotate(0deg) scale(1.05); /* Safari */
   opacity: 1;
 }
 
+/* Masonry grid styles */
+.my-masonry-grid {
+  display: -webkit-flex; /* Safari 6.1+ support */
+  display: flex;
+  margin-left: -8px; /* gutter size offset */
+  width: auto;
+}
 
+.my-masonry-grid_column {
+  padding-left: 3px; /* gutter size */
+  background-clip: padding-box;
+}
 
+/* Style for the individual item in the grid */
+.my-masonry-grid_column > div {
+  margin-bottom: 2px;
+}
 
-
-  .my-masonry-grid {
-    display: flex;
-    margin-left: -8px; /* gutter size offset */
-    width: auto;
-  }
-  .my-masonry-grid_column {
-    padding-left: 3px; /* gutter size */
-    background-clip: padding-box;
-  }
-  
-  /* Style for the individual item in the grid */
-  .my-masonry-grid_column > div {
-    margin-bottom: 2px;
-  }
-
-
-
+/* Custom button styles */
 .custom-button {
   display: flex;
   align-items: center;
@@ -116,17 +120,16 @@
 
 .custom-button:hover {
   transform: scale(1.1); /* Scale up on hover */
+  -webkit-transform: scale(1.1); /* Safari */
   background-color: #1c1c1c; /* Equivalent to bg-stone-950 */
 }
 
 .custom-button:active {
   transform: scale(0.95); /* Scale down slightly when clicked */
+  -webkit-transform: scale(0.95); /* Safari */
 }
 
-
-
-
-
+/* Gallery card styles */
 .gallery-card {
   position: relative;
   overflow: hidden;
@@ -139,6 +142,7 @@
 
 .gallery-card:hover .gallery-card-image {
   transform: scale(1.05); /* Slight zoom on hover */
+  -webkit-transform: scale(1.05); /* Safari */
 }
 
 .gallery-card-image {
@@ -146,6 +150,7 @@
   background-position: center;
   height: 100%; /* Ensuring the image covers the card height */
   transition: transform 0.3s ease-in-out;
+  -webkit-transition: transform 0.3s ease-in-out; /* Safari */
 }
 
 .gallery-card-title-wrapper {
@@ -160,7 +165,8 @@
 
 .gallery-card-title-bg {
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  backdrop-filter: blur(5px); /* Apply blur only to this element */
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
+  backdrop-filter: blur(5px); /* Standard */
   padding: 1rem 2rem; /* Add padding for some space around text */
   border-radius: 0.25rem; /* rounded */
   max-width: 80%; /* Makes the background narrower than the card */
@@ -173,8 +179,6 @@
   text-transform: uppercase;
   color: rgb(226, 255, 3); /* Change text color for visibility */
 }
-
-
 
 /* Reset box-sizing for all elements */
 *,
@@ -191,19 +195,11 @@ body {
   padding: 0;
 }
 
-/* Reset display for flex */
+/* Flex compatibility */
 .flex {
-  display: flex;
-  display: -webkit-flex; /* Older Safari support */
-}
-
-/* Add alignment utilities */
-.lg\\:items-stretch {
-  align-items: stretch;
-}
-
-.lg\\:items-start {
-  align-items: flex-start;
+  display: -webkit-box; /* Older Safari support */
+  display: -webkit-flex; /* Safari support */
+  display: flex; /* Standard */
 }
 
 /* Additional reset for margin and padding */
@@ -224,4 +220,3 @@ video {
   background-color: #D7C3F1; /* Example color */
   color: #fff;
 }
-

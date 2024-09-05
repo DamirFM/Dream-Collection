@@ -102,7 +102,7 @@ export default function Header() {
             width={24} // Width of the image (adjust as needed)
             height={24} // Height of the image (adjust as needed)
           />
-          <h1 className="text-4xl font-bold text-stone-900 up">
+          <h1 className="text-2xl font-bold text-stone-900 up">
             <Link href={"/"} className="block text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1">
               collection
             </Link>
