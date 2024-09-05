@@ -80,8 +80,8 @@ export default function JoinPage() {
 
     if (status === "loading") {
         return (
-            <div className="flex items-center justify-center h-screen">z
-                Loading
+            <div className="flex items-center justify-center h-screen">
+                Loading...
             </div>
         );
     }
@@ -89,15 +89,15 @@ export default function JoinPage() {
     return (
         <div className="relative flex items-center justify-center h-screen">
             {/* Background Blobs */}
-            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
-            <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]"></div>
+            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-slate-900"></div>
+            <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem] dark:bg-slate-900"></div>
 
             {/* Join Form */}
             <div className="relative w-full max-w-xl p-8">
-                <h2 className="text-center text-2xl font-bold mb-6">Join</h2>
+                <h2 className="text-center text-2xl font-bold mb-6 dark:text-slate-100">Join</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label className="block mb-4">
-                        <span className="text-stone-700 font-bold">Name</span>
+                        <span className="text-stone-700 font-bold dark:text-slate-100">Name</span>
                         <input
                             {...register('name')}
                             type="text"
@@ -107,7 +107,7 @@ export default function JoinPage() {
                         {errors.name && <div className="text-red-500">{errors.name.message}</div>}
                     </label>
                     <label className="block mb-4">
-                        <span className="text-stone-700 font-bold">Email</span>
+                        <span className="text-stone-700 font-bold dark:text-slate-100">Email</span>
                         <input
                             {...register('email')}
                             type="email"
@@ -118,7 +118,7 @@ export default function JoinPage() {
                     </label>
                     <label className="block mb-4">
                         <div className="flex justify-between">
-                            <span className="text-stone-700 font-bold">Password</span>
+                            <span className="text-stone-700 font-bold dark:text-slate-100">Password</span>
                         </div>
                         <input
                             {...register('password')}
@@ -130,15 +130,15 @@ export default function JoinPage() {
                     </label>
                     <button
                         type="submit"
-                        className="w-full px-4 py-2 bg-stone-900 text-white shadow-md rounded-md hover:bg-stone-700 focus:outline-none focus:ring focus:ring-stone-300 focus:ring-opacity-50"
+                        className="w-full px-4 py-2 bg-stone-900 text-white shadow-md rounded-md hover:bg-stone-700 focus:outline-none focus:ring focus:ring-stone-300 focus:ring-opacity-50 dark:bg-slate-500"
                     >
                         Join
                     </button>
                     {error && <div className="text-red-500 rounded-md mt-2">{error}</div>}
                 </form>
-                <p className="text-center mt-4 text-stone-700">
+                <p className="text-center mt-4 text-stone-700 dark:text-slate-100">
                     Already have an account?{" "}
-                    <a href="/login" className="hover:underline text-stone-900">
+                    <a href="/login" className="hover:underline text-stone-900 dark:text-slate-100">
                         LOGIN
                     </a>
                 </p>

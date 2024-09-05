@@ -107,8 +107,8 @@ export default function AddPost() {
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen">z
-        Loading
+      <div className="flex items-center justify-center h-screen">
+        Loading...
       </div>
     );
   }

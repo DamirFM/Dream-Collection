@@ -55,11 +55,11 @@ export default function About() {
     return (
         <div className="relative flex flex-col items-center justify-center w-full min-h-screen p-4 ">
             {/* Background Blurs */}
-            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] "></div>
-            <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem] "></div>
+            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-slate-700"></div>
+            <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem] dark:bg-slate-700"></div>
 
             {/* About Section */}
-            <div className="w-full max-w-3xl p-8 bg-white rounded-xl shadow-md mb-8">
+            <div className="w-full max-w-3xl p-8 rounded-xl shadow-sm mb-8 dark:text-stone-100 ">
                 <h2 className="text-center text-3xl font-bold mb-6">About</h2>
                 <p className="text-center text-lg mb-4">
                     Welcome to our gallery application, a place where creativity meets
@@ -72,36 +72,36 @@ export default function About() {
 
             {/* Counter and Trust Section */}
             <div className="mb-8 flex flex-col items-center justify-center">
-                <p className="text-3xl font-bold text-center text-black dark:text-white mb-4">
+                <p className="text-3xl font-bold text-center text-black dark:text-stone-100 mb-4 ">
                     Join over <NumberTicker value={99} direction="up" />+ creators already
                     sharing their art
                 </p>
-                <p className="text-lg text-center text-gray-600 dark:text-gray-400 mb-8">
+                <p className="text-lg text-center text-gray-600 dark:text-stone-100 mb-8 ">
                     Build your portfolio, connect with a community, and let your art
                     shine.
                 </p>
                 <div className="flex flex-wrap justify-center gap-8">
                     <div className="flex flex-col items-center">
-                        <p className="text-4xl font-bold text-black dark:text-white">
+                        <p className="text-4xl font-bold text-black dark:text-stone-100">
                             4.8/5
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-gray-600 ddark:text-stone-100 dark:text-stone-100">
                             Average user rating
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
-                        <p className="text-4xl font-bold text-black dark:text-white">
+                        <p className="text-4xl font-bold text-black dark:text-stone-100">
                             <NumberTicker value={allPosts.length} direction="up" />+
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-gray-600 dark:text-stone-100">
                             Artworks shared
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
-                        <p className="text-4xl font-bold text-black dark:text-white">
+                        <p className="text-4xl font-bold text-black dark:text-stone-100">
                             <NumberTicker value={99} direction="up" />+
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <p className="text-sm text-gray-600 dark:text-stone-100">
                             Search Queries
                         </p>
                     </div>
@@ -109,7 +109,7 @@ export default function About() {
             </div>
 
             {/* Legal Disclaimer Section */}
-            <div className="w-full max-w-3xl p-8 bg-white rounded-xl shadow-md mb-8">
+            <div className="w-full max-w-3xl p-8 rounded-smhadow-md mb-8 dark:text-stone-100 ">
                 <h3 className="text-2xl font-semibold mb-4">Legal Disclaimer</h3>
                 <p className="text-justify mb-4">
                     All images shared on this platform are provided by users under their
@@ -122,7 +122,7 @@ export default function About() {
             </div>
 
             {/* Privacy Policy Section */}
-            <div className="w-full max-w-3xl p-8 bg-white rounded-xl shadow-md mb-8">
+            <div className="w-full max-w-3xl p-8  rounded-sm shadow-md mb-8 dark:text-stone-100">
                 <h3 className="text-2xl font-semibold mb-4">Privacy Policy</h3>
                 <p className="text-justify mb-4">
                     We value your privacy and are committed to protecting your personal
@@ -135,7 +135,7 @@ export default function About() {
             </div>
 
             {/* Terms of Use Section */}
-            <div className="w-full max-w-3xl p-8 bg-white rounded-xl shadow-md mb-8">
+            <div className="w-full max-w-3xl p-8  rounded-xl shadow-md mb-8 dark:text-stone-100">
                 <h3 className="text-2xl font-semibold mb-4">Terms of Use</h3>
                 <p className="text-justify mb-4">
                     By using our platform, you agree to abide by our terms of use. This
@@ -154,7 +154,7 @@ export default function About() {
             </div>
 
             {/* Footer or Additional Links */}
-            <div className="w-full max-w-3xl p-4 text-center text-sm text-gray-600">
+            <div className="w-full max-w-3xl p-4 text-center text-sm text-gray-600 dark:text-stone-100">
                 <p>&copy; 2024 Gallery Application. All rights reserved.</p>
             </div>
         </div>

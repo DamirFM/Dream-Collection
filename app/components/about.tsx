@@ -24,7 +24,7 @@ export default function AboutComponent() {
             {/* Header Section */}
             <div className="text-stone-700 text-center font-semibold mt-4 sm:mt-0 fade-in w-full lg:w-auto">
                 <div
-                    className={`${workSans.className} text-stone-900 -mb-3 font-black text-center lg:text-right uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] lg:ml-5`}
+                    className={`${workSans.className} text-stone-900 -mb-3 font-black text-center lg:text-right uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] lg:ml-5 dark:text-pink-400`}
                 >
                     {textHeader1.split("").map((char, index) => (
                         <span className="hoverText" key={index}>
@@ -39,7 +39,7 @@ export default function AboutComponent() {
                 {/* Left Side: Text and Buttons */}
                 <div className="flex flex-col justify-center items-center lg:items-start w-full lg:w-2/3 space-y-4 lg:-ml-10">
                     {/* Text Paragraph */}
-                    <p className="text-center lg:text-left text-stone-900 font-semibold text-xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl lg:ml-5 fade-in">
+                    <p className="text-center lg:text-left text-stone-900 font-semibold text-xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl lg:ml-5 fade-in dark:text-stone-100">
                         {textPar}
                     </p>
                     {/* Buttons */}
@@ -47,7 +47,7 @@ export default function AboutComponent() {
 
                         <button
                             onClick={() => handleNavigation("/addPost")}
-                            className="group relative px-5 py-2 flex items-center sm:flex-col md:flex-row gap-2 rounded-full bg-stone-900 text-white focus:scale-110  hover:bg-[#ff1493] active:scale-105 transition cursor-pointer lg:ml-5">
+                            className="group relative px-5 py-2 flex items-center sm:flex-col md:flex-row gap-2 rounded-full bg-stone-900 text-white focus:scale-110  hover:bg-[#ff1493] active:scale-105 transition cursor-pointer lg:ml-5 dark:bg-pink-400">
                             <span>Create a new dream</span>
                             <BsArrowRight className="order-last sm:order-first sm:mt-2 md:order-last md:mt-0" />
                         </button>

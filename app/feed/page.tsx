@@ -110,10 +110,10 @@ export default function FeedPage() {
 
             {/* Sticky Search Input in Separate Div */}
             <div className="sticky top-20 z-10 flex items-center justify-center mb-4">
-                <div className="relative w-full max-w-md bg-[#D7C3F1] bg-opacity-80 p-4 rounded-xl shadow-lg ">
+                <div className="relative w-full max-w-md bg-[#D7C3F1] bg-opacity-80 p-4 rounded-xl shadow-lg dark:bg-slate-500">
                     <input
                         type="text"
-                        className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 bg-opacity-80 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large"
+                        className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 bg-opacity-80 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large dark:bg-slate-600"
                         placeholder="Search by title or tags"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}

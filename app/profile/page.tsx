@@ -70,8 +70,8 @@ export default function ProfilePage() {
 
   if (status === "loading") {
     return (
-      <div className="flex items-center justify-center h-screen">z
-        Loading
+      <div className="flex items-center justify-center h-screen dark:bg-slate-900 dark:hover:text-purple-500 ">
+        Loading...
       </div>
     );
   }

@@ -11,10 +11,6 @@ export default function HomePage() {
   return (
     <div className="flex flex-col space-y-8">
       <AboutComponent />
-      {/* <div className="w-full mt-8">
-        <FeedPage />
-      </div> */}
-
     </div>
 
 

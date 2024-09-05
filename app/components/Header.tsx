@@ -103,17 +103,17 @@ export default function Header() {
             height={24} // Height of the image (adjust as needed)
           />
           <h1 className="text-2xl font-bold text-stone-900 up">
-            <Link href={"/"} className="block text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1">
+            <Link href={"/"} className="block text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1 dark:text-stone-100 dark:hover:text-purple-500">
               collection
             </Link>
           </h1>
         </div>
 
         <div className="flex-grow flex justify-center">
-          <nav className="hidden md:flex space-x-16">
+          <nav className="hidden md:flex space-x-16 ">
             <motion.a
               onClick={() => handleNavigation("/feed")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-purple-500 transition duration-300 ease-in-out transform hover:scale-1 dark:text-stone-100  dark:hover:text-purple-500"
               initial="initial"
               whileHover="hovered"
             >
@@ -136,7 +136,7 @@ export default function Header() {
 
             <motion.a
               onClick={() => handleNavigation("/collections")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-pink-500 transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-pink-500 transition duration-300 ease-in-out transform hover:scale-1 dark:text-stone-100  dark:hover:text-pink-500"
               initial="initial"
               whileHover="hovered"
             >
@@ -159,7 +159,7 @@ export default function Header() {
 
             <motion.a
               onClick={() => handleNavigation("/about")}
-              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-indigo-500 transition duration-300 ease-in-out transform hover:scale-1"
+              className="relative block overflow-hidden whitespace-nowrap font-semibold text-xl text-stone-900 hover:text-indigo-500 transition duration-300 ease-in-out transform hover:scale-1 dark:text-stone-100 dark:hover:text-indigo-500"
               initial="initial"
               whileHover="hovered"
             >
@@ -223,9 +223,9 @@ export default function Header() {
             <motion.div
               variants={dropDownIconVariants}
               animate={iconControls}
-              className="flex items-center justify-center"
+              className="flex items-center justify-center "
             >
-              {dropDownOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+              {dropDownOpen ? <FaTimes className="" size={22} /> : <FaBars size={22} />}
             </motion.div>
           </button>
         </section>
@@ -237,7 +237,7 @@ export default function Header() {
         initial="closed"
         animate={controls}
         style={{ y }}  // This applies the transform to the navigation
-        className="fixed top-[74px] md:top-[90px] z-10 flex flex-col items-center gap-4 justify-center bg-[#D7C3F1] backdrop-blur-[0.5rem] border border-stone-300 p-6 rounded-2xl shadow-md right-0 w-56 sm:w-64 md:w-48"
+        className="fixed top-[74px] md:top-[90px] z-10 flex flex-col items-center gap-4 justify-center bg-[#D7C3F1] bg-opacity-80 backdrop-blur-[0.5rem] border border-stone-300 p-6 rounded-2xl shadow-md right-0 w-56 sm:w-64 md:w-48"
       >
         {status === "authenticated" ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
