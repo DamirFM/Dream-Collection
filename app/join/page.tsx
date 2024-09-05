@@ -94,36 +94,36 @@ export default function JoinPage() {
 
             {/* Join Form */}
             <div className="relative w-full max-w-xl p-8">
-                <h2 className="text-center text-2xl font-bold mb-6 dark:text-slate-100">Join</h2>
+                <h2 className="text-center text-2xl font-bold mb-6 dark:text-stone-300">Join</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label className="block mb-4">
-                        <span className="text-stone-700 font-bold dark:text-slate-100">Name</span>
+                        <span className="text-stone-700 font-bold dark:text-stone-300">Name</span>
                         <input
                             {...register('name')}
                             type="text"
-                            className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50 hover:border-stone-500 transition duration-300 ease-in-out"
+                            className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50 hover:border-stone-500 transition duration-300 ease-in-out dark:bg-slate-800 dark:border-slate-600"
                             placeholder="John Doe"
                         />
                         {errors.name && <div className="text-red-500">{errors.name.message}</div>}
                     </label>
                     <label className="block mb-4">
-                        <span className="text-stone-700 font-bold dark:text-slate-100">Email</span>
+                        <span className="text-stone-700 font-bold dark:text-stone-300">Email</span>
                         <input
                             {...register('email')}
                             type="email"
-                            className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50 hover:border-stone-500 transition duration-300 ease-in-out"
+                            className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50 hover:border-stone-500 transition duration-300 ease-in-out dark:bg-slate-800 dark:border-slate-600"
                             placeholder="you@example.com"
                         />
                         {errors.email && <div className="text-red-500">{errors.email.message}</div>}
                     </label>
                     <label className="block mb-4">
                         <div className="flex justify-between">
-                            <span className="text-stone-700 font-bold dark:text-slate-100">Password</span>
+                            <span className="text-stone-700 font-bold dark:text-stone-300">Password</span>
                         </div>
                         <input
                             {...register('password')}
                             type="password"
-                            className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50 hover:border-stone-500 transition duration-300 ease-in-out"
+                            className="mt-1 block w-full px-4 py-2 border border-stone-300 rounded-md shadow-md focus:outline-none focus:ring focus:ring-opacity-50 hover:border-stone-500 transition duration-300 ease-in-out dark:bg-slate-800 dark:border-slate-600"
                             placeholder="********"
                         />
                         {errors.password && <div className="text-red-500">{errors.password.message}</div>}
@@ -136,9 +136,9 @@ export default function JoinPage() {
                     </button>
                     {error && <div className="text-red-500 rounded-md mt-2">{error}</div>}
                 </form>
-                <p className="text-center mt-4 text-stone-700 dark:text-slate-100">
+                <p className="text-center mt-4 text-stone-700 dark:text-stone-300">
                     Already have an account?{" "}
-                    <a href="/login" className="hover:underline text-stone-900 dark:text-slate-100">
+                    <a href="/login" className="hover:underline text-stone-900 dark:text-stone-300">
                         LOGIN
                     </a>
                 </p>

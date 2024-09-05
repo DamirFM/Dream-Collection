@@ -15,7 +15,7 @@ const Example = () => {
         <div className="py-5  text-stone-900">
             <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-slate-900"></div>
 
-            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]   dark:bg-slate-600"></div>
+            <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[28rem] xl:left-[15rem] 2xl:left-[-5rem]   dark:bg-slate-800"></div>
             {/* Header Section */}
             <div className="flex items-center justify-center">
                 <span className="font-semibold uppercase text-neutral-500  dark:text-slate-100">

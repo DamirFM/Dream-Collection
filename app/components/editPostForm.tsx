@@ -54,21 +54,23 @@ export default function EditPostForm({ id, title, description }: EditPostFormPro
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-stone-50">
+
+    <div className="flex justify-center items-center min-h-screen bg-stone-50 dark:bg-slate-900">
+
       <form
         onSubmit={handleUpdate}
-        className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg space-y-6"
+        className="w-full max-w-md p-8 bg-white shadow-lg rounded-lg space-y-6 dark:bg-slate-600"
       >
-        <h2 className="text-2xl font-semibold text-stone-800 text-center">Edit Post</h2>
+        <h2 className="text-2xl font-semibold text-stone-800 text-center dark:text-slate-300">Edit Post</h2>
 
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-stone-700">Title</label>
+          <label htmlFor="title" className="block text-sm dark:text-slate-300 font-medium text-stone-700">Title</label>
           <input
             id="title"
             onChange={(e) => setNewTitle(e.target.value)}
             value={newTitle}
             type="text"
-            className="mt-1 w-full p-2 border border-stone-300 rounded-lg focus:ring focus:ring-stone-500 focus:border-stone-500"
+            className="mt-1 w-full p-2 border border-stone-300 dark:bg-slate-500 rounded-lg focus:ring focus:ring-stone-500 focus:border-stone-500"
             placeholder="Enter post title"
             required
           />
@@ -88,12 +90,12 @@ export default function EditPostForm({ id, title, description }: EditPostFormPro
         </div> */}
 
         <div>
-          <label htmlFor="file" className="block text-sm font-medium text-stone-700">Upload Image</label>
+          <label htmlFor="file" className="block text-sm  dark:text-slate-300 font-medium text-stone-700">Upload Image</label>
           <input
             id="file"
             type="file"
             onChange={handleFileChange}
-            className="mt-2 w-full p-2 border border-stone-300 rounded-lg focus:ring focus:ring-stone-500 focus:border-stone-500"
+            className="mt-2 w-full p-2  border  border-stone-300 rounded-lg focus:ring focus:ring-stone-500 focus:border-stone-500"
             accept="image/*"
           />
         </div>

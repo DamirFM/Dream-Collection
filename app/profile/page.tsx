@@ -92,8 +92,8 @@ export default function ProfilePage() {
     return (
       <div className="relative flex flex-col items-center w-full min-h-screen">
         {/* Background Blobs */}
-        <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[50rem]"></div>
-        <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem]"></div>
+        <div className="bg-[#FFEDED] absolute top-[-6rem] -z-10 right-[11rem] h-[31.25rem] w-[31.25rem] rounded-full blur-[10rem] sm:w-[50rem] dark:bg-slate-900"></div>
+        <div className="bg-[#D7C3F1] absolute top-[-6rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75rem] dark:bg-slate-800"></div>
 
         <div className="relative flex flex-col items-center w-full max-w-screen-lg p-4 md:p-8 lg:p-12">
           <div className="w-full flex flex-row items-center text-center mt-3 sm:flex-row sm:text-left">
@@ -105,10 +105,10 @@ export default function ProfilePage() {
               className="w-24 h-24 rounded-full shadow-md mb-4 sm:mb-0"
             /> */}
             <div className="ml-0 sm:ml-4">
-              <h2 className="text-2xl font-bold text-stone-900">
+              <h2 className="text-2xl font-bold text-stone-900 dark:text-stone-300">
                 {name || "User Name"}
               </h2>
-              <p className="text-stone-700">{email || "User email..."}</p>
+              <p className="text-stone-700 dark:text-stone-300">{email || "User email..."}</p>
               {/* <p className="text-stone-700">{description || "User description..."}</p>
               {location && (
                 <p className="text-stone-700">
@@ -125,7 +125,7 @@ export default function ProfilePage() {
                 type="button"
                 className="group bg-stone-900 text-white px-4 py-2 flex 
                 items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110
-                hover:bg-gray-950 active:scale-105 transition cursor-pointer"
+                hover:bg-gray-950 active:scale-105 transition cursor-pointer dark:text-stone-300"
               >
                 New Post
               </button>
@@ -133,7 +133,7 @@ export default function ProfilePage() {
           </div>
 
           <div className="w-full mt-8">
-            <h2 className="text-2xl font-bold text-stone-900 mb-6">My Posts</h2>
+            <h2 className="text-2xl font-bold text-stone-900 mb-6 dark:text-stone-300">My Posts</h2>
             <Masonry
               breakpointCols={breakpointColumnsObj}
               className="my-masonry-grid"

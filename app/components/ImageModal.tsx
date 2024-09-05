@@ -25,11 +25,11 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, imageUrl, titl
             className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4"
             onClick={handleOverlayClick}
         >
-            <div className="relative bg-white rounded-lg shadow-lg p-5 mt-12 max-w-2xl w-full">
+            <div className="relative bg-white rounded-lg shadow-lg p-5 mt-12 max-w-2xl w-full dark:bg-slate-600">
                 {/* Close button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 z-10"
+                    className="absolute top-2 right-2 text-gray-300 hover:text-gray-700 z-10"
                 >
                     <IoClose size={24} />
                 </button>

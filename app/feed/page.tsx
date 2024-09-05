@@ -6,6 +6,7 @@ import { FaSearch } from "react-icons/fa";
 import { BsArrowRight } from "react-icons/bs";
 import Link from "next/link";
 import ImageModal from "@/app/components/ImageModal";
+import ThemeContextProvider from '../context/theme-context';
 
 type Post = {
     _id: string;
@@ -94,47 +95,49 @@ export default function FeedPage() {
 
 
     return (
-        <div className="p-3 mt-4 items-center justify-center">
-            {/* Modal Component */}
-            <ImageModal
-                isOpen={!!selectedImage}
-                onClose={closeModal}
-                imageUrl={selectedImage || ''}
-                title={selectedTitle || ''}
-            />
-            {/* Welcome Text */}
-            <div className="text-center mb-4">
-                <h1 className="text-2xl font-bold">Capture moments, share memories</h1>
-                <p className="text-lg">Where every picture tells a story</p>
-            </div>
-
-            {/* Sticky Search Input in Separate Div */}
-            <div className="sticky top-20 z-10 flex items-center justify-center mb-4">
-                <div className="relative w-full max-w-md bg-[#D7C3F1] bg-opacity-80 p-4 rounded-xl shadow-lg dark:bg-slate-500">
-                    <input
-                        type="text"
-                        className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 bg-opacity-80 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large dark:bg-slate-600"
-                        placeholder="Search by title or tags"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <FaSearch
-                        className="absolute ml-3 left-3 top-1/2 transform -translate-y-1/2 text-stone-500"
-                        size={18}
-                    />
+        <ThemeContextProvider>
+            <div className="p-3 mt-4 items-center justify-center">
+                {/* Modal Component */}
+                <ImageModal
+                    isOpen={!!selectedImage}
+                    onClose={closeModal}
+                    imageUrl={selectedImage || ''}
+                    title={selectedTitle || ''}
+                />
+                {/* Welcome Text */}
+                <div className="text-center mb-4">
+                    <h1 className="text-2xl font-bold">Capture moments, share memories</h1>
+                    <p className="text-lg">Where every picture tells a story</p>
                 </div>
+
+                {/* Sticky Search Input in Separate Div */}
+                <div className="sticky top-20 z-10 flex items-center justify-center mb-4 ">
+                    <div className="relative w-full max-w-md bg-[#D7C3F1] bg-opacity-80 p-4 rounded-xl shadow-lg dark:bg-slate-900 ">
+                        <input
+                            type="text"
+                            className="w-full p-2 pl-10 rounded-3xl focus:outline-none bg-stone-50 bg-opacity-80 text-stone-900 hover:bg-stone-100 focus:bg-stone-200 placeholder-small md:placeholder-large dark:bg-slate-600 backdrop-blur-[0.5rem]  border-opacity-40 dark:backdrop-blur-[0.5rem]  dark:border-opacity-40"
+                            placeholder="Search by title or tags"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        <FaSearch
+                            className="absolute ml-3 left-3 top-1/2 transform -translate-y-1/2 text-stone-500"
+                            size={18}
+                        />
+                    </div>
+                </div>
+
+                {/* Static Button */}
+                <Link className="flex justify-center mb-8" href="/addPost">
+                    <button className="custom-button dark:bg-pink-900">
+                        Create a new dream
+                        <BsArrowRight />
+                    </button>
+                </Link>
+
+                {/* Post Cards */}
+                <PostCard posts={filteredPosts} onImageClick={openModal} />
             </div>
-
-            {/* Static Button */}
-            <Link className="flex justify-center mb-8" href="/addPost">
-                <button className="custom-button">
-                    Create a new dream
-                    <BsArrowRight />
-                </button>
-            </Link>
-
-            {/* Post Cards */}
-            <PostCard posts={filteredPosts} onImageClick={openModal} />
-        </div>
+        </ThemeContextProvider>
     );
 }
