@@ -218,7 +218,7 @@ export default function Header() {
           )}
         </div>
 
-        <section ref={dropdownRef} className="block lg:hidden md:hidden ml-4">
+        <section ref={dropdownRef} className="block   ml-4">
           <button onClick={toggleDropdown} className="text-stone-900 dark:text-white py-2">
             <motion.div
               variants={dropDownIconVariants}
@@ -242,7 +242,7 @@ export default function Header() {
         initial="closed"
         animate={controls}
         style={{ y }}  // This applies the transform to the navigation
-        className="fixed top-[74px] md:top-[90px] z-10 flex flex-col items-center gap-4 justify-center bg-[#D7C3F1] bg-opacity-80 backdrop-blur-[0.5rem] border border-stone-300 p-6 rounded-2xl shadow-md right-0 w-56 sm:w-64 md:w-48 dark:bg-slate-400 dark:bg-opacity-70 "
+        className="fixed top-[74px] md:top-[90px]  z-10 flex flex-col items-center gap-4 justify-center bg-[#D7C3F1] bg-opacity-80 backdrop-blur-[0.5rem] border border-stone-300 p-6 rounded-2xl shadow-md right-1 w-56 sm:w-64 md:w-48 dark:bg-slate-400 dark:bg-opacity-70 "
       >
         {status === "authenticated" ? (
           <div className="flex flex-col items-center justify-center gap-4 w-full h-full">
@@ -340,6 +340,18 @@ export default function Header() {
               height={24}
             />
             <span className="ml-3">About</span>
+          </button>
+          <button
+            onClick={() => handleNavigation("/contact")}
+            className="flex items-center justify-start w-full max-w-xs pl-1 font-semibold text-xl text-stone-900 hover:text-stone-400 transition duration-300 ease-in-out transform hover:scale-1"
+          >
+            <Image
+              src="/assets/contact.svg"
+              alt="Contact icon"
+              width={24}
+              height={24}
+            />
+            <span className="ml-3">Contact Us</span>
           </button>
         </div>
       </motion.nav>
