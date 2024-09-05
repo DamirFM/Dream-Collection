@@ -122,7 +122,7 @@ export default function Header() {
                   initial: { y: 0 },
                   hovered: { y: "-100%" },
                 }}>
-                Feed
+                Gallery
               </motion.button>
               <motion.button
                 className="absolute inset-0"
@@ -130,7 +130,7 @@ export default function Header() {
                   initial: { y: "100%" },
                   hovered: { y: 0 },
                 }}>
-                Feed
+                Gallery
               </motion.button>
             </motion.a>
 
@@ -310,7 +310,7 @@ export default function Header() {
               width={24}
               height={24}
             />
-            <span className="ml-3">Feed</span>
+            <span className="ml-3">Gallery</span>
           </button>
           <button
             onClick={() => handleNavigation("/collections")}

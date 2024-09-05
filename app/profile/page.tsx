@@ -7,39 +7,11 @@ import RemoveBtn from "../components/UI/removeBtn";
 import LoginPage from "../login/page";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+
 import Image from "next/image";
 import Masonry from "react-masonry-css";
 import BlurFade from "@/components/magicui/blur-fade";
 
-
-// Define the BarLoader animation
-const variants = {
-  initial: { scaleY: 0.5, opacity: 0 },
-  animate: {
-    scaleY: 1,
-    opacity: 1,
-    transition: {
-      repeat: Infinity,
-      repeatType: "mirror" as "mirror",
-      duration: 1,
-      ease: "circIn",
-    },
-  },
-};
-
-const BarLoader = () => (
-  <motion.div
-    transition={{ staggerChildren: 0.25 }}
-    initial="initial"
-    animate="animate"
-    className="flex gap-1"
-  >
-    {Array.from({ length: 5 }).map((_, i) => (
-      <motion.div key={i} variants={variants} className="h-12 w-2 bg-white" />
-    ))}
-  </motion.div>
-);
 
 type Post = {
   _id: string;
@@ -99,7 +71,7 @@ export default function ProfilePage() {
   if (status === "loading") {
     return (
       <div className="flex items-center justify-center h-screen">z
-        <BarLoader />
+        Loading
       </div>
     );
   }

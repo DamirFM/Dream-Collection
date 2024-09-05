@@ -26,9 +26,9 @@ export default function AddPost() {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const { status, data: session } = useSession();
   const router = useRouter();
-  const { status } = useSession();
+  // const { status } = useSession();
 
   if (status === "unauthenticated") {
     return <LoginPage />;
@@ -105,6 +105,13 @@ export default function AddPost() {
     document.getElementById("fileInput")?.click();
   };
 
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center h-screen">z
+        Loading
+      </div>
+    );
+  }
   return (
     <div className="relative flex flex-col lg:flex-row items-center justify-center w-full h-screen">
       {/* Background Blobs */}
@@ -139,8 +146,8 @@ export default function AddPost() {
                 key={category}
                 type="button"
                 className={`px-3 py-1 rounded-full border ${tags.includes(category)
-                    ? "bg-gray-800 text-white"
-                    : "bg-gray-200 text-gray-800"
+                  ? "bg-gray-800 text-white"
+                  : "bg-gray-200 text-gray-800"
                   } hover:bg-gray-300 transition`}
                 onClick={() => addTag(category)}
               >

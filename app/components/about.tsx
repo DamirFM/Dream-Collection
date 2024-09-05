@@ -66,7 +66,7 @@ export default function AboutComponent() {
                 {/* Right Side: SwipeCards */}
                 <div className="flex w-full lg:w-1/3 lg:justify-end ">
                     {/* Center SwipeCards on Medium and Small Screens */}
-                    <div className="w-full flex mt-10 ml-[9rem] lg:-ml-20 md:ml-[18rem] sm:ml-[15rem] xs:ml-[15rem]    justify-center lg:justify-end items-center">
+                    <div className="w-full flex mt-10 ml-[9rem] lg:-ml-20 md:ml-[22rem] sm:ml-[15rem] xs:ml-[15rem]    justify-center lg:justify-end items-center">
                         <SwipeCards />
                     </div>
                 </div>

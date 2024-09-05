@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import SignInBtn from "../components/UI/SignInBtn";
 import { useRouter } from "next/navigation";
-
+import { useSession } from "next-auth/react";
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,7 +20,7 @@ export default function LoginPage() {
   });
   const router = useRouter();
   const [error, setError] = useState("");
-
+  const { status, data: session } = useSession();
 
 
   const onSubmit = async (data: { email: string; password: string }) => {
@@ -41,6 +41,13 @@ export default function LoginPage() {
   };
 
 
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center h-screen">z
+        Loading
+      </div>
+    );
+  }
 
 
   return (

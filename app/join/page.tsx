@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signIn } from 'next-auth/react';
-
+import { useSession } from "next-auth/react";
 // Define schema for validation
 const schema = yup.object({
     name: yup.string().required("Name is required"),
@@ -15,6 +15,7 @@ const schema = yup.object({
 }).required();
 
 export default function JoinPage() {
+    const { status, data: session } = useSession();
     const router = useRouter();
     const [error, setError] = useState("");
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -76,6 +77,14 @@ export default function JoinPage() {
             setError("Failed to create user");
         }
     };
+
+    if (status === "loading") {
+        return (
+            <div className="flex items-center justify-center h-screen">z
+                Loading
+            </div>
+        );
+    }
 
     return (
         <div className="relative flex items-center justify-center h-screen">
