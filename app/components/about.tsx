@@ -24,7 +24,7 @@ export default function AboutComponent() {
             {/* Header Section */}
             <div className="text-stone-700 text-center font-semibold mt-4 sm:mt-0 fade-in w-full lg:w-auto">
                 <div
-                    className={`${workSans.className} text-stone-900 -mb-3 font-black text-center lg:text-right uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] lg:ml-5`}
+                    className={`${workSans.className} text-stone-900 -mb-3 font-black text-center lg:text-right uppercase text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] lg:ml-5`}
                 >
                     {textHeader1.split("").map((char, index) => (
                         <span className="hoverText" key={index}>
@@ -39,7 +39,7 @@ export default function AboutComponent() {
                 {/* Left Side: Text and Buttons */}
                 <div className="flex flex-col justify-center items-center lg:items-start w-full lg:w-2/3 space-y-4 lg:-ml-10">
                     {/* Text Paragraph */}
-                    <p className="text-center lg:text-left text-stone-900 font-semibold text-2xl sm:text-4xl md:text-3xl lg:text-4xl xl:text-4xl lg:ml-5 fade-in">
+                    <p className="text-center lg:text-left text-stone-900 font-semibold text-xl sm:text-3xl md:text-3xl lg:text-3xl xl:text-3xl lg:ml-5 fade-in">
                         {textPar}
                     </p>
                     {/* Buttons */}
