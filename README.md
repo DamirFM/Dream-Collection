@@ -12,7 +12,7 @@ Different sections of application here to provide a visual overview.
 
 ### Home Page
 
-![Home Page](public/assets/screenshots/about.png)
+![Home Page](public/assets/screenshots/home.png)
 
 ### Dark Home Page
 
